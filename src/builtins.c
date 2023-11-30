@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:30:04 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/11/30 17:31:50 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:32:25 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	check_builtins(char const *buf)
 {
 	if (!ft_strncmp(buf, "exit", 4))
-		exit(0);
+		ft_exit();
 }
