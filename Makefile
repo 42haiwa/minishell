@@ -1,9 +1,10 @@
 NAME := minishell
 
 CFLAGS := -Wall -Wextra -Werror -Iinclude
-LDFLAGS := -lreadline
+LDFLAGS := -Llib -lft -lreadline
 
-SRC := src/main.c
+SRC := src/main.c \
+		src/exit.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c
