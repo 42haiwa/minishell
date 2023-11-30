@@ -6,13 +6,13 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:44:38 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/11/30 18:45:27 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:51:43 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd(void)
+void	cd(const char *path)
 {
-	
+	chdir(path);
 }
