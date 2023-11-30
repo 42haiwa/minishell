@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/11/30 17:29:53 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:38:02 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 
 typedef struct s_env
 {
-	char *path;
-	char *pwd;
+	char 	*path;
+	char 	*pwd;
+	char	*old_pwd;
 }	t_env;
 
 //	builtins.c
