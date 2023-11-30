@@ -6,9 +6,10 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/11/30 18:38:02 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:48:42 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -33,5 +34,6 @@ typedef struct s_env
 void	check_builtins(char const *buf);
 //	exit.c
 void	ft_exit(void);
-
+//	cd.c
+void	ft_cd(const char *path);
 #endif
