@@ -25,16 +25,4 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		buf = readline(PROMPT);
 	}
-=======
-/*   By: aallou-v <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 15:26:01 by aallou-v          #+#    #+#             */
-/*   Updated: 2023/11/30 15:26:29 by aallou-v         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-int	main(int argc, char **argv)
-{
-	return (0);
->>>>>>> 9bf2c31229a4e353e37210f9d1831eecdc11c569
 }
