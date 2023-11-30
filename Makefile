@@ -5,7 +5,7 @@ LDFLAGS := -Llib -lft -lreadline
 
 SRC := src/main.c \
 		src/exit.c \
-		src/builtins.c \
+		src/cd.c \
 		src/parse_envp.c
 OBJ := $(SRC:.c=.o)
 

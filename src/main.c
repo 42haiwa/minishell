@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/11/30 18:37:05 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/11/30 21:30:31 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*buf;
+	t_env	env;
 
 	buf = NULL;
 	(void) argc;
 	(void) argv;
 	(void) envp;
+	parse_envp(envp, &env);
 	while (1)
 	{
 		buf = readline(PROMPT);

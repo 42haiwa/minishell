@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/11/30 18:48:42 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/11/30 20:14:27 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,7 @@ void	check_builtins(char const *buf);
 void	ft_exit(void);
 //	cd.c
 void	ft_cd(const char *path);
+//	parse_envp.c
+void	parse_envp(char **envp, t_env *env);
+
 #endif
