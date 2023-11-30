@@ -4,7 +4,8 @@ CFLAGS := -Wall -Wextra -Werror -Iinclude
 LDFLAGS := -Llib -lft -lreadline
 
 SRC := src/main.c \
-		src/exit.c
+		src/exit.c \
+		src/builtins.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c

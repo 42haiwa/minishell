@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/11/30 17:27:01 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/11/30 17:29:53 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ typedef struct s_env
 	char *pwd;
 }	t_env;
 
+//	builtins.c
+void	check_builtins(char const *buf);
+//	exit.c
 void	ft_exit(void);
 
 #endif
