@@ -9,7 +9,9 @@ SRC := src/main.c \
 		src/node_init.c \
 		src/node_add_son.c \
 		src/node_print_recurse.c \
-		src/parse_envp.c
+		src/parse_envp.c \
+		src/get_prompt.c \
+		src/builtins.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c

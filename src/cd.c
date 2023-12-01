@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:44:38 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/11/30 18:51:43 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/02 00:10:59 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd(const char *path)
+void	cd(const char *path, t_core *core)
 {
-	chdir(path);
+	char	*tmp;
+	int		check;
+
+	tmp = ft_strdup(ft_strchr(path, '/'));
+	check = chdir(tmp);
+	if (!check)
+		return ;
+	set_envp("PWD", tmp, core);
 }
