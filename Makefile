@@ -1,6 +1,6 @@
 NAME := minishell
 
-CFLAGS := -Wall -Wextra -Werror -Iinclude
+CFLAGS := -g -Wall -Wextra -Werror -Iinclude
 LDFLAGS := -Llib -lft -lreadline
 
 SRC := src/main.c \
