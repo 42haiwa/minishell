@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/01 14:01:03 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:02:35 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,9 @@ typedef struct s_three
 	struct s_three	*nodes;
 }	t_three;
 
-typedef struct s_env
-{
-	char	*path;
-	char 	*pwd;
-	char	*old_pwd;
-}	t_env;
-
 typedef struct s_core
 {
-	struct s_env	*env;
+	char	**envp;
 }	t_core;
 
 //	builtins.c
