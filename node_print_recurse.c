@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   three_init.c                                       :+:      :+:    :+:   */
+/*   node_print_recurse.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 14:00:05 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/01 14:02:47 by cjouenne         ###   ########.fr       */
+/*   Created: 2023/12/01 16:19:20 by cjouenne          #+#    #+#             */
+/*   Updated: 2023/12/01 16:19:34 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_three	*three_init(void *content)
+void	node_print_recurse(t_node *root)
 {
-	t_three *current;
-
-	current = ft_calloc(1, sizeof(t_three));
-	if (!current)
-		return (NULL)
-	current->content = content;
-	current->nodes = NULL;
-	return (current);
+	int	i = 0;
+	if (root == NULL)
+		return ;
+	printf("%s\n", (char *) root->content);
+	while (i < root->sons_ctr)
+	{
+		node_print_recurse(root->sons[i]);
+		i++;
+	}
 }

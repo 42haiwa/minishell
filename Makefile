@@ -6,6 +6,9 @@ LDFLAGS := -Llib -lft -lreadline
 SRC := src/main.c \
 		src/exit.c \
 		src/cd.c \
+		src/node_init.c \
+		src/node_add_son.c \
+		src/node_print_recurse.c \
 		src/parse_envp.c
 OBJ := $(SRC:.c=.o)
 

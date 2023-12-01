@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/01 14:02:35 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:26:25 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,16 @@
 
 # include "libft.h"
 
-typedef struct s_three
+typedef struct s_node
 {
 	void			*content;
-	struct s_three	*nodes;
-}	t_three;
+	ssize_t			sons_ctr;
+	struct s_node	**sons;
+}	t_node;
+
+t_node	*node_init(void *content);
+void	node_add_son(t_node *father, t_node *neww);
+void	node_print_recurse(t_node *root);
 
 typedef struct s_core
 {
@@ -43,6 +48,7 @@ void	ft_cd(const char *path);
 void	parse_envp(t_core *core, char **envp);
 
 //	three
-t_three	*three_init(void *content);
-void	*three_add(t_three **father, three *son);
+t_node	*node_init(void *content);
+void	node_add_son(t_node *father, t_node *neww);
+void	node_print_recurse(t_node *root);
 #endif
