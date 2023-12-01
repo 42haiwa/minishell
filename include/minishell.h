@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/01 13:45:35 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:01:03 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # include <readline/history.h>
 
 # include "libft.h"
+
+typedef struct s_three
+{
+	void			*content;
+	struct s_three	*nodes;
+}	t_three;
 
 typedef struct s_env
 {
@@ -43,4 +49,7 @@ void	ft_cd(const char *path);
 //	parse_envp.c
 void	parse_envp(t_core *core, char **envp);
 
+//	three
+t_three	*three_init(void *content);
+void	*three_add(t_three **father, three *son);
 #endif
