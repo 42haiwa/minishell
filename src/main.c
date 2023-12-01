@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/01 13:51:40 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:48:23 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	init(t_core *core, char **envp)
 {
-	core->env = malloc(sizeof(t_env));
-	parse_envp(core, envp);
+	core->envp = envp;
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -28,9 +27,10 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	core = malloc(sizeof(t_core));
 	init(core, envp);
-	while (1)
-	{
-		buf = readline(PROMPT);
-		//check_builtins(buf);
-	}
+	printf("%s\n%s\n%s", get_envp("PWD", core), set_envp("PWD", "TEST",core), get_envp("PWD", core));
+	// while (1)
+	// {
+	// 	buf = readline(PROMPT);
+	// 	//check_builtins(buf);
+	// }
 }
