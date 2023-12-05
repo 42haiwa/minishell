@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/02 00:07:52 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:14:41 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_core
 	char	**envp;
 	char	*prompt;
 	char	*folder;
+	char	*lexer_out;
 }	t_core;
 
 //	builtins.c
@@ -60,4 +61,6 @@ char	*get_envp(char *getter, t_core *core);
 
 //get_prompt
 char	*get_prompt(t_core *core);
+
+char	*lexing(char *values);
 #endif
