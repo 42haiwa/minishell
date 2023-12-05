@@ -11,6 +11,7 @@ SRC := src/main.c \
 		src/node_print_recurse.c \
 		src/parse_envp.c \
 		src/get_prompt.c \
+		src/lexing.c \
 		src/builtins.c
 OBJ := $(SRC:.c=.o)
 
