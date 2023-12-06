@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:22:30 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/05 19:38:18 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:21:11 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void	lexing(char const *buf, t_core *core)
 	}
 	core->lexer_out = ft_strdup(buf_w_delimiter);
 	printf("%s\n", buf_w_delimiter);
+	// parse <cmd|cmd>
 }
