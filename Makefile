@@ -14,7 +14,8 @@ SRC := src/main.c \
 		src/get_prompt.c \
 		src/lexing.c \
 		src/execution.c \
-		src/builtins.c
+		src/builtins.c \
+		src/utils.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c

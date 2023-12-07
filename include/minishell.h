@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/07 16:25:26 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/07 23:08:23 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,15 @@ char	*get_envp(char *getter, t_core *core);
 //get_prompt
 char	*get_prompt(t_core *core);
 //lexing
-void	lexing(char const *buf, t_core *core);
-void	pre_lexing(char const *buf, t_core *core);
+void	lexing(char *buf, t_core *core);
+void	pre_lexing(char *buf, t_core *core);
 
 //parsing
 void	rm_sep_three(t_node *node);
 void	fill_three(t_core *core);
 //execution
 void	execution(t_core *core);
+//utils
+char	*add_char(const char *s, char c, int index);
+
 #endif

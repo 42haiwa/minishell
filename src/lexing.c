@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:22:30 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/07 18:24:58 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/08 00:13:44 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,79 +34,74 @@ static size_t	ft_count_words(char const *s, char c)
 	return (ctr);
 }
 
-void	lexing(char const *buf, t_core *core)
+char	*get_delimiter(char *token)
+{
+	if (ft_strncmp(token, "|", 1) == 0)
+		return ("PIPE");
+	if (ft_strncmp(token, ";", 1) == 0)
+		return ("SEMICOLON");
+	if (ft_strncmp(token, ">>", 2) == 0)
+		return ("GREATGREAT");
+	if (ft_strncmp(token, ">", 1) == 0)
+		return ("GREAT");
+	if (ft_strncmp(token, "<<", 2) == 0)
+		return ("LESSLESS");
+	if (ft_strncmp(token, "<", 1) == 0)
+		return ("LESS");
+	return (NULL);
+}
+
+char	*end_lexing(char *buf_w, char *split)
+{
+	char	*tmp;
+
+	if (buf_w == NULL)
+		buf_w = ft_strjoin("", "<");
+	else
+	{
+		tmp = buf_w;
+		buf_w = ft_strjoin(tmp, "<");
+		free(tmp);
+	}
+	tmp = buf_w;
+	buf_w = ft_strjoin(tmp, split);
+	free(tmp);
+	tmp = buf_w;
+	buf_w = ft_strjoin(tmp, ">");
+	free(tmp);
+	return (buf_w);
+}
+
+void	lexing(char *buf, t_core *core)
 {
 	size_t	i;
 	char	*buf_w_delimiter;
+	char	*tmp;
 	char	**buf_splited;
+	char	*delimiter;
 
 	buf_splited = ft_split(buf, ' ');
 	i = -1;
 	buf_w_delimiter = NULL;
 	while (++i < ft_count_words(buf, ' '))
 	{
-		if (ft_strncmp(buf_splited[i], "|", 1) == 0)
+		delimiter = get_delimiter(buf_splited[i]);
+		if (delimiter)
 		{
-			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "PIPE");
+			tmp = buf_w_delimiter;
+			buf_w_delimiter = ft_strjoin(tmp, delimiter);
+			free(tmp);
 			continue ;
 		}
-		if (ft_strncmp(buf_splited[i], ";", 1) == 0)
-		{
-			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "SEMICOLON");
-			continue ;
-		}
-		if (ft_strncmp(buf_splited[i], ">>", 2) == 0)
-		{
-			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "GREATGREAT");
-			continue ;
-		}
-		if (ft_strncmp(buf_splited[i], ">", 1) == 0)
-		{
-			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "GREAT");
-			continue ;
-		}
-		if (ft_strncmp(buf_splited[i], "<<", 2) == 0)
-		{
-			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "LESSLESS");
-			continue ;
-		}
-		if (ft_strncmp(buf_splited[i], "<", 1) == 0)
-		{
-			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "LESS");
-			continue ;
-		}
-		if (buf_w_delimiter == NULL)
-			buf_w_delimiter = ft_strjoin("", "<");
-		else
-			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "<");
-		buf_w_delimiter = ft_strjoin(buf_w_delimiter, buf_splited[i]);
-		buf_w_delimiter = ft_strjoin(buf_w_delimiter, ">");
+		tmp = buf_w_delimiter;
+		buf_w_delimiter = end_lexing(tmp, buf_splited[i]);
+		free(tmp);
 	}
+	printf("%s\n", buf_w_delimiter);
 	core->lexer_out = ft_strdup(buf_w_delimiter);
 }
 
-char	*add_char(const char *s, char c, int index)
-{
-	char	*result;
-	int		i;
-
-	result = malloc((ft_strlen(s) + 2) * sizeof(char));
-	if (!result)
-		return (NULL);
-	i = -1;
-	while (s[++i] && i != index)
-		result[i] = s[i];
-	result[i] = c;
-	while (s[i])
-	{
-		result[i + 1] = s[i];
-		i++;
-	}
-	result[i + 1] = '\0';
-	return (result);
-}
-
-void	pre_lexing(char const *buf, t_core *core)
+void	pre_lexing(char *buf, t_core *core)
 {
 	int		i;
 
