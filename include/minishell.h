@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/06 20:40:57 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:00:38 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_core
 	char	*prompt;
 	char	*folder;
 	char	*lexer_out;
+	t_node	*execution_three;
 }	t_core;
 
 //	builtins.c
@@ -64,4 +65,7 @@ char	*get_prompt(t_core *core);
 //lexing
 void	lexing(char const *buf, t_core *core);
 void	pre_lexing(char const *buf, t_core *core);
+
+//parsing
+void	fill_three(t_core *core);
 #endif

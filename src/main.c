@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/06 22:14:38 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:35:04 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	main(int argc, char *argv[], char *envp[])
 		if (buf[0] == 0)
 			continue ;
 		pre_lexing(buf, core);
+		printf("------------------\n");
+		fill_three(core);
+		printf("------------------\n");
+		node_print_recurse(core->execution_three);
 		check_builtins(buf, core);
 	}
-
 }
