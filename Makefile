@@ -13,6 +13,7 @@ SRC := src/main.c \
 		src/parse_envp.c \
 		src/get_prompt.c \
 		src/lexing.c \
+		src/execution.c \
 		src/builtins.c
 OBJ := $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/07 15:35:04 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:28:06 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ int	main(int argc, char *argv[], char *envp[])
 		pre_lexing(buf, core);
 		printf("------------------\n");
 		fill_three(core);
+		rm_sep_three(core->execution_three);
 		printf("------------------\n");
 		node_print_recurse(core->execution_three);
+		printf("------------------\n");
+		execution(core);
 		check_builtins(buf, core);
 	}
 }

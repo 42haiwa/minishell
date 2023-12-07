@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/07 15:00:38 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:25:26 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,8 @@ void	lexing(char const *buf, t_core *core);
 void	pre_lexing(char const *buf, t_core *core);
 
 //parsing
+void	rm_sep_three(t_node *node);
 void	fill_three(t_core *core);
+//execution
+void	execution(t_core *core);
 #endif
