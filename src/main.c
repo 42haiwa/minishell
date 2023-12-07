@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/07 18:30:10 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:32:50 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argv;
 	(void) argc;
 	core = malloc(sizeof(t_core));
+	if (!core)
+		return (1);
 	init(core, envp);
 	while (1)
 	{
