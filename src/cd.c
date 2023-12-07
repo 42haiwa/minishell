@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:44:38 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/02 00:10:59 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/04 23:03:09 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ void	cd(const char *path, t_core *core)
 	tmp = ft_strdup(ft_strchr(path, '/'));
 	check = chdir(tmp);
 	if (!check)
+	{
+		ft_printf("cd: no such file or directory\nError: %i\n", check);
 		return ;
+	}
 	set_envp("PWD", tmp, core);
 }

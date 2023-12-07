@@ -6,11 +6,24 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/05 19:35:15 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/06 22:14:38 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_all(t_core *core)
+{
+	int	i;
+
+	i = -1;
+	while (core->envp[++i])
+		free(core->envp[i]);
+	free(core->envp);
+	free(core->folder);
+	free(core->lexer_out);
+	free(core->prompt);
+}
 
 void	init(t_core *core, char **envp)
 {
@@ -32,7 +45,8 @@ int	main(int argc, char *argv[], char *envp[])
 		buf = readline(get_prompt(core));
 		if (buf[0] == 0)
 			continue ;
-		lexing(buf, core);
+		pre_lexing(buf, core);
 		check_builtins(buf, core);
 	}
+
 }

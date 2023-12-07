@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:22:30 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/06 18:21:11 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/06 21:18:43 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	lexing(char const *buf, t_core *core)
 {
 	size_t	i;
 	char	*buf_w_delimiter;
-	
 	char	**buf_splited;
 
 	buf_splited = ft_split(buf, ' ');
@@ -56,7 +55,7 @@ void	lexing(char const *buf, t_core *core)
 			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "SEMICOLON");
 			continue ;
 		}
-		if (ft_strncmp(buf_splited[i], ">>", 1) == 0)
+		if (ft_strncmp(buf_splited[i], ">>", 2) == 0)
 		{
 			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "GREATGREAT");
 			continue ;
@@ -66,7 +65,7 @@ void	lexing(char const *buf, t_core *core)
 			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "GREAT");
 			continue ;
 		}
-		if (ft_strncmp(buf_splited[i], "<<", 1) == 0)
+		if (ft_strncmp(buf_splited[i], "<<", 2) == 0)
 		{
 			buf_w_delimiter = ft_strjoin(buf_w_delimiter, "LESSLESS");
 			continue ;
@@ -85,5 +84,43 @@ void	lexing(char const *buf, t_core *core)
 	}
 	core->lexer_out = ft_strdup(buf_w_delimiter);
 	printf("%s\n", buf_w_delimiter);
-	// parse <cmd|cmd>
+}
+
+char	*add_char(const char *s, char c, int index)
+{
+	char	*result;
+	int		i;
+
+	result = malloc((ft_strlen(s) + 2) * sizeof(char));
+	if (!result)
+		return (NULL);
+	i = -1;
+	while (s[++i] && i != index)
+		result[i] = s[i];
+	result[i] = c;
+	while (s[i])
+	{
+		result[i + 1] = s[i];
+		i++;
+	}
+	result[i + 1] = '\0';
+	return (result);
+}
+
+void	pre_lexing(char const *buf, t_core *core)
+{
+	int		i;
+
+	i = -1;
+	while (buf[++i])
+	{
+		if (buf[i] == '|' || buf[i] == ';' || buf[i] == '>' || buf[i] == '<')
+		{
+			if (buf[i + 1] != ' ')
+				buf = add_char(buf, ' ', i + 1);
+			if (buf[i - 1] != ' ')
+				buf = add_char(buf, ' ', i);
+		}
+	}
+	lexing(buf, core);
 }
