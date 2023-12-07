@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/07 17:15:48 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:34:41 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ void	execution(t_core *core)
 	// 1 OUT
 	pipe(pipe_fd);
 	c_pid = fork();
-	if (c_pid == 0) // SON
+	if (c_pid == 0)
 	{
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
+		//check_builtins
+		//if not builtins make execve
 		execve((char *) core->execution_three->sons[0]->content, new_argv, core->envp);
-		
 		perror("execve");
 		exit(1);
 	}
