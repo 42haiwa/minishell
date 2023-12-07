@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:22:30 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/06 21:18:43 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:24:58 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	lexing(char const *buf, t_core *core)
 		buf_w_delimiter = ft_strjoin(buf_w_delimiter, ">");
 	}
 	core->lexer_out = ft_strdup(buf_w_delimiter);
-	printf("%s\n", buf_w_delimiter);
 }
 
 char	*add_char(const char *s, char c, int index)

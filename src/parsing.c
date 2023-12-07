@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/07 16:27:16 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:23:24 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static char *dup_until(char const *s, char until, int is_include)
 
 	dup_len = 0;
 	while (s[dup_len] != until)
-	{
 		dup_len++;
-	}
 	dup = ft_calloc(1, dup_len + 2);
 	if (!dup)
 		return (NULL);
