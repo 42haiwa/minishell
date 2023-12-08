@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/08 16:32:05 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:13:29 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,32 +61,55 @@ void	execution(t_core *core)
 			continue ;
 		core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));
 		if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) != 0)
+		{
 			pipe(pipe_fd);
+			//perror("pipe");
+		}
 		if (i == 0)
+		{
 			pipe(pipe_fd);
+			//perror("pipe");
+		}
 		c_pid = fork();
+		//perror("fork");
 		if (c_pid == 0)
 		{
 			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
+			{
 				dup2(pipe_fd[0], STDIN_FILENO);
-			dup2(pipe_fd[1], STDOUT_FILENO);
-			close(pipe_fd[0]);
-			close(pipe_fd[1]);
+				//perror("dup2");
+				close(pipe_fd[0]);
+			}
+			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
+			{
+				dup2(pipe_fd[1], STDOUT_FILENO);
+				//perror("dup2");
+				close(pipe_fd[1]);
+			}
+			if (!(i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
+						&& !((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0))
+			{
+				close(pipe_fd[0]);
+				dup2(pipe_fd[1], STDOUT_FILENO);
+				close(pipe_fd[1]);
+			}
 			//if not builtins make execve
 			execve((char *) core->execution_three->sons[i]->content, new_argv, core->envp);
-			perror("execve");
+			//perror("execve");
 			exit(1);
 		}
 		else
 		{
 			close(pipe_fd[1]);
-			if ((i + 1) < (size_t) core->execution_three->sons_ctr)
-				if (ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
+			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
+			{
+					waitpid(c_pid, NULL, 0);
 					continue ;
+			}
 			while (read(pipe_fd[0], &buf, 1) > 0)
 				write(STDOUT_FILENO, &buf, 1);
-			close(pipe_fd[0]);
 			waitpid(c_pid, NULL, 0);
+			close(pipe_fd[0]);
 		}
 	}
 }
