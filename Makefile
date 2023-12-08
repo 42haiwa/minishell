@@ -16,7 +16,8 @@ SRC := src/main.c \
 		src/execution.c \
 		src/builtins.c \
 		src/handler.c \
-		src/utils.c
+		src/utils.c \
+		src/get_path.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c
