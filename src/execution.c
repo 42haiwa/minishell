@@ -6,11 +6,14 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/08 11:33:56 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:27:12 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+#include <sys/types.h>
+#include <sys/wait.h>
 
 static int	is_token(char const *s)
 {
@@ -56,13 +59,17 @@ void	execution(t_core *core)
 		//check_builtins
 		if (check_builtins(core->execution_three->sons[i]->content, core))
 			continue ;
-		//if not tokens
-		pipe(pipe_fd);
+		if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) != 0)
+			pipe(pipe_fd);
+		if (i == 0)
+			pipe(pipe_fd);
 		c_pid = fork();
 		if (c_pid == 0)
 		{
-			close(pipe_fd[0]);
+			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
+				dup2(pipe_fd[0], STDIN_FILENO);
 			dup2(pipe_fd[1], STDOUT_FILENO);
+			close(pipe_fd[0]);
 			close(pipe_fd[1]);
 			//if not builtins make execve
 			execve((char *) core->execution_three->sons[i]->content, new_argv, core->envp);
@@ -72,9 +79,13 @@ void	execution(t_core *core)
 		else
 		{
 			close(pipe_fd[1]);
+			if ((i + 1) < (size_t) core->execution_three->sons_ctr)
+				if (ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
+					continue ;
 			while (read(pipe_fd[0], &buf, 1) > 0)
 				write(STDOUT_FILENO, &buf, 1);
 			close(pipe_fd[0]);
+			waitpid(c_pid, NULL, 0);
 		}
 	}
 }

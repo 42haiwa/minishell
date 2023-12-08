@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:38:53 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/08 12:04:32 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:24:13 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	handler(int sig)
 {
+/*
 	if (sig == SIGINT)
 	{
 		printf("\n");
@@ -34,4 +35,6 @@ void	handler(int sig)
 		rl_redisplay();
 		return ;
 	}
+*/
+	(void) sig;
 }
