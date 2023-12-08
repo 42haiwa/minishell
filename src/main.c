@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/07 18:32:50 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:47:40 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ void	init(t_core *core, char **envp)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	*buf;
-	t_core	*core;
+	char				*buf;
+	t_core				*core;
+	struct sigaction	sa;
 
 	buf = NULL;
 	(void) argv;
@@ -41,9 +42,12 @@ int	main(int argc, char *argv[], char *envp[])
 	core = malloc(sizeof(t_core));
 	if (!core)
 		return (1);
+	sa.sa_handler = handler;
 	init(core, envp);
 	while (1)
 	{
+		sigaction(SIGINT, &sa, NULL);
+		sigaction(SIGQUIT, &sa, NULL);
 		buf = readline(get_prompt(core));
 		add_history(buf);
 		if (buf[0] == 0)
@@ -52,6 +56,5 @@ int	main(int argc, char *argv[], char *envp[])
 		fill_three(core);
 		rm_sep_three(core->execution_three);
 		execution(core);
-		check_builtins(buf, core);
 	}
 }

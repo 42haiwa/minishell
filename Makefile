@@ -15,6 +15,7 @@ SRC := src/main.c \
 		src/lexing.c \
 		src/execution.c \
 		src/builtins.c \
+		src/handler.c \
 		src/utils.c
 OBJ := $(SRC:.c=.o)
 

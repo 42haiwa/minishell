@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/07 23:08:23 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:43:09 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define PROMPT "minishell $ "
 
+# include <unistd.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <readline/readline.h>
@@ -43,7 +45,7 @@ typedef struct s_core
 }	t_core;
 
 //	builtins.c
-void	check_builtins(char *buf, t_core *core);
+int		check_builtins(char *buf, t_core *core);
 //	exit.c
 void	ft_exit(void);
 //	cd.c
@@ -73,5 +75,6 @@ void	fill_three(t_core *core);
 void	execution(t_core *core);
 //utils
 char	*add_char(const char *s, char c, int index);
-
+//handler
+void	handler(int sig);
 #endif
