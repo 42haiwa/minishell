@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/08 16:27:12 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:32:05 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	execution(t_core *core)
 		//check_builtins
 		if (check_builtins(core->execution_three->sons[i]->content, core))
 			continue ;
+		core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));
 		if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) != 0)
 			pipe(pipe_fd);
 		if (i == 0)

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:01:36 by aallou-v          #+#    #+#             */
-/*   Updated: 2023/12/08 16:26:42 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:32:39 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*ft_get_path(t_core *core, char *cmd)
 		return (ft_strdup(cmd));
 	if (!get_envp("PATH", core))
 		return (NULL);
-	printf("TEST\n");
 	env_path = ft_split(get_envp("PATH", core), ':');
 	str = ft_strjoin("/", cmd);
 	i = -1;
