@@ -4,8 +4,6 @@ CFLAGS := -g -Wall -Wextra -Werror -Iinclude
 LDFLAGS := -Llib -lft -lreadline
 
 SRC := src/main.c \
-		src/exit.c \
-		src/cd.c \
 		src/node_init.c \
 		src/parsing.c \
 		src/node_add_son.c \
@@ -14,10 +12,14 @@ SRC := src/main.c \
 		src/get_prompt.c \
 		src/lexing.c \
 		src/execution.c \
-		src/builtins.c \
 		src/handler.c \
 		src/utils.c \
-		src/get_path.c
+		src/get_path.c \
+		src/builtins/exit.c \
+		src/builtins/cd.c \
+		src/builtins/builtins.c \
+		src/builtins/pwd.c \
+		src/builtins/env.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c

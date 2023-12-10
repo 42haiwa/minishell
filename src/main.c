@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/08 11:47:40 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/10 16:15:45 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	main(int argc, char *argv[], char *envp[])
 		buf = readline(get_prompt(core));
 		add_history(buf);
 		if (buf[0] == 0)
+			continue ;
+		if (check_builtins(buf, core))
 			continue ;
 		pre_lexing(buf, core);
 		fill_three(core);

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/08 16:12:03 by aallou-v         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:15:44 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,8 @@ char	*add_char(const char *s, char c, int index);
 void	handler(int sig);
 //get_path
 char	*ft_get_path(t_core *core, char *cmd);
+//pwd
+void	pwd(void);
+//env
+void	env(t_core *core);
 #endif
