@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/08 18:13:29 by cjouenne         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:43:52 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,13 @@ void	execution(t_core *core)
 					waitpid(c_pid, NULL, 0);
 					continue ;
 			}
-			while (read(pipe_fd[0], &buf, 1) > 0)
-				write(STDOUT_FILENO, &buf, 1);
-			waitpid(c_pid, NULL, 0);
-			close(pipe_fd[0]);
+			else
+			{
+				waitpid(c_pid, NULL, 0);
+				while (read(pipe_fd[0], &buf, 1) > 0)
+					write(STDOUT_FILENO, &buf, 1);
+				close(pipe_fd[0]);
+			}
 		}
 	}
 }
