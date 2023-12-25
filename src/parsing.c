@@ -58,12 +58,10 @@ void	rm_sep_three(t_node *root)
 void	fill_three(t_core *core)
 {
 	size_t	i;
-	int		is_cmd;
 	t_node	*current;
 	t_node	*father;
 
 	i = -1;
-	is_cmd = 0;
 	father = NULL;
 	core->execution_three = node_init("");
 	while (core->lexer_out[++i])

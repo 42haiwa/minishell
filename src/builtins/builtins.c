@@ -14,9 +14,8 @@
 
 int	check_builtins(char *buf, t_core *core)
 {
-	printf("%s\n", buf);
 	if (ft_strncmp("exit", buf, 4) == 0)
-		return (1);
+		exit(0);
 	if (ft_strncmp("cd", buf, 2) == 0)
 		cd(buf, core);
 	if (ft_strncmp("pwd", buf, 3) == 0)
