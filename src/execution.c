@@ -52,11 +52,8 @@ void	execution(t_core *core)
 		}
 		new_argv[0] = (char *) core->execution_three->sons[i]->content;
 		new_argv[core->execution_three->sons[i]->sons_ctr + 1] = NULL;
-		// 0 IN
-		// 1 OUT
 		if (is_token(core->execution_three->sons[i]->content))
 			continue ;
-		//check_builtins
 		if (check_builtins(core->execution_three->sons[i]->content, core))
 			continue ;
 		core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));
@@ -66,20 +63,23 @@ void	execution(t_core *core)
 			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
 			{
 				dup2(pipe_fd[0], STDIN_FILENO);
+				perror("dup2");
 				close(pipe_fd[0]);
 			}
 			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
 			{
 				dup2(pipe_fd[1], STDOUT_FILENO);
+				perror("dup2");
 				close(pipe_fd[1]);
 			}
 			execve((char *) core->execution_three->sons[i]->content, new_argv, core->envp);
+			perror("execve");
 			perror("execve");
 			exit(1);
 		}
 		else
 		{
-			waitpid(c_pid, NULL, 0);
+			continue ;
 		}
 	}
 }
