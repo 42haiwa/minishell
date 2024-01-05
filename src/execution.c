@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/05 12:37:08 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:22:08 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	execution(t_core *core)
 		new_argv[0] = (char *) core->execution_three->sons[i]->content;
 		new_argv[core->execution_three->sons[i]->sons_ctr + 1] = NULL;
 		if (is_token(core->execution_three->sons[i]->content))
-		{	
+		{
 			if (ft_strncmp(core->execution_three->sons[i]->content, "PIPE", 4) == 0)
 				pipe_ctr++;
 			continue ;
@@ -123,93 +123,4 @@ void	execution(t_core *core)
 		i++;
 	}
 	free(pipe_fd);
-}
-
-void	_execution(t_core *core)
-{
-	int		pipe_fd[2];
-	pid_t	c_pid;
-	ssize_t	j;
-	size_t	i;
-
-	i = -1;
-	if (pipe(pipe_fd) == -1) 
-	{
-		perror("pipe");
-		exit(1);
-	}
-	while (++i < (size_t) core->execution_three->sons_ctr)
-	{
-		char *new_argv[core->execution_three->sons[i]->sons_ctr + 2];
-		j = 1;
-		while (j <= core->execution_three->sons[i]->sons_ctr)
-		{
-			new_argv[j] = (char *) core->execution_three->sons[i]->sons[j - 1]->content;
-			j++;
-		}
-		new_argv[0] = (char *) core->execution_three->sons[i]->content;
-		new_argv[core->execution_three->sons[i]->sons_ctr + 1] = NULL;
-		if (is_token(core->execution_three->sons[i]->content))
-			continue ;
-		if (check_builtins(core->execution_three->sons[i]->content, core))
-			continue ;
-		core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));
-		c_pid = fork();
-		perror("fork");
-		if (c_pid == 0)
-		{
-			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
-			{
-				if (pipe_fd[0] != -1)
-				{
-					dup2(pipe_fd[0], STDIN_FILENO);
-					close(pipe_fd[0]);
-					perror("dup2");
-					pipe_fd[0] = -1;
-				}
-			}
-			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
-			{
-				if (pipe_fd[1] != -1)
-				{
-					dup2(pipe_fd[1], STDOUT_FILENO);
-					printf("After dup2: stdin=%d, stdout=%d\n", STDIN_FILENO, STDOUT_FILENO);
-					close(pipe_fd[1]);
-					perror("dup2");
-					pipe_fd[1] = -1;
-				}
-			}
-			execve((char *) core->execution_three->sons[i]->content, new_argv, core->envp);
-			perror("execve");
-			exit(1);
-		}
-		else
-		{
-			wait(NULL);
-			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
-			{
-				if (pipe_fd[1] != -1)
-				{
-					close(pipe_fd[1]);
-					pipe_fd[1] = -1;
-				}
-			}
-			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
-			{
-				if (pipe_fd[0] != -1)
-				{
-					close(pipe_fd[0]);
-					pipe_fd[0] = -1;
-				}
-				if (pipe_fd[0] == -1 && pipe_fd[1] == -1)
-				{
-					if (pipe(pipe_fd) == -1) 
-					{
-						perror("pipe");
-						exit(1);
-					}
-				}
-			}
-		}
-	}
 }
