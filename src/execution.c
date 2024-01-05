@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/05 12:35:09 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/05 12:37:08 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,13 @@ void	execution(t_core *core)
 
 		errno = 0;
 		if ((c_pid = fork()) == -1)
-		{
 			exit(1);
-		}
-		perror("fork");
 		if (c_pid == 0)
 		{
 			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
 			{
 				errno = 0;
 				dup2(pipe_fd[pipe_ctr][1], STDOUT_FILENO);
-				perror("dup2");
 				close(pipe_fd[pipe_ctr][1]);
 				pipe_fd[pipe_ctr][1] = -1;
 			}
@@ -96,7 +92,6 @@ void	execution(t_core *core)
 			{
 				errno = 0;
 				dup2(pipe_fd[pipe_ctr - 1][0], STDIN_FILENO);
-				perror(ft_itoa(pipe_ctr - 1));
 				close(pipe_fd[pipe_ctr - 1][0]);
 				pipe_fd[pipe_ctr - 1][0] = -1;
 			}
