@@ -26,9 +26,9 @@ static int	is_token(char const *s)
 		return (1);
 	if (ft_strncmp(s, "LESSLESS", 8) == 0)
 		return (1);
-	if (ft_strncmp(s, "GREAT", 5) == 0)
+	if (ft_strncmp(s, "GREAT", 5) == 0 && ft_strlen(s) <= 5)
 		return (1);
-	if (ft_strncmp(s, "LESS", 4) == 0)
+	if (ft_strncmp(s, "LESS", 4) == 0 && ft_strlen(s) <= 4)
 		return (1);
 	return (0);
 }
@@ -74,7 +74,8 @@ void	execution(t_core *core)
 		}
 		if (check_builtins(core->execution_three->sons[i]->content, core))
 			continue ;
-		core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));
+		if (ft_get_path(core, core->execution_three->sons[i]->content))
+			core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));
 
 		errno = 0;
 		if ((c_pid = fork()) == -1)

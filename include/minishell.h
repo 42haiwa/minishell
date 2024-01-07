@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # define PROMPT "minishell $ "
+# define PRINT_LEXER 1
 
 # include <unistd.h>
 # include <signal.h>

@@ -55,6 +55,8 @@ int	main(int argc, char *argv[], char *envp[])
 		if (check_builtins(buf, core))
 			continue ;
 		pre_lexing(buf, core);
+		if (PRINT_LEXER)
+			printf("%s\n", core->lexer_out);
 		fill_three(core);
 		rm_sep_three(core->execution_three);
 		execution(core);
