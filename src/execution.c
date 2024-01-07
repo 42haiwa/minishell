@@ -57,6 +57,8 @@ void	execution(t_core *core)
 	i = -1;
 	while (++i < (size_t) core->execution_three->sons_ctr)
 	{
+		if (ft_strncmp(core->execution_three->sons[i]->content, "\0", 1) == 0)
+			continue ;
 		char *new_argv[core->execution_three->sons[i]->sons_ctr + 2];
 		j = 1;
 		while (j <= core->execution_three->sons[i]->sons_ctr)
@@ -76,22 +78,23 @@ void	execution(t_core *core)
 			continue ;
 		if (ft_get_path(core, core->execution_three->sons[i]->content))
 			core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));
-
-		errno = 0;
 		if ((c_pid = fork()) == -1)
 			exit(1);
 		if (c_pid == 0)
 		{
+			printf("output: %d\n", core->execution_three->sons[i]->output_fd);
 			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
 			{
-				errno = 0;
 				dup2(pipe_fd[pipe_ctr][1], STDOUT_FILENO);
 				close(pipe_fd[pipe_ctr][1]);
 				pipe_fd[pipe_ctr][1] = -1;
 			}
+			if ((core->execution_three->sons[i]->output_fd) != 0)
+			{
+				dup2(core->execution_three->sons[i]->output_fd, STDOUT_FILENO);
+			}
 			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
 			{
-				errno = 0;
 				dup2(pipe_fd[pipe_ctr - 1][0], STDIN_FILENO);
 				close(pipe_fd[pipe_ctr - 1][0]);
 				pipe_fd[pipe_ctr - 1][0] = -1;

@@ -46,7 +46,7 @@ void	rm_sep_three(t_node *root)
 	int	i = 0;
 	if (root == NULL)
 		return ;
-	if (ft_strchr(root->content, '<') && ft_strchr(root->content, '>'))
+	if (root->content != NULL && ft_strchr(root->content, '<') && ft_strchr(root->content, '>'))
 		root->content = ft_substr(root->content, 1, ft_strlen(root->content) - 2);
 	while (i < root->sons_ctr)
 	{

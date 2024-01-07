@@ -22,6 +22,9 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 # include "libft.h"
 
@@ -30,6 +33,8 @@ typedef struct s_node
 	void			*content;
 	ssize_t			sons_ctr;
 	struct s_node	**sons;
+	int				input_fd;
+	int				output_fd;
 }	t_node;
 
 t_node	*node_init(void *content);
@@ -41,6 +46,7 @@ typedef struct s_core
 	char	**envp;
 	char	*prompt;
 	char	*folder;
+	int		is_children;
 	char	*lexer_out;
 	t_node	*execution_three;
 }	t_core;
@@ -84,4 +90,6 @@ char	*ft_get_path(t_core *core, char *cmd);
 void	pwd(void);
 //env
 void	env(t_core *core);
+//parse_io
+void	parse_io(t_core *core);
 #endif

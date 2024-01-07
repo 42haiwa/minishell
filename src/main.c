@@ -58,6 +58,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (PRINT_LEXER)
 			printf("%s\n", core->lexer_out);
 		fill_three(core);
+		parse_io(core);
 		rm_sep_three(core->execution_three);
 		execution(core);
 	}

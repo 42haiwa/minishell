@@ -14,7 +14,6 @@
 
 void	handler(int sig)
 {
-/*
 	if (sig == SIGINT)
 	{
 		printf("\n");
@@ -35,6 +34,4 @@ void	handler(int sig)
 		rl_redisplay();
 		return ;
 	}
-*/
-	(void) sig;
 }

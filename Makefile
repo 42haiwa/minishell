@@ -19,6 +19,7 @@ SRC := src/main.c \
 		src/builtins/cd.c \
 		src/builtins/builtins.c \
 		src/builtins/pwd.c \
+		src/parse_io.c \
 		src/builtins/env.c
 OBJ := $(SRC:.c=.o)
 
