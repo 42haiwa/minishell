@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/05 15:22:08 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:55:49 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	execution(t_core *core)
 			if ((core->execution_three->sons[i]->output_fd) != 0)
 			{
 				dup2(core->execution_three->sons[i]->output_fd, STDOUT_FILENO);
+				close(core->execution_three->sons[i]->output_fd);
 			}
 			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
 			{

@@ -2,41 +2,31 @@
 
 void	parse_io(t_core *core)
 {
-	int	i;
-	int	j;
-	int		fd;
+	int		i;
 	char	*path;
 
 	i = 0;
 	while (i < core->execution_three->sons_ctr)
 	{
-		j = i;
-		if (ft_strncmp(core->execution_three->sons[i]->content, "GREATGREAT", 10) == 0)
+		if (ft_strncmp(core->execution_three->sons[i]->content, "PIPE", 4) == 0)
+			break ;
+		if ((i + 2 < core->execution_three->sons_ctr) && ft_strncmp(core->execution_three->sons[i + 1]->content, "GREAT", 5) == 0
+			&& ft_strncmp(core->execution_three->sons[i + 2]->content, "GREAT", 5) == 0)
 		{
-			path = ft_substr(core->execution_three->sons[i + 2]->content, 1, ft_strlen(core->execution_three->sons[i + 2]->content) - 2);
-			fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 777);
-			core->execution_three->sons[i]->content = ft_strdup("\0");
-			core->execution_three->sons[i + 1]->content = ft_strdup("\0");
-			while (j >= 0 && core->execution_three->sons[j])
-			{
-				if (ft_strncmp(core->execution_three->sons[j]->content, "\0", 1) != 0)
-					core->execution_three->sons[j]->output_fd = fd;
-				j--;
-			}
+			path = ft_substr(core->execution_three->sons[i + 4]->content, 1, ft_strlen(core->execution_three->sons[i + 4]->content) - 2);
+			core->execution_three->sons[i]->output_fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			core->execution_three->sons[i + 1]->content = "\0";
+			core->execution_three->sons[i + 2]->content = "\0";
+			core->execution_three->sons[i + 3]->content = "\0";
+			core->execution_three->sons[i + 4]->content = "\0";
 			break ;
 		}
-		if (ft_strncmp(core->execution_three->sons[i]->content, "GREAT", 5) == 0)
+		if ((i + 1 < core->execution_three->sons_ctr) && ft_strncmp(core->execution_three->sons[i + 1]->content, "GREAT", 5) == 0)
 		{
-			path = ft_substr(core->execution_three->sons[i + 1]->content, 1, ft_strlen(core->execution_three->sons[i + 1]->content) - 2);
-			fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 777);
-			core->execution_three->sons[i]->content = ft_strdup("\0");
-			core->execution_three->sons[i + 1]->content = ft_strdup("\0");
-			while (j >= 0 && core->execution_three->sons[j])
-			{
-				if (ft_strncmp(core->execution_three->sons[j]->content, "\0", 1) != 0)
-					core->execution_three->sons[j]->output_fd = fd;
-				j--;
-			}
+			path = ft_substr(core->execution_three->sons[i + 2]->content, 1, ft_strlen(core->execution_three->sons[i + 2]->content) - 2);
+			core->execution_three->sons[i]->output_fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			core->execution_three->sons[i + 1]->content = "\0";
+			core->execution_three->sons[i + 2]->content = "\0";
 			break ;
 		}
 		i++;
