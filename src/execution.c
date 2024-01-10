@@ -74,7 +74,7 @@ void	execution(t_core *core)
 				pipe_ctr++;
 			continue ;
 		}
-		if (check_builtins(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 1, core))
+		if (check_builtins_no_fork(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 1, core))
 			continue ;
 		if (ft_get_path(core, core->execution_three->sons[i]->content))
 			core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));
@@ -106,6 +106,8 @@ void	execution(t_core *core)
 				dup2(core->execution_three->sons[i]->input_fd, STDIN_FILENO);
 				close(core->execution_three->sons[i]->input_fd);
 			}
+			if (check_builtins(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 1, core))
+				exit(0);
 			execve(core->execution_three->sons[i]->content, new_argv, core->envp);
 			perror("minishell");
 			exit(1);

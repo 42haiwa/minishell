@@ -57,8 +57,8 @@ void	ft_exit(void);
 void	pwd(void);
 void	env(t_core *core);
 void	echo(char **argv, int argc, t_core *core);
-//	cd.c
 void	cd(char **argv, int argc, t_core *core);
+int	check_builtins_no_fork(char *buf, char **argv, int argc, t_core *core);
 //	parse_envp.c
 void	parse_envp(t_core *core, char **envp);
 
