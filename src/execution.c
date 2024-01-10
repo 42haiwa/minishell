@@ -82,6 +82,7 @@ void	execution(t_core *core)
 			exit(1);
 		if (c_pid == 0)
 		{
+			printf("input: %d\n", core->execution_three->sons[i]->input_fd);
 			printf("output: %d\n", core->execution_three->sons[i]->output_fd);
 			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
 			{
@@ -99,6 +100,11 @@ void	execution(t_core *core)
 				dup2(pipe_fd[pipe_ctr - 1][0], STDIN_FILENO);
 				close(pipe_fd[pipe_ctr - 1][0]);
 				pipe_fd[pipe_ctr - 1][0] = -1;
+			}
+			if ((core->execution_three->sons[i]->input_fd) != 0)
+			{
+				dup2(core->execution_three->sons[i]->input_fd, STDIN_FILENO);
+				close(core->execution_three->sons[i]->input_fd);
 			}
 			execve(core->execution_three->sons[i]->content, new_argv, core->envp);
 			perror("minishell");
