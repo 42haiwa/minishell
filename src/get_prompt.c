@@ -25,8 +25,8 @@ char	*get_prompt(t_core *core)
 	core->prompt = ft_strjoin(core->prompt, "@");
 	tmp = ft_strdup(ft_substr(get_envp("SESSION_MANAGER", core), 6, 6));
 	core->prompt = ft_strjoin(core->prompt, tmp);
-	core->prompt = ft_strjoin(core->prompt, " \e[35m/");
-	tmp = get_envp("PWD", core);
+	core->prompt = ft_strjoin(core->prompt, " \e[35m /");
+	tmp = getcwd(NULL, 0);
 	split = ft_split(tmp, '/');
 	i = 0;
 	while (split[i])
