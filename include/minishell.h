@@ -53,8 +53,10 @@ typedef struct s_core
 
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);
-//	exit.c
 void	ft_exit(void);
+void	pwd(void);
+void	env(t_core *core);
+void	echo(char **argv, int argc, t_core *core);
 //	cd.c
 void	cd(char **argv, int argc, t_core *core);
 //	parse_envp.c
@@ -86,10 +88,6 @@ char	*add_char(const char *s, char c, int index);
 void	handler(int sig);
 //get_path
 char	*ft_get_path(t_core *core, char *cmd);
-//pwd
-void	pwd(void);
-//env
-void	env(t_core *core);
 //parse_io
 void	parse_io(t_core *core);
 #endif

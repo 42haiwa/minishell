@@ -22,8 +22,11 @@ int	check_builtins(char *buf, char **argv, int argc, t_core *core)
 		pwd();
 	if (ft_strncmp("env", buf, 3) == 0)
 		env(core);
+	if (ft_strncmp("echo", buf, 4) == 0)
+		echo(argv, argc, core);
 	if (ft_strncmp("env", buf, 3) == 0 || ft_strncmp("pwd", buf, 3) == 0
-		 || ft_strncmp("cd", buf, 3) == 0 || ft_strncmp("exit", buf, 3) == 0)
+		 || ft_strncmp("cd", buf, 3) == 0 || ft_strncmp("exit", buf, 3) == 0
+			|| ft_strncmp("echo", buf, 4) == 0)
 		return (1);
 	return (0);
 }

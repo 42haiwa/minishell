@@ -14,5 +14,5 @@
 
 void	pwd(void)
 {
-	printf("%s", getcwd(NULL, 0));
+	printf("%s\n", getcwd(NULL, 0));
 }
