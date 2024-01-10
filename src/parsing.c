@@ -96,12 +96,14 @@ void	fill_three(t_core *core)
 			current = node_init("LESSLESS");
 			node_add_son(core->execution_three, current);
 			father = NULL;
+			i += 7;
 		}
 		if (ft_strncmp(&core->lexer_out[i], "GREATGREAT", 10) == 0)
 		{
 			current = node_init("GREATGREAT");
 			node_add_son(core->execution_three, current);
 			father = NULL;
+			i += 9;
 		}
 		if (ft_strncmp(&core->lexer_out[i], "LESS", 4) == 0)
 		{

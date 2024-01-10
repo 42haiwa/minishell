@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-int	check_builtins(char *buf, t_core *core)
+int	check_builtins(char *buf, char **argv, int argc, t_core *core)
 {
 	if (ft_strncmp("exit", buf, 4) == 0)
 		exit(0);
 	if (ft_strncmp("cd", buf, 2) == 0)
-		cd(buf, core);
+		cd(argv, argc, core);
 	if (ft_strncmp("pwd", buf, 3) == 0)
 		pwd();
 	if (ft_strncmp("env", buf, 3) == 0)

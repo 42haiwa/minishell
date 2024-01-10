@@ -74,7 +74,7 @@ void	execution(t_core *core)
 				pipe_ctr++;
 			continue ;
 		}
-		if (check_builtins(core->execution_three->sons[i]->content, core))
+		if (check_builtins(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 2, core))
 			continue ;
 		if (ft_get_path(core, core->execution_three->sons[i]->content))
 			core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));

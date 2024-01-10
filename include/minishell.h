@@ -52,11 +52,11 @@ typedef struct s_core
 }	t_core;
 
 //	builtins.c
-int		check_builtins(char *buf, t_core *core);
+int		check_builtins(char *buf, char **argv, int argc, t_core *core);
 //	exit.c
 void	ft_exit(void);
 //	cd.c
-void	cd(const char *path, t_core *core);
+void	cd(char **argv, int argc, t_core *core);
 //	parse_envp.c
 void	parse_envp(t_core *core, char **envp);
 

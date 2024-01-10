@@ -48,11 +48,9 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		sigaction(SIGINT, &sa, NULL);
 		sigaction(SIGQUIT, &sa, NULL);
-		buf = readline(get_prompt(core));
+		buf = readline("$ ");
 		add_history(buf);
 		if (buf[0] == 0)
-			continue ;
-		if (check_builtins(buf, core))
 			continue ;
 		pre_lexing(buf, core);
 		if (PRINT_LEXER)

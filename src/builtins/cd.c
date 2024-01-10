@@ -12,17 +12,16 @@
 
 #include "minishell.h"
 
-void	cd(const char *path, t_core *core)
+void	cd(char **argv, int argc, t_core *core)
 {
-	char	*tmp;
 	int		check;
 
-	tmp = ft_strdup(ft_strchr(path, '/'));
-	check = chdir(tmp);
-	if (!check)
+	(void) argc;
+	(void) core;
+	check = chdir(argv[1]);
+	if (check != 0)
 	{
-		ft_printf("cd: no such file or directory\nError: %i\n", check);
+		perror("cd");
 		return ;
 	}
-	set_envp("PWD", tmp, core);
 }
