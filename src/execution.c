@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/08 09:55:49 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/11 09:30:35 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	execution(t_core *core)
 	ssize_t	j;
 	pid_t	c_pid;
 	size_t	pipe_ctr;
+	int		o_fd;
+	int		i_fd;
 
 	pipe_ctr = 0;
 	pipe_fd = ft_calloc(512, sizeof(int *));
@@ -82,18 +84,24 @@ void	execution(t_core *core)
 			exit(1);
 		if (c_pid == 0)
 		{
-			printf("input: %d\n", core->execution_three->sons[i]->input_fd);
-			printf("output: %d\n", core->execution_three->sons[i]->output_fd);
+			printf("input: %s\n", core->execution_three->sons[i]->input);
+			printf("output: %s\n", core->execution_three->sons[i]->output);
 			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
 			{
 				dup2(pipe_fd[pipe_ctr][1], STDOUT_FILENO);
 				close(pipe_fd[pipe_ctr][1]);
 				pipe_fd[pipe_ctr][1] = -1;
 			}
-			if ((core->execution_three->sons[i]->output_fd) != 0)
+			if ((core->execution_three->sons[i]->output) != 0)
 			{
-				dup2(core->execution_three->sons[i]->output_fd, STDOUT_FILENO);
-				close(core->execution_three->sons[i]->output_fd);
+				if (core->execution_three->sons[i]->output_mode == 1)
+					o_fd = open(core->execution_three->sons[i]->output,
+						O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				if (core->execution_three->sons[i]->output_mode == 2)
+					o_fd = open(core->execution_three->sons[i]->output,
+						O_WRONLY | O_CREAT | O_APPEND, 0644);
+				dup2(o_fd, STDOUT_FILENO);
+				close(o_fd);
 			}
 			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
 			{
@@ -101,10 +109,12 @@ void	execution(t_core *core)
 				close(pipe_fd[pipe_ctr - 1][0]);
 				pipe_fd[pipe_ctr - 1][0] = -1;
 			}
-			if ((core->execution_three->sons[i]->input_fd) != 0)
+			if ((core->execution_three->sons[i]->input) != 0)
 			{
-				dup2(core->execution_three->sons[i]->input_fd, STDIN_FILENO);
-				close(core->execution_three->sons[i]->input_fd);
+				i_fd = open(core->execution_three->sons[i]->input, 
+					O_RDONLY);
+				dup2(i_fd, STDIN_FILENO);
+				close(i_fd);
 			}
 			if (check_builtins(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 1, core))
 				exit(0);

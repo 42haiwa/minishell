@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/10 20:15:44 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/11 09:27:12 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ typedef struct s_node
 	void			*content;
 	ssize_t			sons_ctr;
 	struct s_node	**sons;
-	int				input_fd;
-	int				output_fd;
+	int				output_mode;
+	char			*input;
+	char			*output;
 }	t_node;
 
 t_node	*node_init(void *content);
