@@ -1,0 +1,11 @@
+echo "$PWD"
+/path
+
+echo '$PWD'
+$PWD
+
+echo "salut $PWD lol"
+<echo><"salut /path lol">
+
+echo $PWD
+/path

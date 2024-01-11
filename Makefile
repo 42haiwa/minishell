@@ -9,7 +9,6 @@ SRC := src/main.c \
 		src/node_add_son.c \
 		src/node_print_recurse.c \
 		src/parse_envp.c \
-		src/get_prompt.c \
 		src/lexing.c \
 		src/execution.c \
 		src/handler.c \
@@ -21,7 +20,8 @@ SRC := src/main.c \
 		src/builtins/pwd.c \
 		src/builtins/env.c \
 		src/builtins/echo.c \
-		src/parse_io.c
+		src/parse_io.c \
+		src/lexing2.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c

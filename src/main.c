@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/04 18:31:13 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:07:27 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		sigaction(SIGINT, &sa, NULL);
 		sigaction(SIGQUIT, &sa, NULL);
-		buf = readline(get_prompt(core));
+		buf = readline("\e[35mminishell \e[33m ➤ \e[21m\e[0m ");
 		add_history(buf);
 		if (buf[0] == 0)
 			continue ;

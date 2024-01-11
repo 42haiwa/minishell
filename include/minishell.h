@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/11 10:11:42 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:08:07 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ void	node_print_recurse(t_node *root);
 char	*set_envp(char *getter, char *new_values, t_core *core);
 char	*get_envp(char *getter, t_core *core);
 
-//get_prompt
-char	*get_prompt(t_core *core);
 //lexing
 void	lexing(char *buf, t_core *core);
 void	pre_lexing(char *buf, t_core *core);
@@ -91,4 +89,6 @@ void	handler(int sig);
 char	*ft_get_path(t_core *core, char *cmd);
 //parse_io
 void	parse_io(t_core *core);
+//lexing2
+char	**get_double_quote(char *buf);
 #endif
