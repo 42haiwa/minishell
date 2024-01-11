@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/11 10:10:53 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/11 15:57:55 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	execution(t_core *core)
 	size_t	pipe_ctr;
 	int		o_fd;
 	int		i_fd;
+	size_t	cmd;
 
+	cmd = 0;
 	pipe_ctr = 0;
 	pipe_fd = ft_calloc(512, sizeof(int *));
 	i = 0;
@@ -123,7 +125,7 @@ void	execution(t_core *core)
 		}
 		else
 		{
-			wait(NULL);
+			cmd++;
 			core->son_pid = -1;
 			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
 			{
@@ -136,6 +138,12 @@ void	execution(t_core *core)
 				pipe_fd[pipe_ctr - 1][0] = -1;
 			}
 		}	
+	}
+	i = 0;
+	while (i < cmd)
+	{
+			wait(NULL);
+			i++;
 	}
 	i = 0;
 	while (i < 128)
