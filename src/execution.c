@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/11 09:30:35 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/11 09:59:13 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	execution(t_core *core)
 			exit(1);
 		if (c_pid == 0)
 		{
-			printf("input: %s\n", core->execution_three->sons[i]->input);
-			printf("output: %s\n", core->execution_three->sons[i]->output);
 			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
 			{
 				dup2(pipe_fd[pipe_ctr][1], STDOUT_FILENO);
@@ -94,12 +92,14 @@ void	execution(t_core *core)
 			}
 			if ((core->execution_three->sons[i]->output) != 0)
 			{
+				fprintf(stderr, "output: %s\n", core->execution_three->sons[i]->output);
 				if (core->execution_three->sons[i]->output_mode == 1)
 					o_fd = open(core->execution_three->sons[i]->output,
 						O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				if (core->execution_three->sons[i]->output_mode == 2)
 					o_fd = open(core->execution_three->sons[i]->output,
 						O_WRONLY | O_CREAT | O_APPEND, 0644);
+				fprintf(stderr, "FD: %d\n", o_fd);
 				dup2(o_fd, STDOUT_FILENO);
 				close(o_fd);
 			}
@@ -111,8 +111,10 @@ void	execution(t_core *core)
 			}
 			if ((core->execution_three->sons[i]->input) != 0)
 			{
+				fprintf(stderr, "input: %s\n", core->execution_three->sons[i]->input);
 				i_fd = open(core->execution_three->sons[i]->input, 
 					O_RDONLY);
+				fprintf(stderr, "FD: %d\n", i_fd);
 				dup2(i_fd, STDIN_FILENO);
 				close(i_fd);
 			}

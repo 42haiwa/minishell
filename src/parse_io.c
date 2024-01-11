@@ -48,6 +48,6 @@ void	parse_io(t_core *core)
 			}
 			j++;
 		}
-		i += j + 1;
+		i++;
 	}
 }
