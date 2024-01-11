@@ -16,10 +16,18 @@ void	handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		if (g_core->son_pid != -1)
+		{
+			kill(g_core->son_pid, SIGINT);
+			printf("\n");
+		}
+		else
+		{
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
 		return ;
 	}
 	if (sig == SIGQUIT)

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/11 12:08:07 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/11 15:41:37 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ typedef struct s_core
 	char	*folder;
 	int		is_children;
 	char	*lexer_out;
+	int		son_pid;
 	t_node	*execution_three;
 }	t_core;
+
+extern t_core	*g_core;
 
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);

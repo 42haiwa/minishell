@@ -28,7 +28,10 @@ void	free_all(t_core *core)
 void	init(t_core *core, char **envp)
 {
 	core->envp = envp;
+	core->son_pid = -1;
 }
+
+t_core	*g_core;
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -44,6 +47,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	sa.sa_handler = handler;
 	init(core, envp);
+	g_core = core;
 	while (1)
 	{
 		sigaction(SIGINT, &sa, NULL);
