@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_env_quote.c                                  :+:      :+:    :+:   */
+/*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:15:41 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/12 19:05:34 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/12 23:52:26 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*replace(char *s, char *old, char *new)
 int	is_ending(char c)
 {
 	return (c == ' ' || c == '\f' || c == '\n' 
-		|| c == '\r'
+		|| c == '\r' || c == '$'
 		|| c == '\t' || c == '\v');
 }
 
@@ -52,7 +52,7 @@ char	**exctract_env(const char *chaine)
 		if (chaine[i] == '$')
 			nbOccurrences++;
 	}
-	char **resultats = (char**)malloc(nbOccurrences * sizeof(char*));
+	char **resultats = (char**)ft_calloc((nbOccurrences + 1), sizeof(char*));
 	i = 0;
 	int resultatIndex = 0;
 	while (chaine[i] != '\0')
@@ -66,7 +66,7 @@ char	**exctract_env(const char *chaine)
 				i++;
 				j++;
 			}
-			resultats[resultatIndex] = (char*)malloc((j + 1) * sizeof(char));
+			resultats[resultatIndex] = (char*)ft_calloc((j + 1), sizeof(char));
 			i -= j;
 			j = 0;
 			while (chaine[i] != '\0' && !is_ending(chaine[i]))
@@ -82,4 +82,25 @@ char	**exctract_env(const char *chaine)
 			i++;
 	}
 	return (resultats);
+}
+
+void	replace_main(t_core *core)
+{
+	size_t	i;
+	size_t	j;
+	char	**extract;
+
+	i = -1;
+	while (core->get_d_quote && core->get_d_quote[++i])
+	{
+		extract = exctract_env(core->get_d_quote[i]);
+		if (extract == NULL)
+			continue ;
+		j = -1;
+		while (extract[++j])
+		{
+			core->get_d_quote[i] = replace(core->get_d_quote[i], "$", "");
+			core->get_d_quote[i] = replace(core->get_d_quote[i], extract[j], get_envp(extract[j], core));
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/12 19:05:10 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/12 21:48:16 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ size_t	get_number_double_quote(const char *buf)
 	return (count);
 }
 
-char	**get_double_quote(char *buf)
+char	**get_double_quote(char *buf, t_core *core)
 {
 	size_t	var[3];
 	char	**result;
 	size_t	double_quote_number;
 
+	(void) core;
 	double_quote_number = get_number_double_quote(buf);
 	if (double_quote_number == 0)
 		return (NULL);

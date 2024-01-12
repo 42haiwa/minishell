@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:36:39 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/12 19:12:01 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/12 21:47:36 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	lexing(char *buf, t_core *core)
 	int		boolean;
 
 	splited = ft_split(buf, ' ');
-	i = -1;
 	count = 0;
 	boolean = 0;
+	i = -1;
 	while (splited[++i])
 	{
 		if (splited[i][0] == '\"' && !boolean)
@@ -73,7 +73,8 @@ void	lexing(char *buf, t_core *core)
 			add_block(core->get_d_quote[count], core, 0);
 			boolean = 1;
 			count++;
-			if (splited[i][ft_strlen(splited[i]) - 1] == '\"')
+
+			if (splited[i][ft_strlen(splited[i]) - 1] == '\"' && ft_strlen(splited[i]) > 1)
 				boolean = 0;
 		}
 		else
@@ -99,11 +100,13 @@ void	pre_lexing(char *buf, t_core *core)
 	size_t	i;
 
 	core->lexer_out = "";
-	core->get_d_quote = get_double_quote(buf);
+	core->get_d_quote = get_double_quote(buf, core);
+	replace_main(core);
 	i = -1;
 	while (buf[++i])
 	{
-		if (buf[i] == '|' || buf[i] == ';' || buf[i] == '>' || buf[i] == '<')
+		if (buf[i] == '|' || buf[i] == ';'
+			|| buf[i] == '>' || buf[i] == '<')
 		{
 			if (buf[i + 1] != ' ')
 				buf = add_char(buf, ' ', i + 1);
@@ -112,5 +115,4 @@ void	pre_lexing(char *buf, t_core *core)
 		}
 	}
 	lexing(buf, core);
-	ft_putendl_fd(core->lexer_out, 1);
 }

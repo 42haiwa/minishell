@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/12 19:11:34 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/12 21:46:16 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # define PROMPT "minishell $ "
-# define PRINT_LEXER 0
+# define PRINT_LEXER 1
 
 # include <unistd.h>
 # include <signal.h>
@@ -52,6 +52,7 @@ typedef struct s_core
 	int		son_pid;
 	int		err_code;
 	char	**get_d_quote;
+	char	**get_quote;
 	t_node	*execution_three;
 }	t_core;
 
@@ -95,11 +96,13 @@ char	*ft_get_path(t_core *core, char *cmd);
 //parse_io
 void	parse_io(t_core *core);
 //lexing2
-char	**get_double_quote(char *buf);
+char	**get_double_quote(char *buf, t_core *core);
 
 char	*replace(char *s, char *old, char *new);
 char	**exctract_env(const char *chaine);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
 char	*ft_strstr(char *str, char *to_find);
+
+void	replace_main(t_core *core);
 #endif
