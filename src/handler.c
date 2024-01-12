@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:38:53 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/08 16:24:13 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:54:14 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	handler(int sig)
 	}
 	if (sig == SIGQUIT)
 	{
-		ft_putstr_fd("\b\b  \b\b", 1);
+		ft_putstr_fd("\b\b	\b\b", 1);
 	}
 }
