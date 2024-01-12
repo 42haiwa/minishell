@@ -12,34 +12,26 @@
 
 #include "minishell.h"
 
-void	handler(int sig)
+void	process(int sig)
 {
 	if (sig == SIGINT)
 	{
-		if (g_core->son_pid != -1)
-		{
-			kill(g_core->son_pid, SIGINT);
-			printf("\n");
-		}
-		else
-		{
-			printf("\n");
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-		}
-		return ;
+		kill(g_core->son_pid, SIGINT);
 	}
-	if (sig == SIGQUIT)
+}
+
+void	handler(int sig)
+{
+	if (g_core->son_pid > 0)
 	{
-		printf("\r                             \
-                                               \
-                                               \
-                                               \
-\r");
-		rl_on_new_line();
+		process(sig);
+		return;
+	}
+	if (sig == SIGINT)
+	{
+		printf("\n");
 		rl_replace_line("", 0);
+		rl_on_new_line();
 		rl_redisplay();
-		return ;
 	}
 }

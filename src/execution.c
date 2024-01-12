@@ -126,7 +126,6 @@ void	execution(t_core *core)
 		else
 		{
 			cmd++;
-			core->son_pid = -1;
 			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
 			{
 				close(pipe_fd[pipe_ctr][1]);

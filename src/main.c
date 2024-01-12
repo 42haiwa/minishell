@@ -37,7 +37,6 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char				*buf;
 	t_core				*core;
-	struct sigaction	sa;
 
 	buf = NULL;
 	(void) argv;
@@ -45,13 +44,12 @@ int	main(int argc, char *argv[], char *envp[])
 	core = malloc(sizeof(t_core));
 	if (!core)
 		return (1);
-	sa.sa_handler = handler;
 	init(core, envp);
 	g_core = core;
 	while (1)
 	{
-		sigaction(SIGINT, &sa, NULL);
-		sigaction(SIGQUIT, &sa, NULL);
+		signal(SIGINT, handler);
+		signal(SIGQUIT, SIG_IGN);
 		buf = readline("\e[35mminishell \e[33m ➤ \e[21m\e[0m ");
 		add_history(buf);
 		if (buf[0] == 0)
