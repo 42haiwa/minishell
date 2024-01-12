@@ -46,10 +46,10 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	init(core, envp);
 	g_core = core;
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
 	while (1)
 	{
-		signal(SIGINT, handler);
-		signal(SIGQUIT, SIG_IGN);
 		buf = readline("\e[35mminishell \e[33m ➤ \e[21m\e[0m ");
 		add_history(buf);
 		if (buf[0] == 0)
