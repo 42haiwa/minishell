@@ -21,7 +21,9 @@ SRC := src/main.c \
 		src/builtins/env.c \
 		src/builtins/echo.c \
 		src/parse_io.c \
-		src/lexing2.c
+		src/get_d_quote.c \
+		src/get_quote.c \
+		src/check_env_quote.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c

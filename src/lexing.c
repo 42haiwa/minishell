@@ -5,34 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 18:22:30 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/11 12:06:57 by aallou-v         ###   ########.fr       */
+/*   Created: 2024/01/12 16:36:39 by aallou-v          #+#    #+#             */
+/*   Updated: 2024/01/12 19:12:01 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static size_t	ft_count_words(char const *s, char c)
-{
-	size_t	i;
-	size_t	ctr;
-	size_t	last;
-
-	i = -1;
-	ctr = 0;
-	last = 1;
-	while (s[++i])
-	{
-		if (last && s[i] != c)
-		{
-			last = 0;
-			ctr++;
-		}
-		else if (!last && s[i] == c)
-			last = 1;
-	}
-	return (ctr);
-}
 
 char	*get_delimiter(char *token)
 {
@@ -51,59 +29,77 @@ char	*get_delimiter(char *token)
 	return (NULL);
 }
 
-char	*end_lexing(char *buf_w, char *split)
+void	add_block(const char *s, t_core *core, int delimiter)
 {
-	char	*tmp;
+	size_t	i;
+	char	*result;
 
-	if (buf_w == NULL)
-		buf_w = ft_strjoin("", "<");
+	if (!delimiter)
+	{
+		result = ft_calloc(ft_strlen(s) + 3, sizeof(char));
+		i = 1;
+		result[0] = '<';
+		while (s[i - 1])
+		{
+			result[i] = s[i - 1];
+			i++;
+		}
+		result[i] = '>';
+		result[i + 1] = '\0';
+	}
 	else
 	{
-		tmp = buf_w;
-		buf_w = ft_strjoin(tmp, "<");
-		free(tmp);
+		result = ft_strdup(s);
 	}
-	tmp = buf_w;
-	buf_w = ft_strjoin(tmp, split);
-	free(tmp);
-	tmp = buf_w;
-	buf_w = ft_strjoin(tmp, ">");
-	free(tmp);
-	return (buf_w);
+	core->lexer_out = ft_strjoin(core->lexer_out, result);
+	free(result);
 }
 
 void	lexing(char *buf, t_core *core)
 {
 	size_t	i;
-	char	*buf_w_delimiter;
-	char	*tmp;
-	char	**buf_splited;
-	char	*delimiter;
+	char	**splited;
+	size_t	count;
+	int		boolean;
 
-	buf_splited = ft_split(buf, ' ');
+	splited = ft_split(buf, ' ');
 	i = -1;
-	buf_w_delimiter = NULL;
-	while (++i < ft_count_words(buf, ' '))
+	count = 0;
+	boolean = 0;
+	while (splited[++i])
 	{
-		delimiter = get_delimiter(buf_splited[i]);
-		if (delimiter)
+		if (splited[i][0] == '\"' && !boolean)
 		{
-			tmp = buf_w_delimiter;
-			buf_w_delimiter = ft_strjoin(tmp, delimiter);
-			free(tmp);
-			continue ;
+			add_block(core->get_d_quote[count], core, 0);
+			boolean = 1;
+			count++;
+			if (splited[i][ft_strlen(splited[i]) - 1] == '\"')
+				boolean = 0;
 		}
-		tmp = buf_w_delimiter;
-		buf_w_delimiter = end_lexing(tmp, buf_splited[i]);
-		//free(tmp);
+		else
+		{
+			if (!boolean)
+			{
+				if (get_delimiter(splited[i]))
+					add_block(get_delimiter(splited[i]), core, 1);
+				else
+					add_block(splited[i], core, 0);
+			}
+			else
+			{
+				if(splited[i][ft_strlen(splited[i]) - 1] == '\"')
+					boolean = 0;
+			}
+		}
 	}
-	core->lexer_out = ft_strdup(buf_w_delimiter);
 }
 
 void	pre_lexing(char *buf, t_core *core)
 {
-	int		i;
+	size_t	i;
 
+	core->lexer_out = "";
+	core->get_d_quote = get_double_quote(buf);
 	i = -1;
 	while (buf[++i])
 	{
@@ -116,4 +112,5 @@ void	pre_lexing(char *buf, t_core *core)
 		}
 	}
 	lexing(buf, core);
+	ft_putendl_fd(core->lexer_out, 1);
 }

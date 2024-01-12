@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/11 15:41:37 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/12 19:11:34 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_core
 	int		is_children;
 	char	*lexer_out;
 	int		son_pid;
+	int		err_code;
+	char	**get_d_quote;
 	t_node	*execution_three;
 }	t_core;
 
@@ -94,4 +96,10 @@ char	*ft_get_path(t_core *core, char *cmd);
 void	parse_io(t_core *core);
 //lexing2
 char	**get_double_quote(char *buf);
+
+char	*replace(char *s, char *old, char *new);
+char	**exctract_env(const char *chaine);
+char	*ft_strcat(char *dest, char *src);
+char	*ft_strncpy(char *dest, char *src, unsigned int n);
+char	*ft_strstr(char *str, char *to_find);
 #endif
