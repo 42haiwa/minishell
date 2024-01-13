@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/13 17:54:07 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/13 21:00:33 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <errno.h>
+
+static int	check_builtins_no_exec(char *buf)
+{
+	if (ft_strncmp("env", buf, 3) == 0 || ft_strncmp("pwd", buf, 3) == 0
+		 || ft_strncmp("cd", buf, 3) == 0 || ft_strncmp("echo", buf, 4) == 0)
+		return (1);
+	return (0);
+}
 
 static int	is_token(char const *s)
 {
@@ -103,7 +111,7 @@ void	execution(t_core *core)
 		}
 		if (check_builtins_no_fork(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 1, core))
 			continue ;
-		if (ft_get_path(core, core->execution_three->sons[i]->content))
+		if (!check_builtins_no_exec(core->execution_three->sons[i]->content) && ft_get_path(core, core->execution_three->sons[i]->content))
 			core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));
 		if ((c_pid = fork()) == -1)
 			exit(1);

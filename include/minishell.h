@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/13 04:12:14 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/13 20:58:04 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	pwd(void);
 void	env(t_core *core);
 void	echo(char **argv, int argc, t_core *core);
 void	cd(char **argv, int argc, t_core *core);
+void	export(char **argv, int argc, t_core *core);
+void	add_envp(char *getter, char *values, t_core *core);
 int	check_builtins_no_fork(char *buf, char **argv, int argc, t_core *core);
 //	parse_envp.c
 void	parse_envp(t_core *core, char **envp);

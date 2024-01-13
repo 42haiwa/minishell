@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:39:48 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/12 23:46:14 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/13 21:09:21 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,32 @@ char	*get_envp(char *getter, t_core *core)
 		}
 	}
 	return (values);
+}
+
+void	add_envp(char *getter, char *values, t_core *core)
+{
+	size_t	i;
+	char	**cpy;
+	(void) values;
+	i = -1;
+	while (core->envp[++i])
+		;
+	cpy = ft_calloc(i + 2, sizeof(char *));
+	i = 0;
+	while (core->envp[i])
+	{
+		cpy[i] = core->envp[i];
+		i++;
+	}
+	cpy[i] = ft_strdup(getter);
+	cpy[i] = ft_strjoin(cpy[i], values);
+	cpy[i + 1] = 0;
+	core->envp = cpy;
+	core->envp[0] = "(null)";
+	i = 0;
+	while (core->envp[i])
+	{
+		printf("--------%s\n", core->envp[i]);
+		i++;
+	}
 }

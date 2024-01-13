@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/10 20:13:24 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/13 21:03:47 by aallou-v         ###   ########.fr       */
+/*   Created: 2024/01/13 20:54:52 by aallou-v          #+#    #+#             */
+/*   Updated: 2024/01/13 21:02:10 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env(t_core *core)
+void	export(char **argv, int argc, t_core *core)
 {
-	int	i;
-	
-	i = -1;
-	while (core->envp[++i])
-		ft_putendl_fd(core->envp[i], 1);
-	printf("%p\n", core->envp);
+	(void) argv;
+	(void) argc;
+	ft_putendl_fd("TEST\n", 1);
+	add_envp("SALUT=", "test", core);
 }

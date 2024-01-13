@@ -20,6 +20,7 @@ SRC := src/main.c \
 		src/builtins/pwd.c \
 		src/builtins/env.c \
 		src/builtins/echo.c \
+		src/builtins/export.c \
 		src/parse_io.c \
 		src/get_d_quote.c \
 		src/get_quote.c \
