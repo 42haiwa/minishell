@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/13 04:12:44 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/13 04:29:32 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,9 @@ void	execution(t_core *core)
 	i = 0;
 	while (i < cmd)
 	{
-			wait(NULL);
+			int status;
+			wait(&status);
+			core->err_code = WEXITSTATUS(status);
 			i++;
 	}
 	i = 0;
