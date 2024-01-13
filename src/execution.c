@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/13 04:29:32 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/13 17:54:07 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,29 @@ static int	is_token(char const *s)
 	if (ft_strncmp(s, "LESS", 4) == 0 && ft_strlen(s) <= 4)
 		return (1);
 	return (0);
+}
+
+void	remove_hd(int id, t_core *core)
+{
+	char	**argv;
+	pid_t	pid;
+
+	(void) id;
+	if (access("HEREDOC", F_OK) == -1)
+		return ;
+	argv = ft_calloc(3, sizeof(char *));
+	if (!argv)
+		return ;
+	argv[0] = "rm";
+	argv[1] = "HEREDOC";
+	argv[2] = NULL;
+	pid = fork();
+	if (pid == 0)
+	{
+		execve("/bin/rm", argv, core->envp);
+		exit(1);
+	}
+	wait(NULL);
 }
 
 void	execution(t_core *core)
@@ -150,6 +173,7 @@ void	execution(t_core *core)
 	{
 			int status;
 			wait(&status);
+			remove_hd(0, core);
 			core->err_code = WEXITSTATUS(status);
 			i++;
 	}
