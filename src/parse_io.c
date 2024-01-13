@@ -29,6 +29,26 @@ void	parse_io(t_core *core)
 				fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
 				close(fd);
 			}
+			if ((j + 1 < core->execution_three->sons_ctr) && ft_strncmp(core->execution_three->sons[j]->content, "LESSLESS", 8) == 0)
+			{
+				path = ft_substr(core->execution_three->sons[j + 1]->content, 1, ft_strlen(core->execution_three->sons[j + 1]->content) - 2);
+				core->execution_three->sons[i]->heredoc_id = 1;
+				fd = open("HEREDOC", O_WRONLY | O_CREAT | O_APPEND, 0644);
+				char *buf = NULL;
+				while (1)
+				{
+					buf = readline("heredoc> ");
+					buf = ft_strjoin(buf, "\n");
+					if (ft_strncmp(buf, path, ft_strlen(path)) == 0)
+					{
+						free(buf);
+						break ;
+					}
+					ft_putstr_fd(buf, fd);
+					free(buf);
+				}
+				close(fd);
+			}
 			if ((j + 1 < core->execution_three->sons_ctr) && ft_strncmp(core->execution_three->sons[j]->content, "GREAT", 5) == 0)
 			{
 				path = ft_substr(core->execution_three->sons[j + 1]->content, 1, ft_strlen(core->execution_three->sons[j + 1]->content) - 2);

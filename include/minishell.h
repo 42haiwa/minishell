@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/12 21:46:16 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/13 04:12:14 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_node
 	ssize_t			sons_ctr;
 	struct s_node	**sons;
 	int				output_mode;
+	int				heredoc_id;
 	char			*input;
 	char			*output;
 }	t_node;

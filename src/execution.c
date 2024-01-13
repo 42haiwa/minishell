@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/11 15:57:55 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/13 04:12:44 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,13 @@ void	execution(t_core *core)
 			if ((core->execution_three->sons[i]->input) != 0)
 			{
 				i_fd = open(core->execution_three->sons[i]->input, 
+					O_RDONLY);
+				dup2(i_fd, STDIN_FILENO);
+				close(i_fd);
+			}
+			if (core->execution_three->sons[i]->heredoc_id)
+			{
+				i_fd = open("HEREDOC", 
 					O_RDONLY);
 				dup2(i_fd, STDIN_FILENO);
 				close(i_fd);
