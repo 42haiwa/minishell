@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/11 12:07:27 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/14 20:04:18 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		buf = readline("\e[35mminishell \e[33m ➤ \e[21m\e[0m ");
+		if (buf == NULL)
+			break ;
 		add_history(buf);
 		if (buf[0] == 0)
 			continue ;
@@ -62,4 +64,6 @@ int	main(int argc, char *argv[], char *envp[])
 		rm_sep_three(core->execution_three);
 		execution(core);
 	}
+	printf("exit\n");
+	exit(0);
 }
