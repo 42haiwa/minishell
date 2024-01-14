@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:54:52 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/14 14:10:42 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/14 17:39:42 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	export(char **argv, int argc, t_core *core)
 {
 	int	i;
 
-	(void) core;
 	i = 1;
 	if (argc <= 1)
 		return ;
@@ -73,8 +72,10 @@ void	export(char **argv, int argc, t_core *core)
 	{
 		if (ft_strchr(argv[i], '=') == NULL)
 			return ;
-		// TODO VERIFIER SI LES VARIABLES EXISTES DEJA
-		add_envp(get_getter(argv[i]), get_value(argv[i]), core);
+		if (ft_strlen(get_envp(get_getter(argv[i]), core)) == 0)
+			add_envp(get_getter(argv[i]), get_value(argv[i]), core);
+		else
+			set_envp(ft_strrchr(get_getter(argv[i]), '='), get_value(argv[i]), core);
 		i++;
 	}
 }

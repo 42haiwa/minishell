@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/14 14:08:00 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:37:18 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # define PROMPT "minishell $ "
-# define PRINT_LEXER 1
+# define PRINT_LEXER 0
 
 # include <unistd.h>
 # include <signal.h>
@@ -61,14 +61,14 @@ extern t_core	*g_core;
 
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);
-void	ft_exit(void);
+void	ft_exit(int argc, char **argv);
 void	pwd(void);
 void	env(t_core *core);
 void	echo(char **argv, int argc, t_core *core);
 void	cd(char **argv, int argc, t_core *core);
 void	export(char **argv, int argc, t_core *core);
-void	add_envp(char *getter, char *values, t_core *core);
-int	check_builtins_no_fork(char *buf, char **argv, int argc, t_core *core);
+void	unset(char **argv, int argc, t_core *core);
+int		check_builtins_no_fork(char *buf, char **argv, int argc, t_core *core);
 //	parse_envp.c
 void	parse_envp(t_core *core, char **envp);
 
@@ -80,6 +80,8 @@ void	node_print_recurse(t_node *root);
 //	envp
 char	*set_envp(char *getter, char *new_values, t_core *core);
 char	*get_envp(char *getter, t_core *core);
+void	remove_envp(char *getter, t_core *core);
+void	add_envp(char *getter, char *values, t_core *core);
 
 //lexing
 void	lexing(char *buf, t_core *core);

@@ -24,7 +24,8 @@ SRC := src/main.c \
 		src/parse_io.c \
 		src/get_d_quote.c \
 		src/get_quote.c \
-		src/replace_env.c
+		src/replace_env.c \
+		src/builtins/unset.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c
