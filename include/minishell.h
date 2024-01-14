@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/14 18:37:18 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/14 19:06:33 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # define PROMPT "minishell $ "
-# define PRINT_LEXER 0
+# define PRINT_LEXER 1
 
 # include <unistd.h>
 # include <signal.h>
@@ -102,6 +102,8 @@ char	*ft_get_path(t_core *core, char *cmd);
 void	parse_io(t_core *core);
 //lexing2
 char	**get_double_quote(char *buf, t_core *core);
+//get_quote
+char	**get_quote(char *buf);
 
 char	*replace(char *s, char *old, char *new);
 char	**exctract_env(const char *chaine);
