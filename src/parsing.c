@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/16 16:51:58 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:05:00 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,19 @@ void	fill_three(t_core *core)
 
 void	free_three(t_core *core)
 {
-	int	i = 0;
+	static int n = 0;
+	int	i;
+
+	i = 0;
 	if (core->execution_three == NULL)
 		return ;
+	n++;
 	while (i < core->execution_three->sons_ctr)
 	{
 		node_print_recurse(core->execution_three->sons[i]);
 		free(core->execution_three->sons[i]);
 		i++;
 	}
+	if (n == 1)
+		free(core->execution_three);
 }

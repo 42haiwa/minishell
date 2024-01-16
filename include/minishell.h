@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/16 16:52:42 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:01:28 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ extern t_core	*g_core;
 
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);
-void	ft_exit(int argc, char **argv);
+void	ft_exit(int argc, char **argv, t_core *core);
 void	pwd(void);
 void	env(t_core *core);
 void	echo(char **argv, int argc, t_core *core);
