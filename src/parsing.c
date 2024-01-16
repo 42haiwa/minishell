@@ -6,7 +6,7 @@
 /*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/07 18:23:24 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:51:58 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,18 @@ void	fill_three(t_core *core)
 			node_add_son(core->execution_three, current);
 			father = NULL;
 		}
+	}
+}
+
+void	free_three(t_core *core)
+{
+	int	i = 0;
+	if (core->execution_three == NULL)
+		return ;
+	while (i < core->execution_three->sons_ctr)
+	{
+		node_print_recurse(core->execution_three->sons[i]);
+		free(core->execution_three->sons[i]);
+		i++;
 	}
 }

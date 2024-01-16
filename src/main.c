@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/14 20:04:18 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:53:36 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	free_all(t_core *core)
 void	init(t_core *core, char **envp)
 {
 	core->envp = envp;
+	core->execution_three = 0;
 	core->son_pid = -1;
 }
 
@@ -65,5 +66,6 @@ int	main(int argc, char *argv[], char *envp[])
 		execution(core);
 	}
 	printf("exit\n");
+	free_three(core);
 	exit(0);
 }
