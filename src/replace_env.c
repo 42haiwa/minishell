@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:15:41 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/12 23:52:26 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/16 18:46:47 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,50 +38,56 @@ char	*replace(char *s, char *old, char *new)
 int	is_ending(char c)
 {
 	return (c == ' ' || c == '\f' || c == '\n' 
-		|| c == '\r' || c == '$'
-		|| c == '\t' || c == '\v');
+		|| c == '\r' || c == '$' || c == '\''
+		|| c == '\t' || c == '\v' || c == '\"');
 }
 
-char	**exctract_env(const char *chaine)
-{
-	int i = -1;
-	int nbOccurrences = 0;
+/*
+var[0] = i
+var[1] = j / occurence;
+var[2] = result Index
+*/
 
-	while (chaine[++i] != '\0')
+char	**exctract_env(const char *s)
+{
+	int		var[3];
+	char	**result;
+
+	var[0] = -1;
+	var[1] = 0;
+	while (s[++var[0]] != '\0')
+		if (s[var[0]] == '$')
+			var[1]++;
+	result = (char**)ft_calloc((var[1] + 1), sizeof(char*));
+	var[0] = 0;
+	var[2] = 0;
+	while (s[var[0]] != '\0')
 	{
-		if (chaine[i] == '$')
-			nbOccurrences++;
-	}
-	char **resultats = (char**)ft_calloc((nbOccurrences + 1), sizeof(char*));
-	i = 0;
-	int resultatIndex = 0;
-	while (chaine[i] != '\0')
-	{
-		if (chaine[i] == '$')
+		if (s[var[0]] == '$')
 		{
-			i++;
-			int j = 0;
-			while (chaine[i] != '\0' && !is_ending(chaine[i]))
+			var[0]++;
+			var[1] = 0;
+			while (s[var[0]] != '\0' && !is_ending(s[var[0]]))
 			{
-				i++;
-				j++;
+				var[0]++;
+				var[1]++;
 			}
-			resultats[resultatIndex] = (char*)ft_calloc((j + 1), sizeof(char));
-			i -= j;
-			j = 0;
-			while (chaine[i] != '\0' && !is_ending(chaine[i]))
+			result[var[2]] = (char*)ft_calloc((var[1] + 1), sizeof(char));
+			var[0] -= var[1];
+			var[1] = 0;
+			while (s[var[0]] != '\0' && !is_ending(s[var[0]]))
 			{
-				resultats[resultatIndex][j] = chaine[i];
-				i++;
-				j++;
+				result[var[2]][var[1]] = s[var[0]];
+				var[0]++;
+				var[1]++;
 			}
-			resultats[resultatIndex][j] = '\0';
-			resultatIndex++;
+			result[var[2]][var[1]] = '\0';
+			var[2]++;
 		}
 		else
-			i++;
+			var[0]++;
 	}
-	return (resultats);
+	return (result);
 }
 
 void	replace_main(t_core *core)
@@ -91,16 +97,19 @@ void	replace_main(t_core *core)
 	char	**extract;
 
 	i = -1;
-	while (core->get_d_quote && core->get_d_quote[++i])
+	if (core->get_d_quote)
 	{
-		extract = exctract_env(core->get_d_quote[i]);
-		if (extract == NULL)
-			continue ;
-		j = -1;
-		while (extract[++j])
+		while (core->get_d_quote[++i])
 		{
-			core->get_d_quote[i] = replace(core->get_d_quote[i], "$", "");
-			core->get_d_quote[i] = replace(core->get_d_quote[i], extract[j], get_envp(extract[j], core));
+			extract = exctract_env(core->get_d_quote[i]);
+			if (extract == NULL)
+				continue ;
+			j = -1;
+			while (extract[++j])
+			{
+				core->get_d_quote[i] = replace(core->get_d_quote[i], "$", "");
+				core->get_d_quote[i] = replace(core->get_d_quote[i], extract[j], get_envp(extract[j], core));
+			}
 		}
 	}
 }

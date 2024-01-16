@@ -6,11 +6,32 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 23:07:05 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/12 19:06:37 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:32:46 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+// void	add_char(char *s, char c, int index)
+// {
+// 	int		len;
+// 	char	*result;
+// 	int		i;
+	
+// 	len = ft_strlen(s);
+// 	result = malloc((len + 2) * sizeof(char));
+// 	if (!result)
+// 		return;
+// 	i = -1;
+// 	while (++i < index && s[i])
+// 		result[i] = s[i];
+// 	result[i] = c;
+// 	while (s[++i])
+// 		result[i] = s[i];
+// 	result[i + 1] = '\0';
+// 	ft_strncpy(s, result, ft_strlen(result));
+// 	free(result);
+// }
 
 char	*add_char(const char *s, char c, int index)
 {

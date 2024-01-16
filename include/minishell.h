@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/16 17:01:28 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:32:51 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	free_three(t_core *core);
 void	execution(t_core *core);
 //utils
 char	*add_char(const char *s, char c, int index);
+//void	add_char(char *s, char c, int index);
 //handler
 void	handler(int sig);
 //get_path
