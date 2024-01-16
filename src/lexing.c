@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:36:39 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/14 23:25:11 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:41:04 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	add_block(const char *s, t_core *core, int delimiter)
 	size_t	i;
 	char	*result;
 
+	if (!s)
+		return ;
 	if (!delimiter)
 	{
 		result = ft_calloc(ft_strlen(s) + 3, sizeof(char));
@@ -61,34 +63,35 @@ void	lexing(char *buf, t_core *core)
 	char	**splited;
 	size_t	count;
 	size_t	count2;
-	int		boolean;
+	int		boolean[2];
 
 	splited = ft_split(buf, ' ');
 	count = 0;
 	count2 = 0;
-	boolean = 0;
+	boolean[0] = 0;
+	boolean[1] = 0;
 	i = -1;
 	while (splited[++i])
 	{
-		if (splited[i][0] == '\"' && !boolean)
+		if (splited[i][0] == '\"' && !boolean[0] && !boolean[1])
 		{
 			add_block(core->get_d_quote[count], core, 0);
-			boolean = 1;
+			boolean[0] = 1;
 			count++;
 			if (splited[i][ft_strlen(splited[i]) - 1] == '\"' && ft_strlen(splited[i]) > 1)
-				boolean = 0;
+				boolean[0] = 0;
 		}
-		else if (splited[i][0] == '\'' && !boolean)
+		else if (splited[i][0] == '\'' && !boolean[1] && !boolean[0])
 		{
 			add_block(core->get_quote[count2], core, 0);
-			boolean = 1;
+			boolean[1] = 1;
 			count2++;
 			if (splited[i][ft_strlen(splited[i]) - 1] == '\'' && ft_strlen(splited[i]) > 1)
-				boolean = 0;
+				boolean[1] = 0;
 		}
 		else
 		{
-			if (!boolean)
+			if (!boolean[0] && !boolean[1])
 			{
 				if (get_delimiter(splited[i]))
 					add_block(get_delimiter(splited[i]), core, 1);
@@ -102,8 +105,10 @@ void	lexing(char *buf, t_core *core)
 			}
 			else
 			{
-				if(splited[i][ft_strlen(splited[i]) - 1] == '\"' || splited[i][ft_strlen(splited[i]) - 1] == '\'')
-					boolean = 0;
+				if(splited[i][ft_strlen(splited[i]) - 1] == '\"')
+					boolean[0] = 0;
+				if(splited[i][ft_strlen(splited[i]) - 1] == '\'')
+					boolean[1] = 0;
 			}
 		}
 	}
