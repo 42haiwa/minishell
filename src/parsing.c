@@ -43,11 +43,16 @@ static char *dup_until(char const *s, char until, int is_include)
 
 void	rm_sep_three(t_node *root)
 {
-	int	i = 0;
+	int		i = 0;
+	char	*cpy;
 	if (root == NULL)
 		return ;
 	if (root->content != NULL && ft_strchr(root->content, '<') && ft_strchr(root->content, '>'))
-		root->content = ft_substr(root->content, 1, ft_strlen(root->content) - 2);
+	{
+		cpy = ft_substr(root->content, 1, ft_strlen(root->content) - 2);
+		ft_strlcpy(root->content, cpy, ft_strlen(cpy) + 1);
+		free(cpy);
+	}
 	while (i < root->sons_ctr)
 	{
 		rm_sep_three(root->sons[i]);
