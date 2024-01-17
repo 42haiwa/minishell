@@ -86,7 +86,7 @@ void	pre_lexing(char *buf, t_core *core);
 //parsing
 void	rm_sep_three(t_node *node);
 void	fill_three(t_core *core);
-void	free_three(t_core *core);
+void	free_three(struct s_node *node);
 //execution
 void	execution(t_core *core);
 //utils

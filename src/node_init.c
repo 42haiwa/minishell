@@ -16,7 +16,7 @@ t_node	*node_init(void *content)
 {
 	t_node	*node;
 
-	node = calloc(1, sizeof(t_node));
+	node = ft_calloc(1, sizeof(t_node));
 	if (!node)
 		return (NULL);
 	node->content = content;

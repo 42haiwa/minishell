@@ -17,7 +17,7 @@ char	*add_char(const char *s, char c, int index)
 	char	*result;
 	int		i;
 
-	result = malloc((ft_strlen(s) + 2) * sizeof(char));
+	result = ft_calloc((ft_strlen(s) + 2), sizeof(char));
 	if (!result)
 		return (NULL);
 	i = -1;

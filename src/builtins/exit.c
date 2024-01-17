@@ -33,7 +33,7 @@ void	ft_exit(int argc, char **argv, t_core *core)
 {
 	if (argc != 1 && argc != 2)
 		ft_putstr_fd("error: to many arguments !\n", 2);
-	free_three(core);
+	free_three(core->execution_three);
 	if (argc == 2)
 		free_exit(ft_atoi(argv[1]), core);
 	else if (argc == 1)

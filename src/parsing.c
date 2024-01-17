@@ -120,24 +120,18 @@ void	fill_three(t_core *core)
 	}
 }
 
-void	free_three(t_core *core)
+void	free_three(struct s_node *node)
 {
-	static int n = 0;
 	int	i;
 
 	i = 0;
-	if (core->execution_three == NULL)
+	if (node == NULL)
 		return ;
-	n++;
-	while (i < core->execution_three->sons_ctr)
+	while (i < node->sons_ctr)
 	{
-		free(core->execution_three->sons[i]->content);
-		node_print_recurse(core->execution_three->sons[i]);
-		free(core->execution_three->sons[i]);
+		free_three(node->sons[i]);
 		i++;
 	}
-	if (n == 1)
-	{
-		free(core->execution_three);
-	}
+	free(node->content);
+	free(node);
 }

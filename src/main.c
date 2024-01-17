@@ -50,6 +50,5 @@ int	main(int argc, char *argv[], char *envp[])
 		free(core->lexer_out);
 	}
 	printf("exit\n");
-	//free_three(core);
 	ft_exit(1, NULL, core);
 }

@@ -184,14 +184,13 @@ void	execution(t_core *core)
 	i = 0;
 	while (i < cmd)
 	{
-			free(core->execution_three->sons[i]->content);
-			free(core->execution_three->sons[i]);
 			int status;
 			wait(&status);
 			remove_hd(0, core);
 			core->err_code = WEXITSTATUS(status);
 			i++;
 	}
+	free_three(core->execution_three);
 	i = 0;
 	while (i < 128)
 	{
