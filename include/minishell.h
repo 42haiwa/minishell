@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/16 17:32:51 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:18:04 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # define PROMPT "minishell $ "
-# define PRINT_LEXER 1
 
 # include <unistd.h>
 # include <signal.h>
@@ -46,7 +45,6 @@ void	node_print_recurse(t_node *root);
 typedef struct s_core
 {
 	char	**envp;
-	char	*prompt;
 	char	*folder;
 	int		is_children;
 	char	*lexer_out;
@@ -56,8 +54,6 @@ typedef struct s_core
 	char	**get_quote;
 	t_node	*execution_three;
 }	t_core;
-
-extern t_core	*g_core;
 
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:36:39 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/16 17:43:02 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:54:16 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ void	add_block(const char *s, t_core *core, int delimiter)
 		result[i + 1] = '\0';
 	}
 	else
-	{
 		result = ft_strdup(s);
-	}
 	core->lexer_out = ft_strjoin(core->lexer_out, result);
 	free(result);
 }
