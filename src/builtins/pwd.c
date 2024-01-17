@@ -14,5 +14,9 @@
 
 void	pwd(void)
 {
-	printf("%s\n", getcwd(NULL, 0));
+	char	*ta_mere;
+
+	ta_mere = getcwd(NULL, 0);
+	printf("%s\n", ta_mere);
+	free(ta_mere);
 }

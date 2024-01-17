@@ -81,39 +81,39 @@ void	fill_three(t_core *core)
 		}
 		if (ft_strncmp(&core->lexer_out[i], "PIPE", 4) == 0)
 		{
-			current = node_init("PIPE");
+			current = node_init(ft_strdup("PIPE"));
 			node_add_son(core->execution_three, current);
 			father = NULL;
 		}
 		if (ft_strncmp(&core->lexer_out[i], "SEMICOLON", 9) == 0)
 		{
-			current = node_init("SEMICOLON");
+			current = node_init(ft_strdup("SEMICOLON"));
 			node_add_son(core->execution_three, current);
 			father = NULL;
 		}
 		if (ft_strncmp(&core->lexer_out[i], "LESSLESS", 8) == 0)
 		{
-			current = node_init("LESSLESS");
+			current = node_init(ft_strdup("LESSLESS"));
 			node_add_son(core->execution_three, current);
 			father = NULL;
 			i += 7;
 		}
 		if (ft_strncmp(&core->lexer_out[i], "GREATGREAT", 10) == 0)
 		{
-			current = node_init("GREATGREAT");
+			current = node_init(ft_strdup("GREATGREAT"));
 			node_add_son(core->execution_three, current);
 			father = NULL;
 			i += 9;
 		}
 		if (ft_strncmp(&core->lexer_out[i], "LESS", 4) == 0)
 		{
-			current = node_init("LESS");
+			current = node_init(ft_strdup("LESS"));
 			node_add_son(core->execution_three, current);
 			father = NULL;
 		}
 		if (ft_strncmp(&core->lexer_out[i], "GREAT", 5) == 0)
 		{
-			current = node_init("GREAT");
+			current = node_init(ft_strdup("GREAT"));
 			node_add_son(core->execution_three, current);
 			father = NULL;
 		}
@@ -132,11 +132,9 @@ void	free_three(struct s_node *node)
 		free_three(node->sons[i]);
 		i++;
 	}
-	printf("free node %p\n", node);
+	if (node->sons)
+		free(node->sons);
 	if (node->content)
-	{
-		printf("free content %p\n", node->content);
 		free(node->content);
-	}
 	free(node);
 }
