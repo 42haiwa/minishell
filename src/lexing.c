@@ -110,6 +110,13 @@ void	lexing(char *buf, t_core *core)
 			}
 		}
 	}
+	i = 0;
+	while (splited[i])
+	{
+		free(splited[i]);
+		i++;		
+	}
+	free(splited);
 }
 
 void	pre_lexing(char *buf, t_core *core)

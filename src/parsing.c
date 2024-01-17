@@ -131,10 +131,13 @@ void	free_three(t_core *core)
 	n++;
 	while (i < core->execution_three->sons_ctr)
 	{
+		free(core->execution_three->sons[i]->content);
 		node_print_recurse(core->execution_three->sons[i]);
 		free(core->execution_three->sons[i]);
 		i++;
 	}
 	if (n == 1)
+	{
 		free(core->execution_three);
+	}
 }

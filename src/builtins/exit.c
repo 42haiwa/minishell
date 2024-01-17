@@ -20,6 +20,7 @@ static void	free_all(t_core *core)
 	//free(core->envp);
 	if (core->lexer_out)
 		free(core->lexer_out);
+	free(core);
 }
 
 static void	free_exit(int option, t_core *core)

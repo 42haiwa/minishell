@@ -73,6 +73,7 @@ void	execution(t_core *core)
 	size_t	pipe_ctr;
 	int		o_fd;
 	int		i_fd;
+	char	*check;
 	size_t	cmd;
 
 	cmd = 0;
@@ -111,8 +112,12 @@ void	execution(t_core *core)
 		}
 		if (check_builtins_no_fork(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 1, core))
 			continue ;
-		if (!check_builtins_no_exec(core->execution_three->sons[i]->content) && ft_get_path(core, core->execution_three->sons[i]->content))
-			core->execution_three->sons[i]->content = ft_strdup(ft_get_path(core, core->execution_three->sons[i]->content));
+		check = ft_get_path(core, core->execution_three->sons[i]->content);
+		if (!check_builtins_no_exec(core->execution_three->sons[i]->content) && check)
+		{
+			free(check);
+			core->execution_three->sons[i]->content = ft_get_path(core, core->execution_three->sons[i]->content);
+		}
 		if ((c_pid = fork()) == -1)
 			exit(1);
 		core->son_pid = c_pid;
@@ -179,6 +184,8 @@ void	execution(t_core *core)
 	i = 0;
 	while (i < cmd)
 	{
+			free(core->execution_three->sons[i]->content);
+			free(core->execution_three->sons[i]);
 			int status;
 			wait(&status);
 			remove_hd(0, core);
