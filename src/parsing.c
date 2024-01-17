@@ -63,7 +63,7 @@ void	fill_three(t_core *core)
 
 	i = -1;
 	father = NULL;
-	core->execution_three = node_init("");
+	core->execution_three = node_init(ft_strdup(""));
 	while (core->lexer_out[++i])
 	{
 		if (core->lexer_out[i] == '<')
@@ -132,6 +132,11 @@ void	free_three(struct s_node *node)
 		free_three(node->sons[i]);
 		i++;
 	}
-	free(node->content);
+	printf("free node %p\n", node);
+	if (node->content)
+	{
+		printf("free content %p\n", node->content);
+		free(node->content);
+	}
 	free(node);
 }
