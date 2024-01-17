@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node_print_recurse.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:19:20 by cjouenne          #+#    #+#             */
-/*   Updated: 2023/12/01 16:19:34 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:39:59 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	node_print_recurse(t_node *root)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	if (root == NULL)
 		return ;
 	printf("%s\n", (char *) root->content);

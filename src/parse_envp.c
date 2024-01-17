@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:39:48 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/14 18:28:27 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:40:52 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*get_getter(char const *s)
 
 char	*set_envp(char *getter, char *new_values, t_core *core)
 {
-	int	i;
+	int		i;
 	char	*values;
 
 	i = -1;
@@ -112,7 +112,8 @@ void	remove_envp(char *getter, t_core *core)
 	j = 0;
 	while (core->envp[i])
 	{
-		if (ft_strncmp(getter, get_getter(core->envp[i]), ft_strlen(get_getter(core->envp[i])) - 1) == 0)
+		if (ft_strncmp(getter, get_getter(core->envp[i]),
+				ft_strlen(get_getter(core->envp[i])) - 1) == 0)
 		{
 			i++;
 			continue ;

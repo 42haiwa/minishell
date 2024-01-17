@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_io.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 21:41:19 by aallou-v          #+#    #+#             */
+/*   Updated: 2024/01/17 21:41:20 by aallou-v         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	parse_io(t_core *core)
@@ -7,8 +19,6 @@ void	parse_io(t_core *core)
 	char	*path;
 	int		fd;
 
-	(void) path;
-	(void) j;
 	i = 0;
 	while (i < core->execution_three->sons_ctr)
 	{

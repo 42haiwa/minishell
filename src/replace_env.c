@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:15:41 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/16 18:46:47 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:46:35 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ char	*replace(char *s, char *old, char *new)
 	int		new_len;
 	int		new_size;
 	char	*result;
-	
+
 	find = ft_strstr(s, old);
-	if (find != NULL) {
+	if (find != NULL)
+	{
 		old_len = ft_strlen(old);
 		new_len = ft_strlen(new);
 		new_size = ft_strlen(s) - old_len + new_len;
@@ -37,7 +38,7 @@ char	*replace(char *s, char *old, char *new)
 
 int	is_ending(char c)
 {
-	return (c == ' ' || c == '\f' || c == '\n' 
+	return (c == ' ' || c == '\f' || c == '\n'
 		|| c == '\r' || c == '$' || c == '\''
 		|| c == '\t' || c == '\v' || c == '\"');
 }
@@ -58,7 +59,7 @@ char	**exctract_env(const char *s)
 	while (s[++var[0]] != '\0')
 		if (s[var[0]] == '$')
 			var[1]++;
-	result = (char**)ft_calloc((var[1] + 1), sizeof(char*));
+	result = (char **)ft_calloc((var[1] + 1), sizeof(char *));
 	var[0] = 0;
 	var[2] = 0;
 	while (s[var[0]] != '\0')
@@ -72,7 +73,7 @@ char	**exctract_env(const char *s)
 				var[0]++;
 				var[1]++;
 			}
-			result[var[2]] = (char*)ft_calloc((var[1] + 1), sizeof(char));
+			result[var[2]] = (char *)ft_calloc((var[1] + 1), sizeof(char));
 			var[0] -= var[1];
 			var[1] = 0;
 			while (s[var[0]] != '\0' && !is_ending(s[var[0]]))
@@ -108,7 +109,8 @@ void	replace_main(t_core *core)
 			while (extract[++j])
 			{
 				core->get_d_quote[i] = replace(core->get_d_quote[i], "$", "");
-				core->get_d_quote[i] = replace(core->get_d_quote[i], extract[j], get_envp(extract[j], core));
+				core->get_d_quote[i] = replace(core->get_d_quote[i],
+						extract[j], get_envp(extract[j], core));
 			}
 		}
 	}

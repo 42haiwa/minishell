@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/16 14:45:08 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:34:15 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 static int	check_builtins_no_exec(char *buf)
 {
 	if (ft_strncmp("env", buf, 3) == 0 || ft_strncmp("pwd", buf, 3) == 0
-		 || ft_strncmp("cd", buf, 3) == 0 || ft_strncmp("echo", buf, 4) == 0)
+		|| ft_strncmp("cd", buf, 3) == 0 || ft_strncmp("echo", buf, 4) == 0)
 		return (1);
 	return (0);
 }

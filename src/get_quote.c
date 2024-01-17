@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/16 15:11:19 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:35:41 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	get_len_quote(const char *s, int *index, const char c)
 	i = 0;
 	while (s[*index + i] == c)
 		(*index)++;
-	while(s[*index + i] && s[*index + i] != c)
+	while (s[*index + i] && s[*index + i] != c)
 		i++;
 	return (i);
 }
@@ -109,7 +109,8 @@ char	**get_quote(char *buf)
 				result[var[1]] = get_inside_quote(buf, var[0], '\'');
 				var[1]++;
 				boolean[0] = 1;
-			} else
+			}
+			else
 				boolean[0] = 0;
 		}
 	}

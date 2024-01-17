@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:18:24 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/17 16:06:23 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:33:17 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	free_all(t_core *core)
 	int	i;
 
 	i = -1;
-	//free(core->envp);
 	if (core->lexer_out)
 		free(core->lexer_out);
 	free(core);

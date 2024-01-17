@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/16 17:05:00 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:42:37 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char *dup_until(char const *s, char until, int is_include)
+static char	*dup_until(char const *s, char until, int is_include)
 {
 	size_t	dup_len;
 	size_t	i;
@@ -43,11 +43,14 @@ static char *dup_until(char const *s, char until, int is_include)
 
 void	rm_sep_three(t_node *root)
 {
-	int		i = 0;
+	int		i;
 	char	*cpy;
+
+	i = 0;
 	if (root == NULL)
 		return ;
-	if (root->content != NULL && ft_strchr(root->content, '<') && ft_strchr(root->content, '>'))
+	if (root->content != NULL && ft_strchr(root->content, '<')
+		&& ft_strchr(root->content, '>'))
 	{
 		cpy = ft_substr(root->content, 1, ft_strlen(root->content) - 2);
 		ft_strlcpy(root->content, cpy, ft_strlen(cpy) + 1);
