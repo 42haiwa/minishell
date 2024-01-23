@@ -72,6 +72,8 @@ void	fill_three(t_core *core)
 	i = -1;
 	father = NULL;
 	core->execution_three = node_init(ft_strdup(""));
+	if (core->lexer_out == NULL)
+		return ;
 	while (core->lexer_out[++i])
 	{
 		if (core->lexer_out[i] == '<')
