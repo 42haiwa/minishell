@@ -33,6 +33,7 @@ void	add_block(const char *s, t_core *core, int delimiter)
 {
 	size_t	i;
 	char	*result;
+	char	*save;
 
 	if (!s)
 		return ;
@@ -51,7 +52,16 @@ void	add_block(const char *s, t_core *core, int delimiter)
 	}
 	else
 		result = ft_strdup(s);
-	core->lexer_out = ft_strjoin(core->lexer_out, result);
+	if (core->lexer_out == NULL)
+	{
+		core->lexer_out = ft_strdup(result);
+		free(result);
+		return ;
+	}
+	save = ft_strdup(core->lexer_out);
+	free(core->lexer_out);
+	core->lexer_out = ft_strjoin(save, result);
+	free(save);
 	free(result);
 }
 
@@ -123,7 +133,6 @@ void	pre_lexing(char *buf, t_core *core)
 {
 	size_t	i;
 
-	core->lexer_out = "";
 	core->get_d_quote = get_double_quote(buf, core);
 	core->get_quote = get_quote(buf);
 	replace_main(core);

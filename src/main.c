@@ -17,7 +17,7 @@ void	init(t_core *core, char **envp)
 	core->envp = envp;
 	core->execution_three = 0;
 	core->son_pid = -1;
-	core->lexer_out = "";
+	core->lexer_out = NULL;
 	core->folder = "";
 }
 
@@ -49,6 +49,7 @@ int	main(int argc, char *argv[], char *envp[])
 		execution(core);
 		free_three(core->execution_three);
 		free(core->lexer_out);
+		core->lexer_out = NULL;
 	}
 	printf("exit\n");
 	ft_exit(1, NULL, core);
