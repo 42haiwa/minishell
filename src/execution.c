@@ -102,7 +102,7 @@ void	execution(t_core *core)
 			new_argv[j] = (char *) core->execution_three->sons[i]->sons[j - 1]->content;
 			j++;
 		}
-		new_argv[0] = (char *) core->execution_three->sons[i]->content;
+		new_argv[0] = ft_strdup(core->execution_three->sons[i]->content);
 		new_argv[core->execution_three->sons[i]->sons_ctr + 1] = NULL;
 		if (is_token(core->execution_three->sons[i]->content))
 		{
@@ -115,9 +115,11 @@ void	execution(t_core *core)
 		check = ft_get_path(core, core->execution_three->sons[i]->content);
 		if (!check_builtins_no_exec(core->execution_three->sons[i]->content) && check)
 		{
-			free(check);
-			core->execution_three->sons[i]->content = ft_get_path(core, core->execution_three->sons[i]->content);
+			char *test = core->execution_three->sons[i]->content;
+			core->execution_three->sons[i]->content = ft_get_path(core, test);
+			free(test);
 		}
+		free(check);
 		if ((c_pid = fork()) == -1)
 			exit(1);
 		core->son_pid = c_pid;
@@ -179,7 +181,8 @@ void	execution(t_core *core)
 				close(pipe_fd[pipe_ctr - 1][0]);
 				pipe_fd[pipe_ctr - 1][0] = -1;
 			}
-		}	
+		}
+		free(new_argv[0]);
 	}
 	i = 0;
 	while (i < cmd)
@@ -190,7 +193,6 @@ void	execution(t_core *core)
 			core->err_code = WEXITSTATUS(status);
 			i++;
 	}
-	free_three(core->execution_three);
 	i = 0;
 	while (i < 128)
 	{

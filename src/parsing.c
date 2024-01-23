@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/17 21:42:37 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:56:58 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ void	free_three(struct s_node *node)
 	if (node->sons)
 		free(node->sons);
 	if (node->content)
+	{
 		free(node->content);
+	}
 	free(node);
 }

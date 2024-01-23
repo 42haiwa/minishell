@@ -47,6 +47,7 @@ int	main(int argc, char *argv[], char *envp[])
 		parse_io(core);
 		rm_sep_three(core->execution_three);
 		execution(core);
+		free_three(core->execution_three);
 		free(core->lexer_out);
 	}
 	printf("exit\n");
