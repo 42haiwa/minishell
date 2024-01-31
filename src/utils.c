@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char	*add_char(const char *s, char c, int index)
+char	*add_char(char *s, char c, int index)
 {
 	char	*result;
 	int		i;
@@ -30,6 +30,7 @@ char	*add_char(const char *s, char c, int index)
 		i++;
 	}
 	result[i + 1] = '\0';
+	free(s);
 	return (result);
 }
 

@@ -42,7 +42,6 @@ int	main(int argc, char *argv[], char *envp[])
 			break ;
 		add_history(buf);
 		pre_lexing(buf, core);
-		free(buf);
 		fill_three(core);
 		parse_io(core);
 		rm_sep_three(core->execution_three);

@@ -90,7 +90,7 @@ void	free_three(struct s_node *node);
 //execution
 void	execution(t_core *core);
 //utils
-char	*add_char(const char *s, char c, int index);
+char	*add_char(char *s, char c, int index);
 //void	add_char(char *s, char c, int index);
 //handler
 void	handler(int sig);

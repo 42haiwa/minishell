@@ -143,9 +143,13 @@ void	pre_lexing(char *buf, t_core *core)
 			|| buf[i] == '>' || buf[i] == '<' || buf[i] == '\'')
 		{
 			if (buf[i + 1] != ' ')
+			{
 				buf = add_char(buf, ' ', i + 1);
+			}
 			if (buf[i - 1] != ' ')
+			{
 				buf = add_char(buf, ' ', i);
+			}
 		}
 		if (buf[i] == '$')
 		{
@@ -154,4 +158,5 @@ void	pre_lexing(char *buf, t_core *core)
 		}
 	}
 	lexing(buf, core);
+	free(buf);
 }
