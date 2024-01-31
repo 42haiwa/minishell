@@ -108,10 +108,14 @@ void	execution(t_core *core)
 		{
 			if (ft_strncmp(core->execution_three->sons[i]->content, "PIPE", 4) == 0)
 				pipe_ctr++;
+			free(new_argv[0]);
 			continue ;
 		}
 		if (check_builtins_no_fork(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 1, core))
+		{
+			free(new_argv[0]);
 			continue ;
+		}
 		check = ft_get_path(core, core->execution_three->sons[i]->content);
 		if (!check_builtins_no_exec(core->execution_three->sons[i]->content) && check)
 		{
