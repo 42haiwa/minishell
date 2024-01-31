@@ -128,7 +128,7 @@ void	execution(t_core *core)
 			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
 			{
 				dup2(pipe_fd[pipe_ctr][1], STDOUT_FILENO);
-				close(pipe_fd[pipe_ctr][1]);
+				ft_close(pipe_fd[pipe_ctr][1]);
 				pipe_fd[pipe_ctr][1] = -1;
 			}
 			if ((core->execution_three->sons[i]->output) != 0)
@@ -140,12 +140,12 @@ void	execution(t_core *core)
 					o_fd = open(core->execution_three->sons[i]->output,
 						O_WRONLY | O_CREAT | O_APPEND, 0644);
 				dup2(o_fd, STDOUT_FILENO);
-				close(o_fd);
+				ft_close(o_fd);
 			}
 			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
 			{
 				dup2(pipe_fd[pipe_ctr - 1][0], STDIN_FILENO);
-				close(pipe_fd[pipe_ctr - 1][0]);
+				ft_close(pipe_fd[pipe_ctr - 1][0]);
 				pipe_fd[pipe_ctr - 1][0] = -1;
 			}
 			if ((core->execution_three->sons[i]->input) != 0)
@@ -153,14 +153,14 @@ void	execution(t_core *core)
 				i_fd = open(core->execution_three->sons[i]->input, 
 					O_RDONLY);
 				dup2(i_fd, STDIN_FILENO);
-				close(i_fd);
+				ft_close(i_fd);
 			}
 			if (core->execution_three->sons[i]->heredoc_id)
 			{
 				i_fd = open("HEREDOC", 
 					O_RDONLY);
 				dup2(i_fd, STDIN_FILENO);
-				close(i_fd);
+				ft_close(i_fd);
 			}
 			if (check_builtins(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 1, core))
 				exit(0);
@@ -173,12 +173,12 @@ void	execution(t_core *core)
 			cmd++;
 			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
 			{
-				close(pipe_fd[pipe_ctr][1]);
+				ft_close(pipe_fd[pipe_ctr][1]);
 				pipe_fd[pipe_ctr][1] = -1;
 			}
 			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
 			{
-				close(pipe_fd[pipe_ctr - 1][0]);
+				ft_close(pipe_fd[pipe_ctr - 1][0]);
 				pipe_fd[pipe_ctr - 1][0] = -1;
 			}
 		}
@@ -196,8 +196,8 @@ void	execution(t_core *core)
 	i = 0;
 	while (i < 128)
 	{
-		close(pipe_fd[i][0]);
-		close(pipe_fd[i][1]);
+		ft_close(pipe_fd[i][0]);
+		ft_close(pipe_fd[i][1]);
 		free(pipe_fd[i]);
 		i++;
 	}

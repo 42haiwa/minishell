@@ -110,4 +110,6 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n);
 char	*ft_strstr(char *str, char *to_find);
 
 void	replace_main(t_core *core);
+
+void	ft_close(int fd);
 #endif

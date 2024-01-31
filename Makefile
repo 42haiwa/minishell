@@ -4,6 +4,7 @@ CFLAGS := -g -Wall -Wextra -Werror -Iinclude
 LDFLAGS := -Llib -lft -lreadline
 
 SRC := src/main.c \
+		src/ft_close.c \
 		src/node_init.c \
 		src/parsing.c \
 		src/node_add_son.c \
