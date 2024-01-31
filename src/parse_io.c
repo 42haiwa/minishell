@@ -37,7 +37,7 @@ void	parse_io(t_core *core)
 				core->execution_three->sons[j]->content = ft_strdup("\0");
 				core->execution_three->sons[j + 1]->content = ft_strdup("\0");
 				core->execution_three->sons[i]->output_mode = 2;
-				core->execution_three->sons[i]->output = ft_strdup(path);
+				core->execution_three->sons[i]->output = path;
 				fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
 				close(fd);
 			}
@@ -69,7 +69,7 @@ void	parse_io(t_core *core)
 				core->execution_three->sons[j]->content = ft_strdup("\0");
 				core->execution_three->sons[j + 1]->content = ft_strdup("\0");
 				core->execution_three->sons[i]->output_mode = 1;
-				core->execution_three->sons[i]->output = ft_strdup(path);
+				core->execution_three->sons[i]->output = path;
 				fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				close(fd);
 			}
@@ -80,7 +80,7 @@ void	parse_io(t_core *core)
 				free(core->execution_three->sons[j + 1]->content);
 				core->execution_three->sons[j]->content = ft_strdup("\0");
 				core->execution_three->sons[j + 1]->content = ft_strdup("\0");
-				core->execution_three->sons[i]->input = ft_strdup(path);
+				core->execution_three->sons[i]->input = path;
 			}
 			j++;
 		}

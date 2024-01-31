@@ -144,12 +144,12 @@ void	free_three(struct s_node *node)
 		i++;
 	}
 	if (node->sons)
-	{
 		free(node->sons);
-	}
 	if (node->content)
-	{
 		free(node->content);
-	}
+	if (node->output)
+		free(node->output);
+	if (node->input)
+		free(node->input);
 	free(node);
 }
