@@ -135,6 +135,7 @@ void	free_three(struct s_node *node)
 	int	i;
 
 	i = 0;
+	printf("content: %s\n", (char*)node->content);
 	if (node == NULL)
 		return ;
 	while (i < node->sons_ctr)
