@@ -12,6 +12,7 @@ SRC := src/main.c \
 		src/node_print_recurse.c \
 		src/parse_envp.c \
 		src/lexing.c \
+		src/lexing2.c \
 		src/execution.c \
 		src/handler.c \
 		src/utils.c \

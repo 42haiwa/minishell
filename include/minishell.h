@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/17 16:18:04 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:29:58 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,47 @@ typedef struct s_core
 	int		err_code;
 	char	**get_d_quote;
 	char	**get_quote;
+	int		lex_bool[2];
+	size_t	lex_count;
+	size_t	lex_count2;
+	size_t	lex_i;
 	t_node	*execution_three;
 }	t_core;
+
+typedef struct s_d_quote
+{
+	size_t	var[2];
+	int		boolean[2];
+	size_t	double_quote_number;
+}	t_d_quote;
+
+typedef struct s_d_count
+{
+	size_t	i;
+	size_t	count;
+	int		boolean[2];
+}	t_d_count;
+
+typedef struct s_quote
+{
+	size_t	var[2];
+	int		boolean[2];
+	size_t	quote_number;
+}	t_quote;
+
+typedef struct s_count
+{
+	size_t	i;
+	size_t	count;
+	int		boolean[2];
+}	t_count;
+
+typedef struct s_parse
+{
+	int	i;
+	int	j;
+	int	fd;
+}	t_parse;
 
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);
@@ -95,6 +134,7 @@ void	verify_token2(size_t *i, t_node **current,
 void	execution(t_core *core);
 //utils
 char	*add_char(char *s, char c, int index);
+size_t	get_len(const char *s, int *index, const char c);
 //void	add_char(char *s, char c, int index);
 //handler
 void	handler(int sig);
@@ -103,7 +143,10 @@ char	*ft_get_path(t_core *core, char *cmd);
 //parse_io
 void	parse_io(t_core *core);
 //lexing2
-char	**get_double_quote(char *buf, t_core *core);
+char	**get_double_quote(char *buf);
+char	*get_delimiter(char *token);
+void	add_block(const char *s, t_core *core, int delimiter);
+void	init_lexing(t_core *core);
 //get_quote
 char	**get_quote(char *buf);
 

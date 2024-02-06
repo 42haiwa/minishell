@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 23:07:05 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/17 14:14:51 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/06 18:46:13 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,16 @@ char	*ft_strcat(char *dest, char *src)
 	}
 	dest[i] = '\0';
 	return (dest);
+}
+
+size_t	get_len(const char *s, int *index, const char c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[*index + i] == c)
+		(*index)++;
+	while (s[*index + i] && s[*index + i] != c)
+		i++;
+	return (i);
 }
