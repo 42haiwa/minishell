@@ -87,8 +87,10 @@ void	pre_lexing(char *buf, t_core *core);
 void	rm_sep_three(t_node *node);
 void	fill_three(t_core *core);
 void	free_three(struct s_node *node);
-void	verify_token(size_t *i, t_node **current, t_node **father, t_core *core);
-void	verify_token2(size_t *i, t_node **current, t_node **father, t_core *core);
+void	verify_token(size_t *i, t_node **current,
+			t_node **father, t_core *core);
+void	verify_token2(size_t *i, t_node **current,
+			t_node **father, t_core *core);
 //execution
 void	execution(t_core *core);
 //utils
