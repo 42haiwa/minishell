@@ -12,6 +12,17 @@
 
 #include "minishell.h"
 
+void	node_add_son2(t_node **father, t_node **sons_bck, t_node *neww)
+{
+	if (!((*father)->sons))
+		return ;
+	ft_memmove((*father)->sons, sons_bck, (*father)->sons_ctr
+		* sizeof(t_node *));
+	(*father)->sons[(*father)->sons_ctr] = neww;
+	++((*father)->sons_ctr);
+	free(sons_bck);
+}
+
 void	node_add_son(t_node *father, t_node *neww)
 {
 	t_node	**sons_bck;
@@ -35,13 +46,7 @@ void	node_add_son(t_node *father, t_node *neww)
 				father->sons_ctr * sizeof(t_node *));
 			free(father->sons);
 			father->sons = ft_calloc(father->sons_ctr + 1, sizeof(t_node *));
-			if (!(father->sons))
-				return ;
-			ft_memmove(father->sons, sons_bck, father->sons_ctr
-				* sizeof(t_node *));
-			father->sons[father->sons_ctr] = neww;
-			++(father->sons_ctr);
-			free(sons_bck);
+			node_add_son2(&father, sons_bck, neww);
 		}
 	}
 }
