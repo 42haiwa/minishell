@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:15:41 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/17 21:46:35 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/07 00:33:19 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,49 +44,52 @@ int	is_ending(char c)
 }
 
 /*
-var[0] = i
-var[1] = j / occurence;
-var[2] = result Index
+i = i
+j = occurence / j
+val = result Index
 */
+
+void	extract_env2(t_repl	*stru, const char *s, char **result)
+{
+	stru->i++;
+	stru->j = 0;
+	while (s[stru->i] != '\0' && !is_ending(s[stru->i]))
+	{
+		stru->i++;
+		stru->j++;
+	}
+	result[stru->val] = (char *)ft_calloc((stru->j + 1), sizeof(char));
+	stru->i -= stru->j;
+	stru->j = 0;
+	while (s[stru->i] != '\0' && !is_ending(s[stru->i]))
+	{
+		result[stru->val][stru->j] = s[stru->i];
+		stru->i++;
+		stru->j++;
+	}
+	result[stru->val][stru->j] = '\0';
+	stru->val++;
+}
 
 char	**exctract_env(const char *s)
 {
-	int		var[3];
+	t_repl	stru;
 	char	**result;
 
-	var[0] = -1;
-	var[1] = 0;
-	while (s[++var[0]] != '\0')
-		if (s[var[0]] == '$')
-			var[1]++;
-	result = (char **)ft_calloc((var[1] + 1), sizeof(char *));
-	var[0] = 0;
-	var[2] = 0;
-	while (s[var[0]] != '\0')
+	stru.i = -1;
+	stru.occurence = 0;
+	while (s[++stru.i] != '\0')
+		if (s[stru.i] == '$')
+			stru.occurence++;
+	result = (char **)ft_calloc((stru.occurence + 1), sizeof(char *));
+	stru.i = 0;
+	stru.val = 0;
+	while (s[stru.i] != '\0')
 	{
-		if (s[var[0]] == '$')
-		{
-			var[0]++;
-			var[1] = 0;
-			while (s[var[0]] != '\0' && !is_ending(s[var[0]]))
-			{
-				var[0]++;
-				var[1]++;
-			}
-			result[var[2]] = (char *)ft_calloc((var[1] + 1), sizeof(char));
-			var[0] -= var[1];
-			var[1] = 0;
-			while (s[var[0]] != '\0' && !is_ending(s[var[0]]))
-			{
-				result[var[2]][var[1]] = s[var[0]];
-				var[0]++;
-				var[1]++;
-			}
-			result[var[2]][var[1]] = '\0';
-			var[2]++;
-		}
+		if (s[stru.i] == '$')
+			extract_env2(&stru, s, result);
 		else
-			var[0]++;
+			stru.i++;
 	}
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 21:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/07 00:09:30 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/07 00:31:53 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	first_part(t_parse *stru, t_core *core, char *path)
 	}
 }
 
-void	second_part(t_parse *s, t_core *core, char *path)
+void	second_part_parse(t_parse *s, t_core *core, char *path)
 {
 	char	*buf;
 
@@ -114,8 +114,9 @@ void	parse_io(t_core *core)
 			if (ft_strncmp(core->execution_three->sons[stru.j]->content,
 					"PIPE", 3) == 0)
 				break ;
+			path = NULL;
 			first_part(&stru, core, path);
-			second_part(&stru, core, path);
+			second_part_parse(&stru, core, path);
 			part_three(&stru, core, path);
 			part_four(&stru, core, path);
 			stru.j++;

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/06 19:29:58 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/07 00:29:35 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,14 @@ typedef struct s_core
 	t_node	*execution_three;
 }	t_core;
 
+/***************
+*              *
+*              *
+*  NORM STRUC  *
+*              *
+*              *
+***************/
+
 typedef struct s_d_quote
 {
 	size_t	var[2];
@@ -93,6 +101,14 @@ typedef struct s_parse
 	int	j;
 	int	fd;
 }	t_parse;
+
+typedef struct s_repl
+{
+	size_t	i;
+	size_t	j;
+	size_t	occurence;
+	size_t	val;
+}	t_repl;
 
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);

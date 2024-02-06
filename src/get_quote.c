@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/06 19:13:23 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/07 00:32:44 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ size_t	get_number_quote(const char *buf)
 	return (val.count);
 }
 
-void	second_part(t_quote *stru, char *buf, char **result)
+void	second_part_quote(t_quote *stru, char *buf, char **result)
 {
 	if (buf[stru->var[0]] == '\'' && !stru->boolean[1])
 	{
@@ -106,7 +106,7 @@ char	**get_quote(char *buf)
 			else
 				stru.boolean[1] = 1;
 		}
-		second_part(&stru, buf, result);
+		second_part_quote(&stru, buf, result);
 	}
 	return (result[stru.var[1]] = 0, result);
 }

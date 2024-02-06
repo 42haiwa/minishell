@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:36:39 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/06 18:34:44 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/07 00:10:40 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,5 @@ void	pre_lexing(char *buf, t_core *core)
 	}
 	init_lexing(core);
 	lexing(buf, core);
-	ft_putendl_fd(core->lexer_out, 1);
 	free(buf);
 }
