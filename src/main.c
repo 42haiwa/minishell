@@ -42,6 +42,7 @@ int	main(int argc, char *argv[], char *envp[])
 			break ;
 		add_history(buf);
 		pre_lexing(buf, core);
+		core->execution_three = node_init(ft_strdup(""));
 		fill_three(core);
 		parse_io(core);
 		rm_sep_three(core->execution_three);

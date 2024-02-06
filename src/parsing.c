@@ -71,7 +71,6 @@ void	fill_three(t_core *core)
 
 	i = -1;
 	father = NULL;
-	core->execution_three = node_init(ft_strdup(""));
 	if (core->lexer_out == NULL)
 		return ;
 	while (core->lexer_out[++i])
@@ -89,44 +88,7 @@ void	fill_three(t_core *core)
 				father = current;
 			}
 		}
-		if (ft_strncmp(&core->lexer_out[i], "PIPE", 4) == 0)
-		{
-			current = node_init(ft_strdup("PIPE"));
-			node_add_son(core->execution_three, current);
-			father = NULL;
-		}
-		if (ft_strncmp(&core->lexer_out[i], "SEMICOLON", 9) == 0)
-		{
-			current = node_init(ft_strdup("SEMICOLON"));
-			node_add_son(core->execution_three, current);
-			father = NULL;
-		}
-		if (ft_strncmp(&core->lexer_out[i], "LESSLESS", 8) == 0)
-		{
-			current = node_init(ft_strdup("LESSLESS"));
-			node_add_son(core->execution_three, current);
-			father = NULL;
-			i += 7;
-		}
-		if (ft_strncmp(&core->lexer_out[i], "GREATGREAT", 10) == 0)
-		{
-			current = node_init(ft_strdup("GREATGREAT"));
-			node_add_son(core->execution_three, current);
-			father = NULL;
-			i += 9;
-		}
-		if (ft_strncmp(&core->lexer_out[i], "LESS", 4) == 0)
-		{
-			current = node_init(ft_strdup("LESS"));
-			node_add_son(core->execution_three, current);
-			father = NULL;
-		}
-		if (ft_strncmp(&core->lexer_out[i], "GREAT", 5) == 0)
-		{
-			current = node_init(ft_strdup("GREAT"));
-			node_add_son(core->execution_three, current);
-			father = NULL;
-		}
+		verify_token(&i, &current, &father, core);
 	}
 }
 
