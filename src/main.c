@@ -49,13 +49,15 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		buf = readline("\e[35mminishell \e[33m ➤ \e[21m\e[0m ");
 		if (buf == NULL)
+		{
+			printf("exit\n");
+			ft_exit(0, NULL, NULL);
 			break ;
+		}
 		start(buf, core);
 		execution(core);
 		free_three(core->execution_three);
 		free(core->lexer_out);
 		core->lexer_out = NULL;
 	}
-	printf("exit\n");
-	ft_exit(1, NULL, core);
 }

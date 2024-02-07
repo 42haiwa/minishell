@@ -14,9 +14,6 @@
 
 static void	free_all(t_core *core)
 {
-	int	i;
-
-	i = -1;
 	if (core->lexer_out)
 		free(core->lexer_out);
 	free(core);
@@ -30,9 +27,12 @@ static void	free_exit(int option, t_core *core)
 
 void	ft_exit(int argc, char **argv, t_core *core)
 {
+	if (argc == 0 && !argv && !core)
+		exit(0);
 	if (argc != 1 && argc != 2)
 		ft_putstr_fd("error: to many arguments !\n", 2);
-	free_three(core->execution_three);
+	if (core)
+		free_three(core->execution_three);
 	if (argc == 2)
 		free_exit(ft_atoi(argv[1]), core);
 	else if (argc == 1)
