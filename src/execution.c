@@ -17,7 +17,7 @@ int	first_exec(t_core *core, t_exec *stru)
 	if (ft_strncmp(core->execution_three->sons[stru->i]->content, "\0", 1) == 0)
 		return (1);
 	stru->new_argv = ft_calloc(core->execution_three->sons[stru->i]->sons_ctr
-			+ 2, sizeof(char));
+			+ 2, sizeof(char *));
 	stru->j = 1;
 	while (stru->j <= core->execution_three->sons[stru->i]->sons_ctr)
 	{
