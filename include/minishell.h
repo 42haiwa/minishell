@@ -127,6 +127,7 @@ typedef struct s_exec
 	char	**new_argv;
 }	t_exec;
 
+int	check_exit(char const *s);
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);
 void	ft_exit(int argc, char **argv, t_core *core);

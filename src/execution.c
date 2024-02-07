@@ -41,6 +41,11 @@ int	first_exec(t_core *core, t_exec *stru)
 
 int	second_exec(t_core *core, t_exec *stru)
 {
+	if (check_exit(core->execution_three->sons[stru->i]->content))	
+	{
+		free(stru->new_argv[0]);
+		ft_exit(0, NULL, NULL);
+	}
 	if (check_builtins_no_fork(core->execution_three->sons[stru->i]->content,
 			stru->new_argv, core->execution_three->sons[stru->i]->sons_ctr + 1,
 			core))
@@ -133,6 +138,7 @@ void	execution(t_core *core)
 		else
 			six_exec(core, &stru);
 		free(stru.new_argv[0]);
+		free(stru.new_argv);
 	}
 	end_exec(core, &stru);
 }

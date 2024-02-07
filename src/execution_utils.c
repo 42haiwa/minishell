@@ -59,3 +59,10 @@ void	remove_hd(int id, t_core *core)
 	}
 	wait(NULL);
 }
+
+int	check_exit(char const *s)
+{
+	if (ft_strncmp(s, "exit", ft_strlen(s)) == 0)
+		return (1);
+	return (0);
+}
