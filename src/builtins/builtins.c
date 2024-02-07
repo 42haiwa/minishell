@@ -23,7 +23,11 @@ int	check_builtins(char *buf, char **argv, int argc, t_core *core)
 	if (ft_strncmp("env", buf, ft_strlen(buf)) == 0
 		|| ft_strncmp("pwd", buf, ft_strlen(buf)) == 0
 		|| ft_strncmp("echo", buf, ft_strlen(buf)) == 0)
+	{
+		free(argv[0]);
+		free(argv);
 		return (1);
+	}
 	return (0);
 }
 
@@ -41,6 +45,10 @@ int	check_builtins_no_fork(char *buf, char **argv, int argc, t_core *core)
 		|| ft_strncmp("exit", buf, ft_strlen(buf)) == 0
 		|| ft_strncmp("export", buf, ft_strlen(buf)) == 0
 		|| ft_strncmp("unset", buf, ft_strlen(buf)) == 0)
+	{
+		free(argv[0]);
+		free(argv);
 		return (1);
+	}
 	return (0);
 }
