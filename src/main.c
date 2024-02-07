@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/06 19:18:13 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/07 02:12:26 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@ void	init(t_core *core, char **envp)
 	core->son_pid = -1;
 	core->lexer_out = NULL;
 	core->folder = "";
+}
+
+void	start(char *buf, t_core *core)
+{
+	add_history(buf);
+	pre_lexing(buf, core);
+	core->execution_three = node_init(ft_strdup(""));
+	fill_three(core);
+	parse_io(core);
+	rm_sep_three(core->execution_three);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -40,12 +50,7 @@ int	main(int argc, char *argv[], char *envp[])
 		buf = readline("\e[35mminishell \e[33m ➤ \e[21m\e[0m ");
 		if (buf == NULL)
 			break ;
-		add_history(buf);
-		pre_lexing(buf, core);
-		core->execution_three = node_init(ft_strdup(""));
-		fill_three(core);
-		parse_io(core);
-		rm_sep_three(core->execution_three);
+		start(buf, core);
 		execution(core);
 		free_three(core->execution_three);
 		free(core->lexer_out);

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/07 00:29:35 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/07 02:04:55 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <sys/wait.h>
+# include <errno.h>
 
 # include "libft.h"
 
@@ -110,6 +112,21 @@ typedef struct s_repl
 	size_t	val;
 }	t_repl;
 
+typedef struct s_exec
+{
+	int		**pipe_fd;
+	size_t	i;
+	ssize_t	j;
+	pid_t	c_pid;
+	size_t	pipe_ctr;
+	int		o_fd;
+	int		i_fd;
+	char	*check;
+	size_t	cmd;
+	char	*test;
+	char	**new_argv;
+}	t_exec;
+
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);
 void	ft_exit(int argc, char **argv, t_core *core);
@@ -148,6 +165,15 @@ void	verify_token2(size_t *i, t_node **current,
 			t_node **father, t_core *core);
 //execution
 void	execution(t_core *core);
+//execution2
+void	five_exec(t_core *core, t_exec *stru);
+void	six_exec(t_core *core, t_exec *stru);
+void	init_exec(t_exec *stru);
+void	end_exec(t_core *core, t_exec *stru);
+//execution_utils
+int		is_token(char const *s);
+int		check_builtins_no_exec(char *buf);
+void	remove_hd(int id, t_core *core);
 //utils
 char	*add_char(char *s, char c, int index);
 size_t	get_len(const char *s, int *index, const char c);

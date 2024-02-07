@@ -6,204 +6,133 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/31 17:35:54 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/02/07 02:05:10 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <errno.h>
-
-static int	check_builtins_no_exec(char *buf)
+int	first_exec(t_core *core, t_exec *stru)
 {
-	if (ft_strncmp("env", buf, 3) == 0 || ft_strncmp("pwd", buf, 3) == 0
-		|| ft_strncmp("cd", buf, 3) == 0 || ft_strncmp("echo", buf, 4) == 0)
+	if (ft_strncmp(core->execution_three->sons[stru->i]->content, "\0", 1) == 0)
 		return (1);
-	return (0);
-}
-
-static int	is_token(char const *s)
-{
-	if (ft_strncmp(s, "PIPE", 4) == 0)
-		return (1);
-	if (ft_strncmp(s, "SEMICOLON", 9) == 0)
-		return (1);
-	if (ft_strncmp(s, "GREATGREAT", 10) == 0)
-		return (1);
-	if (ft_strncmp(s, "LESSLESS", 8) == 0)
-		return (1);
-	if (ft_strncmp(s, "GREAT", 5) == 0 && ft_strlen(s) <= 5)
-		return (1);
-	if (ft_strncmp(s, "LESS", 4) == 0 && ft_strlen(s) <= 4)
-		return (1);
-	return (0);
-}
-
-void	remove_hd(int id, t_core *core)
-{
-	char	**argv;
-	pid_t	pid;
-
-	(void) id;
-	if (access("HEREDOC", F_OK) == -1)
-		return ;
-	argv = ft_calloc(3, sizeof(char *));
-	if (!argv)
-		return ;
-	argv[0] = "rm";
-	argv[1] = "HEREDOC";
-	argv[2] = NULL;
-	pid = fork();
-	if (pid == 0)
+	stru->new_argv = ft_calloc(core->execution_three->sons[stru->i]->sons_ctr
+			+ 2, sizeof(char));
+	stru->j = 1;
+	while (stru->j <= core->execution_three->sons[stru->i]->sons_ctr)
 	{
-		execve("/bin/rm", argv, core->envp);
-		exit(1);
+		stru->new_argv[stru->j] = (char *)
+			core->execution_three->sons[stru->i]->sons[stru->j - 1]->content;
+		stru->j++;
 	}
-	wait(NULL);
+	stru->new_argv[0] = ft_strdup(core->execution_three
+			->sons[stru->i]->content);
+	stru->new_argv[core->execution_three->sons[stru->i]->sons_ctr + 1] = NULL;
+	if (is_token(core->execution_three->sons[stru->i]->content))
+	{
+		if (ft_strncmp(core->execution_three->sons[stru->i]->content,
+				"PIPE", 4) == 0)
+			stru->pipe_ctr++;
+		free(stru->new_argv[0]);
+		return (1);
+	}
+	return (0);
+}
+
+int	second_exec(t_core *core, t_exec *stru)
+{
+	if (check_builtins_no_fork(core->execution_three->sons[stru->i]->content,
+			stru->new_argv, core->execution_three->sons[stru->i]->sons_ctr + 1,
+			core))
+	{
+		free(stru->new_argv[0]);
+		return (1);
+	}
+	stru->check = ft_get_path(core, core->execution_three->sons[stru->i]
+			->content);
+	if (!check_builtins_no_exec(core->execution_three->sons[stru->i]->content)
+		&& stru->check)
+	{
+		stru->test = core->execution_three->sons[stru->i]->content;
+		core->execution_three->sons[stru->i]
+			->content = ft_get_path(core, stru->test);
+		free(stru->test);
+	}
+	free(stru->check);
+	stru->c_pid = fork();
+	if (stru->c_pid == -1)
+		exit(1);
+	core->son_pid = stru->c_pid;
+	return (0);
+}
+
+void	three_exec(t_core *core, t_exec *stru)
+{
+	if ((stru->i + 1) < (size_t) core->execution_three->sons_ctr
+		&& ft_strncmp(core->execution_three->sons[stru->i + 1]->content,
+			"PIPE", 4) == 0)
+	{
+		dup2(stru->pipe_fd[stru->pipe_ctr][1], STDOUT_FILENO);
+		ft_close(stru->pipe_fd[stru->pipe_ctr][1]);
+		stru->pipe_fd[stru->pipe_ctr][1] = -1;
+	}
+	if ((core->execution_three->sons[stru->i]->output) != 0)
+	{
+		if (core->execution_three->sons[stru->i]->output_mode == 1)
+			stru->o_fd = open(core->execution_three->sons[stru->i]->output,
+					O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (core->execution_three->sons[stru->i]->output_mode == 2)
+			stru->o_fd = open(core->execution_three->sons[stru->i]->output,
+					O_WRONLY | O_CREAT | O_APPEND, 0644);
+		dup2(stru->o_fd, STDOUT_FILENO);
+		ft_close(stru->o_fd);
+	}
+}
+
+void	four_exec(t_core *core, t_exec *stru)
+{
+	if (stru->i > 1 && ft_strncmp(core->execution_three->sons[stru->i - 1]
+			->content, "PIPE", 4) == 0)
+	{
+		dup2(stru->pipe_fd[stru->pipe_ctr - 1][0], STDIN_FILENO);
+		ft_close(stru->pipe_fd[stru->pipe_ctr - 1][0]);
+		stru->pipe_fd[stru->pipe_ctr - 1][0] = -1;
+	}
+	if ((core->execution_three->sons[stru->i]->input) != 0)
+	{
+		stru->i_fd = open(core->execution_three->sons[stru->i]->input,
+				O_RDONLY);
+		dup2(stru->i_fd, STDIN_FILENO);
+		ft_close(stru->i_fd);
+	}
+	if (core->execution_three->sons[stru->i]->heredoc_id)
+	{
+		stru->i_fd = open("HEREDOC", O_RDONLY);
+		dup2(stru->i_fd, STDIN_FILENO);
+		ft_close(stru->i_fd);
+	}
 }
 
 void	execution(t_core *core)
 {
-	int		**pipe_fd;
-	size_t	i;
-	ssize_t	j;
-	pid_t	c_pid;
-	size_t	pipe_ctr;
-	int		o_fd;
-	int		i_fd;
-	char	*check;
-	size_t	cmd;
+	t_exec	stru;
 
-	cmd = 0;
-	pipe_ctr = 0;
-	pipe_fd = ft_calloc(512, sizeof(int *));
-	i = 0;
-	while (i < 128)
+	init_exec(&stru);
+	while (++stru.i < (size_t) core->execution_three->sons_ctr)
 	{
-		pipe_fd[i] = ft_calloc(2, sizeof(int));
-		if (pipe(pipe_fd[i]) == -1)
-		{
-			perror("pipe");
-			exit(1);
-		}
-		i++;
-	}
-	i = -1;
-	while (++i < (size_t) core->execution_three->sons_ctr)
-	{
-		if (ft_strncmp(core->execution_three->sons[i]->content, "\0", 1) == 0)
+		if (first_exec(core, &stru) == 1)
 			continue ;
-		char *new_argv[core->execution_three->sons[i]->sons_ctr + 2];
-		j = 1;
-		while (j <= core->execution_three->sons[i]->sons_ctr)
-		{
-			new_argv[j] = (char *) core->execution_three->sons[i]->sons[j - 1]->content;
-			j++;
-		}
-		new_argv[0] = ft_strdup(core->execution_three->sons[i]->content);
-		new_argv[core->execution_three->sons[i]->sons_ctr + 1] = NULL;
-		if (is_token(core->execution_three->sons[i]->content))
-		{
-			if (ft_strncmp(core->execution_three->sons[i]->content, "PIPE", 4) == 0)
-				pipe_ctr++;
-			free(new_argv[0]);
+		if (second_exec(core, &stru) == 1)
 			continue ;
-		}
-		if (check_builtins_no_fork(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 1, core))
+		if (stru.c_pid == 0)
 		{
-			free(new_argv[0]);
-			continue ;
-		}
-		check = ft_get_path(core, core->execution_three->sons[i]->content);
-		if (!check_builtins_no_exec(core->execution_three->sons[i]->content) && check)
-		{
-			char *test = core->execution_three->sons[i]->content;
-			core->execution_three->sons[i]->content = ft_get_path(core, test);
-			free(test);
-		}
-		free(check);
-		if ((c_pid = fork()) == -1)
-			exit(1);
-		core->son_pid = c_pid;
-		if (c_pid == 0)
-		{
-			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
-			{
-				dup2(pipe_fd[pipe_ctr][1], STDOUT_FILENO);
-				ft_close(pipe_fd[pipe_ctr][1]);
-				pipe_fd[pipe_ctr][1] = -1;
-			}
-			if ((core->execution_three->sons[i]->output) != 0)
-			{
-				if (core->execution_three->sons[i]->output_mode == 1)
-					o_fd = open(core->execution_three->sons[i]->output,
-						O_WRONLY | O_CREAT | O_TRUNC, 0644);
-				if (core->execution_three->sons[i]->output_mode == 2)
-					o_fd = open(core->execution_three->sons[i]->output,
-						O_WRONLY | O_CREAT | O_APPEND, 0644);
-				dup2(o_fd, STDOUT_FILENO);
-				ft_close(o_fd);
-			}
-			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
-			{
-				dup2(pipe_fd[pipe_ctr - 1][0], STDIN_FILENO);
-				ft_close(pipe_fd[pipe_ctr - 1][0]);
-				pipe_fd[pipe_ctr - 1][0] = -1;
-			}
-			if ((core->execution_three->sons[i]->input) != 0)
-			{
-				i_fd = open(core->execution_three->sons[i]->input, 
-					O_RDONLY);
-				dup2(i_fd, STDIN_FILENO);
-				ft_close(i_fd);
-			}
-			if (core->execution_three->sons[i]->heredoc_id)
-			{
-				i_fd = open("HEREDOC", 
-					O_RDONLY);
-				dup2(i_fd, STDIN_FILENO);
-				ft_close(i_fd);
-			}
-			if (check_builtins(core->execution_three->sons[i]->content, new_argv, core->execution_three->sons[i]->sons_ctr + 1, core))
-				exit(0);
-			execve(core->execution_three->sons[i]->content, new_argv, core->envp);
-			perror("minishell");
-			exit(1);
+			three_exec(core, &stru);
+			four_exec(core, &stru);
+			five_exec(core, &stru);
 		}
 		else
-		{
-			cmd++;
-			if ((i + 1) < (size_t) core->execution_three->sons_ctr && ft_strncmp(core->execution_three->sons[i + 1]->content, "PIPE", 4) == 0)
-			{
-				ft_close(pipe_fd[pipe_ctr][1]);
-				pipe_fd[pipe_ctr][1] = -1;
-			}
-			if (i > 1 && ft_strncmp(core->execution_three->sons[i - 1]->content, "PIPE", 4) == 0)
-			{
-				ft_close(pipe_fd[pipe_ctr - 1][0]);
-				pipe_fd[pipe_ctr - 1][0] = -1;
-			}
-		}
-		free(new_argv[0]);
+			six_exec(core, &stru);
+		free(stru.new_argv[0]);
 	}
-	i = 0;
-	while (i < cmd)
-	{
-			int status;
-			wait(&status);
-			remove_hd(0, core);
-			core->err_code = WEXITSTATUS(status);
-			i++;
-	}
-	i = 0;
-	while (i < 128)
-	{
-		ft_close(pipe_fd[i][0]);
-		ft_close(pipe_fd[i][1]);
-		free(pipe_fd[i]);
-		i++;
-	}
-	free(pipe_fd);
+	end_exec(core, &stru);
 }

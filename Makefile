@@ -14,6 +14,8 @@ SRC := src/main.c \
 		src/lexing.c \
 		src/lexing2.c \
 		src/execution.c \
+		src/execution2.c \
+		src/execution_utils.c \
 		src/handler.c \
 		src/utils.c \
 		src/get_path.c \
