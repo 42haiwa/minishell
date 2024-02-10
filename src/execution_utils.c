@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 00:39:11 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/07 00:53:21 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:03:20 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,11 @@ int	is_token(char const *s)
 	return (0);
 }
 
-void	remove_hd(int id, t_core *core)
-{
-	char	**argv;
-	pid_t	pid;
-
-	(void) id;
-	if (access("HEREDOC", F_OK) == -1)
-		return ;
-	argv = ft_calloc(3, sizeof(char *));
-	if (!argv)
-		return ;
-	argv[0] = "rm";
-	argv[1] = "HEREDOC";
-	argv[2] = NULL;
-	pid = fork();
-	if (pid == 0)
-	{
-		execve("/bin/rm", argv, core->envp);
-		exit(1);
-	}
-	wait(NULL);
-}
-
 int	check_exit(char const *s)
 {
-	if (ft_strncmp(s, "exit", ft_strlen(s)) == 0)
+	if (ft_strlen(s) != 4)
+		return (0);
+	if (ft_strncmp(s, "exit", 4) == 0)
 		return (1);
 	return (0);
 }

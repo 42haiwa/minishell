@@ -6,47 +6,37 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:18:39 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/10 03:59:25 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:05:54 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	node_add_son2(t_node **father, t_node **sons_bck, t_node *neww)
-{
-	if (!((*father)->sons))
-		return ;
-	ft_memmove((*father)->sons, sons_bck, (*father)->sons_ctr
-		* sizeof(t_node *));
-	(*father)->sons[(*father)->sons_ctr] = neww;
-	++((*father)->sons_ctr);
-	free(sons_bck);
-}
-
 void	node_add_son(t_node *father, t_node *neww)
 {
-	t_node	**sons_bck;
+	t_node	**new_sons;
 
 	if (father)
 	{
 		if (father->sons == NULL)
 		{
 			father->sons = ft_calloc(1, sizeof(t_node *));
-			if (!(father->sons))
+			if (!father->sons)
 				return ;
-			*(father->sons) = neww;
-			++(father->sons_ctr);
+			father->sons[0] = neww;
+			father->sons_ctr++;
 		}
 		else
 		{
-			sons_bck = ft_calloc(father->sons_ctr, sizeof(t_node *));
-			if (!(sons_bck))
+			new_sons = ft_calloc(father->sons_ctr + 1, sizeof(t_node *));
+			if (!new_sons)
 				return ;
-			ft_memmove(sons_bck, father->sons,
+			ft_memmove(new_sons, father->sons,
 				father->sons_ctr * sizeof(t_node *));
 			free(father->sons);
-			father->sons = ft_calloc(father->sons_ctr + 1, sizeof(t_node *));
-			node_add_son2(&father, sons_bck, neww);
+			new_sons[father->sons_ctr] = neww;
+			father->sons_ctr++;
+			father->sons = new_sons;
 		}
 	}
 }

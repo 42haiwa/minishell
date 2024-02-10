@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 21:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/10 03:59:47 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 17:02:22 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	first_part(t_parse *stru, t_core *core, char *path)
 	}
 }
 
-void	second_part_parse(t_parse *s, t_core *core, char *path)
+void	second_part_parse(t_parse *s, t_core *core, char *pth)
 {
 	if ((s->j + 1 < core->execution_three->sons_ctr)
 		&& ft_strncmp(core->execution_three->sons[s->j]->content,
 			"LESSLESS", 8) == 0)
 	{
-		path = ft_substr(core->execution_three->sons[s->j + 1]->content, 1,
+		pth = ft_substr(core->execution_three->sons[s->j + 1]->content, 1,
 				ft_strlen(core->execution_three->sons[s->j + 1]->content) - 2);
 		core->execution_three->sons[s->i]->heredoc_id = 1;
 		s->fd = open("HEREDOC", O_WRONLY | O_CREAT | O_APPEND, 0644);
@@ -48,7 +48,7 @@ void	second_part_parse(t_parse *s, t_core *core, char *path)
 			s->tmp = readline("heredoc> ");
 			s->buf = ft_strjoin(s->tmp, "\n");
 			free(s->tmp);
-			if (s->buf == NULL || ft_strncmp(s->buf, path, ft_strlen(path)) == 0)
+			if (s->buf == NULL || ft_strncmp(s->buf, pth, ft_strlen(pth)) == 0)
 			{
 				free(s->buf);
 				break ;
@@ -57,7 +57,7 @@ void	second_part_parse(t_parse *s, t_core *core, char *path)
 			free(s->buf);
 		}
 		close(s->fd);
-		free(path);
+		free(pth);
 	}
 }
 

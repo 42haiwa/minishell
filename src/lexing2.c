@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:39:24 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/10 03:59:10 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:25:08 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ void	add_block2(t_core *core, char *result)
 
 	if (core->lexer_out == NULL)
 	{
-		core->lexer_out = ft_strdup(result);
-		free(result);
+		core->lexer_out = result;
 		return ;
 	}
-	save = ft_strdup(core->lexer_out);
-	free(core->lexer_out);
+	save = core->lexer_out;
 	core->lexer_out = ft_strjoin(save, result);
 	free(save);
 	free(result);

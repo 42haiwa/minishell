@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/10 03:59:54 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:05:48 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	fill_three(t_core *core)
 		}
 		verify_token(&i, &current, &father, core);
 	}
+	free(core->lexer_out);
+	core->lexer_out = NULL;
 }
 
 void	free_three(struct s_node *node)

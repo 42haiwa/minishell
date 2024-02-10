@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/10 03:56:30 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:06:07 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct s_repl
 
 typedef struct s_exec
 {
-	int		**pipe_fd;
+	int		pipe_fd[128][2];
 	size_t	i;
 	ssize_t	j;
 	pid_t	c_pid;
@@ -177,7 +177,6 @@ void	end_exec(t_core *core, t_exec *stru);
 //execution_utils
 int		is_token(char const *s);
 int		check_builtins_no_exec(char *buf);
-void	remove_hd(int id, t_core *core);
 //utils
 char	*add_char(char *s, char c, int index);
 size_t	get_len(const char *s, int *index, const char c);

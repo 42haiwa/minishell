@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 02:03:47 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/10 03:57:52 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:57:31 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 void	five_exec(t_core *core, t_exec *stru)
 {
-	if (check_builtins(core->execution_three->sons[stru->i]->content, stru
-			->new_argv, core->execution_three->sons[stru->i]->sons_ctr
-			+ 1, core))
+	char	*cmd;
+	int		argc;
+	
+	cmd = ft_strdup(core->execution_three->sons[stru->i]->content);
+	argc = core->execution_three->sons[stru->i]->sons_ctr + 1;
+	free_three(core->execution_three);
+	if (check_builtins(cmd, stru->new_argv, argc, core))
 		exit(0);
-	execve(core->execution_three->sons[stru->i]->content,
-		stru->new_argv, core->envp);
+	execve(cmd, stru->new_argv, core->envp);
 	perror("minishell");
 	exit(1);
 }
@@ -46,11 +49,9 @@ void	init_exec(t_exec *stru)
 {
 	stru->cmd = 0;
 	stru->pipe_ctr = 0;
-	stru->pipe_fd = ft_calloc(512, sizeof(int *));
 	stru->i = 0;
 	while (stru->i < 128)
 	{
-		stru->pipe_fd[stru->i] = ft_calloc(2, sizeof(int));
 		if (pipe(stru->pipe_fd[stru->i]) == -1)
 		{
 			perror("pipe");
@@ -69,7 +70,8 @@ void	end_exec(t_core *core, t_exec *stru)
 	while (stru->i < stru->cmd)
 	{
 		wait(&status);
-		remove_hd(0, core);
+		if (access("HEREDOC", F_OK) != -1)
+			unlink("HEREDOC");
 		core->err_code = WEXITSTATUS(status);
 		stru->i++;
 	}
@@ -78,8 +80,6 @@ void	end_exec(t_core *core, t_exec *stru)
 	{
 		ft_close(stru->pipe_fd[stru->i][0]);
 		ft_close(stru->pipe_fd[stru->i][1]);
-		free(stru->pipe_fd[stru->i]);
 		stru->i++;
 	}
-	free(stru->pipe_fd);
 }

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/10 03:57:45 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:57:21 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	first_exec(t_core *core, t_exec *stru)
 	stru->j = 1;
 	while (stru->j <= core->execution_three->sons[stru->i]->sons_ctr)
 	{
-		stru->new_argv[stru->j] = (char *)
-			core->execution_three->sons[stru->i]->sons[stru->j - 1]->content;
+		stru->new_argv[stru->j] = ft_strdup(
+			core->execution_three->sons[stru->i]->sons[stru->j - 1]->content);
 		stru->j++;
 	}
 	stru->new_argv[0] = ft_strdup(core->execution_three
@@ -118,7 +118,7 @@ void	four_exec(t_core *core, t_exec *stru)
 void	execution(t_core *core)
 {
 	t_exec	stru;
-
+	
 	init_exec(&stru);
 	while (++stru.i < (size_t) core->execution_three->sons_ctr)
 	{

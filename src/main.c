@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/10 03:58:24 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:04:33 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,23 @@ void	start(char *buf, t_core *core)
 {
 	add_history(buf);
 	pre_lexing(buf, core);
+	ft_printf("LEXER > %s\n", core->lexer_out);
 	free_lexing(core);
-	core->execution_three = node_init(ft_strdup(""));
+	core->execution_three = node_init(NULL);
 	fill_three(core);
 	parse_io(core);
 	rm_sep_three(core->execution_three);
 }
 
-void	end_main(t_core *core)
-{
-	free_three(core->execution_three);
-	free(core->lexer_out);
-	core->lexer_out = NULL;
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*buf;
-	t_core	*core;
+	t_core	core;
 
 	buf = NULL;
 	(void) argc;
 	(void) argv;
-	core = ft_calloc(1, sizeof(t_core));
-	if (!core)
-		return (1);
-	init(core, envp);
+	init(&core, envp);
 	while (1)
 	{
 		buf = readline("\e[35mminishell \e[33m ➤ \e[21m\e[0m ");
@@ -87,8 +78,8 @@ int	main(int argc, char *argv[], char *envp[])
 			ft_exit(0, NULL, NULL);
 			break ;
 		}
-		start(buf, core);
-		execution(core);
-		end_main(core);
+		start(buf, &core);
+		execution(&core);
+		free_three(core.execution_three);
 	}
 }

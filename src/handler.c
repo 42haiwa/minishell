@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:38:53 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/10 03:58:50 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:25:38 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ void	handler(int sig)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT)
-	{
-		ft_putstr_fd("\b\b	\b\b", 1);
-	}
 }
 
 void	handler2(int sig, siginfo_t *info, void *ucontext)
@@ -32,5 +28,4 @@ void	handler2(int sig, siginfo_t *info, void *ucontext)
 	(void) sig;
 	(void) info;
 	(void) ucontext;
-	//ft_putstr_fd("\b\b	\b\b	\b\b", 1);
 }
