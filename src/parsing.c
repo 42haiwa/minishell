@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/01/23 17:56:58 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/02/10 03:59:54 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@ void	fill_three(t_core *core)
 		{
 			current = node_init(dup_until(core->lexer_out + i, '>', 1));
 			if (father)
-			{
 				node_add_son(father, current);
-			}
 			else
 			{
 				node_add_son(core->execution_three, current);

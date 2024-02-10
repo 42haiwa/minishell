@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 21:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/07 00:31:53 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 03:59:47 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	first_part(t_parse *stru, t_core *core, char *path)
 
 void	second_part_parse(t_parse *s, t_core *core, char *path)
 {
-	char	*buf;
-
 	if ((s->j + 1 < core->execution_three->sons_ctr)
 		&& ft_strncmp(core->execution_three->sons[s->j]->content,
 			"LESSLESS", 8) == 0)
@@ -44,20 +42,22 @@ void	second_part_parse(t_parse *s, t_core *core, char *path)
 				ft_strlen(core->execution_three->sons[s->j + 1]->content) - 2);
 		core->execution_three->sons[s->i]->heredoc_id = 1;
 		s->fd = open("HEREDOC", O_WRONLY | O_CREAT | O_APPEND, 0644);
-		buf = NULL;
+		s->buf = NULL;
 		while (1)
 		{
-			buf = readline("heredoc> ");
-			buf = ft_strjoin(buf, "\n");
-			if (ft_strncmp(buf, path, ft_strlen(path)) == 0)
+			s->tmp = readline("heredoc> ");
+			s->buf = ft_strjoin(s->tmp, "\n");
+			free(s->tmp);
+			if (s->buf == NULL || ft_strncmp(s->buf, path, ft_strlen(path)) == 0)
 			{
-				free(buf);
+				free(s->buf);
 				break ;
 			}
-			ft_putstr_fd(buf, s->fd);
-			free(buf);
+			ft_putstr_fd(s->buf, s->fd);
+			free(s->buf);
 		}
 		close(s->fd);
+		free(path);
 	}
 }
 
@@ -117,6 +117,7 @@ void	parse_io(t_core *core)
 			path = NULL;
 			first_part(&stru, core, path);
 			second_part_parse(&stru, core, path);
+			free(path);
 			part_three(&stru, core, path);
 			part_four(&stru, core, path);
 			stru.j++;

@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/07 02:05:10 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 03:57:45 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,40 +34,37 @@ int	first_exec(t_core *core, t_exec *stru)
 				"PIPE", 4) == 0)
 			stru->pipe_ctr++;
 		free(stru->new_argv[0]);
+		free(stru->new_argv);
 		return (1);
 	}
 	return (0);
 }
 
-int	second_exec(t_core *core, t_exec *stru)
+int	second_exec(t_core *core, t_exec *s)
 {
-	if (check_exit(core->execution_three->sons[stru->i]->content))	
+	if (check_exit(core->execution_three->sons[s->i]->content))
 	{
-		free(stru->new_argv[0]);
+		free(s->new_argv[0]);
 		ft_exit(0, NULL, NULL);
 	}
-	if (check_builtins_no_fork(core->execution_three->sons[stru->i]->content,
-			stru->new_argv, core->execution_three->sons[stru->i]->sons_ctr + 1,
+	if (check_builtins_no_fork(core->execution_three->sons[s->i]->content,
+			s->new_argv, core->execution_three->sons[s->i]->sons_ctr + 1,
 			core))
 	{
-		free(stru->new_argv[0]);
+		if (ft_strncmp("exit", core->execution_three->sons[s->i]
+				->content, 4) == 0)
+			free(s->new_argv[0]);
 		return (1);
 	}
-	stru->check = ft_get_path(core, core->execution_three->sons[stru->i]
-			->content);
-	if (!check_builtins_no_exec(core->execution_three->sons[stru->i]->content)
-		&& stru->check)
+	s->check = ft_get_path(core, core->execution_three->sons[s->i]->content);
+	if (!check_builtins_no_exec(core->execution_three->sons[s->i]->content)
+		&& s->check)
 	{
-		stru->test = core->execution_three->sons[stru->i]->content;
-		core->execution_three->sons[stru->i]
-			->content = ft_get_path(core, stru->test);
-		free(stru->test);
+		s->test = core->execution_three->sons[s->i]->content;
+		core->execution_three->sons[s->i]->content = ft_get_path(core, s->test);
+		free(s->test);
 	}
-	free(stru->check);
-	stru->c_pid = fork();
-	if (stru->c_pid == -1)
-		exit(1);
-	core->son_pid = stru->c_pid;
+	free(s->check);
 	return (0);
 }
 
@@ -129,6 +126,10 @@ void	execution(t_core *core)
 			continue ;
 		if (second_exec(core, &stru) == 1)
 			continue ;
+		stru.c_pid = fork();
+		if (stru.c_pid == -1)
+			exit(1);
+		core->son_pid = stru.c_pid;
 		if (stru.c_pid == 0)
 		{
 			three_exec(core, &stru);

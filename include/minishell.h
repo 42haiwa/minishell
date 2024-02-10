@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/07 02:04:55 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 03:56:30 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_core
 	char	**get_d_quote;
 	char	**get_quote;
 	int		lex_bool[2];
+	char	*tmp;
 	size_t	lex_count;
 	size_t	lex_count2;
 	size_t	lex_i;
@@ -99,9 +100,11 @@ typedef struct s_count
 
 typedef struct s_parse
 {
-	int	i;
-	int	j;
-	int	fd;
+	int		i;
+	int		j;
+	int		fd;
+	char	*buf;
+	char	*tmp;
 }	t_parse;
 
 typedef struct s_repl
@@ -127,7 +130,7 @@ typedef struct s_exec
 	char	**new_argv;
 }	t_exec;
 
-int	check_exit(char const *s);
+int		check_exit(char const *s);
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);
 void	ft_exit(int argc, char **argv, t_core *core);
@@ -181,6 +184,7 @@ size_t	get_len(const char *s, int *index, const char c);
 //void	add_char(char *s, char c, int index);
 //handler
 void	handler(int sig);
+void	handler2(int sig, siginfo_t *info, void *ucontext);
 //get_path
 char	*ft_get_path(t_core *core, char *cmd);
 //parse_io
@@ -202,4 +206,6 @@ char	*ft_strstr(char *str, char *to_find);
 void	replace_main(t_core *core);
 
 void	ft_close(int fd);
+//utils2
+int		is_ending(char c);
 #endif

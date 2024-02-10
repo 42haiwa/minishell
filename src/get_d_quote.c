@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/06 18:54:12 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 03:58:08 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**get_double_quote(char *buf)
 	stru.var[1] = 0;
 	stru.boolean[0] = 0;
 	stru.boolean[1] = 0;
-	result = ft_calloc(stru.double_quote_number + 1, sizeof(char *));
+	result = ft_calloc(stru.double_quote_number * 2 + 1, sizeof(char *));
 	if (!result)
 		return (NULL);
 	while (buf[++stru.var[0]])

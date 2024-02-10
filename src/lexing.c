@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:36:39 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/07 00:10:40 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/10 03:58:58 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	pre_lexing(char *buf, t_core *core)
 		{
 			if (buf[i + 1] != ' ')
 				buf = add_char(buf, ' ', i + 1);
-			if (buf[i - 1] != ' ')
+			if (i > 0 && buf[i - 1] != ' ')
 				buf = add_char(buf, ' ', i);
 		}
 		if (buf[i] == '$')

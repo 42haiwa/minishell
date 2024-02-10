@@ -30,7 +30,8 @@ SRC := src/main.c \
 		src/get_d_quote.c \
 		src/get_quote.c \
 		src/replace_env.c \
-		src/builtins/unset.c
+		src/builtins/unset.c \
+		src/utils2.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c
