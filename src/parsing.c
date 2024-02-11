@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/10 22:05:48 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:05:26 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,25 +92,26 @@ void	fill_three(t_core *core)
 	core->lexer_out = NULL;
 }
 
-void	free_three(struct s_node *node)
+void	free_three(struct s_node **node)
 {
 	int	i;
 
 	i = 0;
-	if (node == NULL)
+	if (*node == NULL)
 		return ;
-	while (i < node->sons_ctr)
+	while (i < (*node)->sons_ctr)
 	{
-		free_three(node->sons[i]);
+		free_three(&(*node)->sons[i]);
 		i++;
 	}
-	if (node->sons)
-		free(node->sons);
-	if (node->content)
-		free(node->content);
-	if (node->output)
-		free(node->output);
-	if (node->input)
-		free(node->input);
-	free(node);
+	if ((*node)->sons)
+		free((*node)->sons);
+	if ((*node)->content)
+		free((*node)->content);
+	if ((*node)->output)
+		free((*node)->output);
+	if ((*node)->input)
+		free((*node)->input);
+	free(*node);
+	*node = NULL;
 }

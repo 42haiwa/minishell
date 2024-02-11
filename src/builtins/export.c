@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:54:52 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/11 02:04:43 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:30:10 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	export(char **argv, int argc, t_core *core)
 	i = 1;
 	if (argc <= 1)
 		return ;
+	
 	while (i < argc)
 	{
 		if (ft_strchr(argv[i], '=') == NULL)

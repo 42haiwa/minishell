@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/10 20:06:07 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:04:30 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,8 @@ void	unset(char **argv, int argc, t_core *core);
 int		check_builtins_no_fork(char *buf, char **argv, int argc, t_core *core);
 //	parse_envp.c
 void	parse_envp(t_core *core, char **envp);
-
+//main.c
+void	free_str_tab(char **str_tab);
 //	three
 t_node	*node_init(void *content);
 void	node_add_son(t_node *father, t_node *neww);
@@ -162,7 +163,7 @@ void	pre_lexing(char *buf, t_core *core);
 //parsing
 void	rm_sep_three(t_node *node);
 void	fill_three(t_core *core);
-void	free_three(struct s_node *node);
+void	free_three(struct s_node **node);
 void	verify_token(size_t *i, t_node **current,
 			t_node **father, t_core *core);
 void	verify_token2(size_t *i, t_node **current,
@@ -207,4 +208,5 @@ void	replace_main(t_core *core);
 void	ft_close(int fd);
 //utils2
 int		is_ending(char c);
+int		ft_strcmp(const char *s1, const char *s2);
 #endif

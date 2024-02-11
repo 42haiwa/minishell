@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 02:03:47 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/10 21:57:31 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:04:35 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	five_exec(t_core *core, t_exec *stru)
 	
 	cmd = ft_strdup(core->execution_three->sons[stru->i]->content);
 	argc = core->execution_three->sons[stru->i]->sons_ctr + 1;
-	free_three(core->execution_three);
+	free_three(&core->execution_three);
 	if (check_builtins(cmd, stru->new_argv, argc, core))
 		exit(0);
 	execve(cmd, stru->new_argv, core->envp);

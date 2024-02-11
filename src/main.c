@@ -6,17 +6,37 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/11 01:25:28 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:13:16 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	free_str_tab(char **str_tab)
+{
+	int	i;
+
+	if (str_tab)
+	{
+		i = 0;
+		while (str_tab[i])
+			free(str_tab[i++]);
+		free(str_tab);
+	}
+}
+
 void	init(t_core *core, char **envp)
 {
 	struct sigaction	new_action;
+	size_t				i;
 
-	core->envp = envp;
+	i = 0;
+	while (envp[i])
+		i++;
+	core->envp = ft_calloc(i + 2, sizeof(char *));
+	i = -1;
+	while (envp[++i])
+		core->envp[i] = ft_strdup(envp[i]);
 	core->execution_three = 0;
 	core->son_pid = -1;
 	core->lexer_out = NULL;
@@ -74,11 +94,11 @@ int	main(int argc, char *argv[], char *envp[])
 		if (buf == NULL)
 		{
 			printf("exit\n");
-			ft_exit(0, NULL, NULL);
+			ft_exit(1, NULL, &core);
 			break ;
 		}
 		start(buf, &core);
 		execution(&core);
-		free_three(core.execution_three);
+		free_three(&core.execution_three);
 	}
 }

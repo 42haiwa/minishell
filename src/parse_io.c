@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 21:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/10 17:02:22 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:43:17 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	second_part_parse(t_parse *s, t_core *core, char *pth)
 			s->tmp = readline("heredoc> ");
 			s->buf = ft_strjoin(s->tmp, "\n");
 			free(s->tmp);
-			if (s->buf == NULL || ft_strncmp(s->buf, pth, ft_strlen(pth)) == 0)
+			if (s->buf == NULL || ft_strcmp(s->buf, pth) == 0)
 			{
 				free(s->buf);
 				break ;
@@ -112,7 +112,7 @@ void	parse_io(t_core *core)
 			if (stru.j >= core->execution_three->sons_ctr)
 				break ;
 			if (ft_strncmp(core->execution_three->sons[stru.j]->content,
-					"PIPE", 3) == 0)
+					"PIPE", 4) == 0)
 				break ;
 			path = NULL;
 			first_part(&stru, core, path);

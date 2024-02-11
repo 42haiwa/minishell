@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/11 01:23:49 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:39:57 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	first_exec(t_core *core, t_exec *stru)
 {
-	if (ft_strncmp(core->execution_three->sons[stru->i]->content, "\0", 1) == 0)
+	stru->j = 1;
+	if (ft_strcmp(core->execution_three->sons[stru->i]->content, "") == '\0')
 		return (1);
 	stru->new_argv = ft_calloc(core->execution_three->sons[stru->i]->sons_ctr
 			+ 2, sizeof(char *));
-	stru->j = 1;
 	while (stru->j <= core->execution_three->sons[stru->i]->sons_ctr)
 	{
 		stru->new_argv[stru->j] = ft_strdup(
@@ -27,14 +27,12 @@ int	first_exec(t_core *core, t_exec *stru)
 	}
 	stru->new_argv[0] = ft_strdup(core->execution_three
 			->sons[stru->i]->content);
-	stru->new_argv[core->execution_three->sons[stru->i]->sons_ctr + 1] = NULL;
 	if (is_token(core->execution_three->sons[stru->i]->content))
 	{
 		if (ft_strncmp(core->execution_three->sons[stru->i]->content,
 				"PIPE", 4) == 0)
 			stru->pipe_ctr++;
-		free(stru->new_argv[0]);
-		free(stru->new_argv);
+		free_str_tab(stru->new_argv);
 		return (1);
 	}
 	return (0);
@@ -42,20 +40,10 @@ int	first_exec(t_core *core, t_exec *stru)
 
 int	second_exec(t_core *core, t_exec *s)
 {
-	if (check_exit(core->execution_three->sons[s->i]->content))
-	{
-		free(s->new_argv[0]);
-		ft_exit(0, NULL, NULL);
-	}
 	if (check_builtins_no_fork(core->execution_three->sons[s->i]->content,
 			s->new_argv, core->execution_three->sons[s->i]->sons_ctr + 1,
 			core))
-	{
-		// if (ft_strncmp("exit", core->execution_three->sons[s->i]
-		// 		->content, 4) == 0)
-		// 	free(s->new_argv[0]);
 		return (1);
-	}
 	s->check = ft_get_path(core, core->execution_three->sons[s->i]->content);
 	if (!check_builtins_no_exec(core->execution_three->sons[s->i]->content)
 		&& s->check)
@@ -138,8 +126,7 @@ void	execution(t_core *core)
 		}
 		else
 			six_exec(core, &stru);
-		free(stru.new_argv[0]);
-		free(stru.new_argv);
+		free_str_tab(stru.new_argv);
 	}
 	end_exec(core, &stru);
 }
