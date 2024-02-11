@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:54:52 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/01/17 21:33:33 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/11 02:04:43 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ static char	*get_value(char const *s)
 
 void	export(char **argv, int argc, t_core *core)
 {
-	int	i;
+	int		i;
+	char	*getter;
+	char	*values;
 
 	i = 1;
 	if (argc <= 1)
@@ -72,11 +74,14 @@ void	export(char **argv, int argc, t_core *core)
 	{
 		if (ft_strchr(argv[i], '=') == NULL)
 			return ;
-		if (ft_strlen(get_envp(get_getter(argv[i]), core)) == 0)
-			add_envp(get_getter(argv[i]), get_value(argv[i]), core);
+		getter = get_getter(argv[i]);
+		values = get_value(argv[i]);
+		if (ft_strlen(get_envp(getter, core)) == 0)
+			add_envp(getter, values, core);
 		else
-			set_envp(ft_strrchr(get_getter(argv[i]), '='),
-				get_value(argv[i]), core);
+			set_envp(ft_strrchr(getter, '='), values, core);
+		free(getter);
+		free(values);
 		i++;
 	}
 }

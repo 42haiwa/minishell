@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/10 21:57:21 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/11 01:23:49 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	second_exec(t_core *core, t_exec *s)
 			s->new_argv, core->execution_three->sons[s->i]->sons_ctr + 1,
 			core))
 	{
-		if (ft_strncmp("exit", core->execution_three->sons[s->i]
-				->content, 4) == 0)
-			free(s->new_argv[0]);
+		// if (ft_strncmp("exit", core->execution_three->sons[s->i]
+		// 		->content, 4) == 0)
+		// 	free(s->new_argv[0]);
 		return (1);
 	}
 	s->check = ft_get_path(core, core->execution_three->sons[s->i]->content);
