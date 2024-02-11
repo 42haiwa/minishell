@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/11 20:39:57 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/12 00:26:22 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	first_exec(t_core *core, t_exec *stru)
 	while (stru->j <= core->execution_three->sons[stru->i]->sons_ctr)
 	{
 		stru->new_argv[stru->j] = ft_strdup(
-			core->execution_three->sons[stru->i]->sons[stru->j - 1]->content);
+				core->execution_three->sons[stru->i]->sons[stru->j - 1]
+				->content);
 		stru->j++;
 	}
 	stru->new_argv[0] = ft_strdup(core->execution_three
@@ -51,6 +52,13 @@ int	second_exec(t_core *core, t_exec *s)
 		s->test = core->execution_three->sons[s->i]->content;
 		core->execution_three->sons[s->i]->content = ft_get_path(core, s->test);
 		free(s->test);
+	}
+	if (s->check == NULL)
+	{
+		ft_putstr_fd(core->execution_three->sons[s->i]->content, 2);
+		ft_putendl_fd(": command not found", 2);
+		free_str_tab(s->new_argv);
+		return (1);
 	}
 	free(s->check);
 	return (0);
@@ -106,7 +114,7 @@ void	four_exec(t_core *core, t_exec *stru)
 void	execution(t_core *core)
 {
 	t_exec	stru;
-	
+
 	init_exec(&stru);
 	while (++stru.i < (size_t) core->execution_three->sons_ctr)
 	{
