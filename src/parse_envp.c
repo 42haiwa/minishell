@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:39:48 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/11 21:27:48 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 22:23:53 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ static char	*get_getter(char const *s)
 	return (res);
 }
 
-char	*set_envp(char *getter, char *new_values, t_core *core)
+void	set_envp(char *getter, char *new_values, t_core *core)
 {
 	int		i;
 	char	*values;
 	char	*tmp;
+	char	*tmp2;
 
 	i = -1;
 	values = "";
@@ -46,13 +47,16 @@ char	*set_envp(char *getter, char *new_values, t_core *core)
 		tmp = get_getter(core->envp[i]);
 		if (ft_strcmp(getter, tmp) == 0)
 		{
-			values = ft_strjoin(getter, "=");
-			values = ft_strjoin(values, new_values);
+			tmp2 = ft_strjoin(getter, "=");
+			values = ft_strjoin(tmp2, new_values);
+			free(core->envp[i]);
+			core->envp[i] = NULL;
 			core->envp[i] = ft_strdup(values);
+			free(tmp2);
+			free(values);
 		}
 		free(tmp);
 	}
-	return (new_values);
 }
 
 char	*get_envp(char *getter, t_core *core)

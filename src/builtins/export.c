@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:54:52 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/12 00:26:57 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 22:14:02 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*get_getter(char const *s)
 	len = 0;
 	while (s[len] && s[len] != '=')
 		len++;
-	res = ft_calloc(len + 2, sizeof(char));
+	res = ft_calloc(len + 1, sizeof(char));
 	if (!res)
 		return (NULL);
 	len = 0;
@@ -29,8 +29,7 @@ static char	*get_getter(char const *s)
 		res[len] = s[len];
 		len++;
 	}
-	res[len] = '=';
-	res[len + 1] = '\0';
+	res[len] = '\0';
 	return (res);
 }
 
@@ -66,10 +65,15 @@ void	export(char **argv, int argc, t_core *core)
 	int		i;
 	char	*getter;
 	char	*values;
+	char	*tmp;
 
-	i = 1;
 	if (argc <= 1)
+	{
+		env(core);
 		return ;
+	}
+	i = 1;
+	tmp = NULL;
 	while (i < argc)
 	{
 		if (ft_strchr(argv[i], '=') == NULL)
@@ -77,11 +81,15 @@ void	export(char **argv, int argc, t_core *core)
 		getter = get_getter(argv[i]);
 		values = get_value(argv[i]);
 		if (ft_strlen(get_envp(getter, core)) == 0)
-			add_envp(getter, values, core);
+		{
+			tmp = ft_strjoin(getter, "=");
+			add_envp(tmp, values, core);
+		}
 		else
-			set_envp(ft_strrchr(getter, '='), values, core);
+			set_envp(getter, values, core);
 		free(getter);
 		free(values);
+		free(tmp);
 		i++;
 	}
 }

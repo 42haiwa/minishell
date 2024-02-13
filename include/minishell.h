@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/11 21:04:30 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 22:22:17 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	node_add_son(t_node *father, t_node *neww);
 void	node_print_recurse(t_node *root);
 
 //	envp
-char	*set_envp(char *getter, char *new_values, t_core *core);
+void	set_envp(char *getter, char *new_values, t_core *core);
 char	*get_envp(char *getter, t_core *core);
 void	remove_envp(char *getter, t_core *core);
 void	add_envp(char *getter, char *values, t_core *core);

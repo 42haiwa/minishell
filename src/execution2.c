@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 02:03:47 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/12 00:27:09 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:43:16 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	init_exec(t_exec *stru)
 
 void	end_exec(t_core *core, t_exec *stru)
 {
-	int	status;
+	int		status;
 
 	stru->i = 0;
 	while (stru->i < stru->cmd)

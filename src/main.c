@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/11 21:13:16 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:39:58 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init(t_core *core, char **envp)
 	core->son_pid = -1;
 	core->lexer_out = NULL;
 	core->folder = "";
+	core->err_code = 0;
 	signal(SIGINT, handler);
 	new_action.sa_handler = SIG_IGN;
 	new_action.sa_flags = 0;
