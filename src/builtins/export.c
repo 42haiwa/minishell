@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:54:52 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/13 22:14:02 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 23:38:28 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,23 @@ static char	*get_value(char const *s)
 	return (res);
 }
 
+static void	free_export(char *getter, char *values, char *tmp)
+{
+	free(getter);
+	free(values);
+	free(tmp);
+}
+
+static int	pre_export(int argc, t_core *core)
+{
+	if (argc <= 1)
+	{
+		env(core);
+		return (1);
+	}
+	return (0);
+}
+
 void	export(char **argv, int argc, t_core *core)
 {
 	int		i;
@@ -67,14 +84,11 @@ void	export(char **argv, int argc, t_core *core)
 	char	*values;
 	char	*tmp;
 
-	if (argc <= 1)
-	{
-		env(core);
+	if (pre_export(argc, core))
 		return ;
-	}
-	i = 1;
+	i = 0;
 	tmp = NULL;
-	while (i < argc)
+	while (++i < argc)
 	{
 		if (ft_strchr(argv[i], '=') == NULL)
 			return ;
@@ -87,9 +101,6 @@ void	export(char **argv, int argc, t_core *core)
 		}
 		else
 			set_envp(getter, values, core);
-		free(getter);
-		free(values);
-		free(tmp);
-		i++;
+		free_export(getter, values, tmp);
 	}
 }
