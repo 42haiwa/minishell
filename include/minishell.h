@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/13 22:22:17 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:23:12 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ typedef struct s_core
 	int		err_code;
 	char	**get_d_quote;
 	char	**get_quote;
-	int		lex_bool[2];
 	char	*tmp;
+	int		lex_n_quote;
+	int		lex_n_d_quote;
+	int		lex_bool[2];
 	size_t	lex_count;
 	size_t	lex_count2;
 	size_t	lex_i;
+	size_t	lex_x;
 	t_node	*execution_three;
 }	t_core;
 
@@ -209,4 +212,5 @@ void	ft_close(int fd);
 //utils2
 int		is_ending(char c);
 int		ft_strcmp(const char *s1, const char *s2);
+int		get_n_char(const char *s1, char c);
 #endif

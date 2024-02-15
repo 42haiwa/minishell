@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 04:00:35 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/12 00:26:43 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:15:52 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,19 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while (s1[i] && s1[i] == s2[i])
 		i++;
 	return (s1[i] - s2[i]);
+}
+
+int	get_n_char(const char *s1, char c)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (s1[++i])
+	{
+		if (s1[i] == c)
+			count++;
+	}
+	return (count);
 }

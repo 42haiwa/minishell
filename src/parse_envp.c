@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:39:48 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/13 22:23:53 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:36:10 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char	*get_envp(char *getter, t_core *core)
 	i = -1;
 	values = "";
 	if (getter[0] == '\0')
+		return ("$");
+	if (getter[0] == '$')
 		return ("$");
 	if (ft_strcmp(getter, "?") == 0)
 		return (ft_itoa(core->err_code));

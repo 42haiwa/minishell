@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/13 20:39:58 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:38:14 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	start(char *buf, t_core *core)
 {
 	add_history(buf);
 	pre_lexing(buf, core);
+	ft_putendl_fd(core->lexer_out, 1);
 	free_lexing(core);
 	core->execution_three = node_init(NULL);
 	fill_three(core);
