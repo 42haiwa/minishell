@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:36:39 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/15 21:25:12 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/20 02:05:14 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,48 @@ void	end_lexing(char **splited, t_core *core)
 	free(splited);
 }
 
-void	middle_lexing(t_core *core, char **splited)
+int	middle_lexing(t_core *core, char *buf)
 {
-	(void) core;
-	(void) splited;
+	if (ft_strlen(buf) == 1)
+	{
+		if (buf[0] == '\'')
+		{
+			add_block(core->get_quote[core->lex_count], core, 0);
+			core->lex_count++;
+			core->lex_bool[0] = 1;
+			return (1);
+		}
+		if (buf[0] == '\"')
+		{
+			add_block(core->get_d_quote[core->lex_count], core, 0);
+			core->lex_count2++;
+			core->lex_bool[1] = 1;
+			return (1);
+		}
+	}
 }
 
 int	first_lex(char *buf, t_core *core)
 {
+	if (core->lex_bool[0] || core->lex_bool[1])
+		return (0);
 	core->lex_n_quote = get_n_char(buf[core->lex_i], '\'');
 	core->lex_n_d_quote = get_n_char(buf[core->lex_i], '\"');
 	if (core->lex_n_d_quote == 0 || core->lex_n_quote == 0)
 		return (0);
-	core->lex_x = -1;
-	while (buf[++core->lex_x])
+	if (ft_strlen(buf) > 1 && buf[0] == '\'' && buf[ft_strlen(buf) - 1] == '\'')
 	{
-		if (buf[core->lex_x] == '\'' &&!core->lex_bool[0] &&!core->lex_bool[1])
-		{
-			core->lex_bool[0] = 1;
-			
-		}
+		add_block(core->get_quote[core->lex_count], core, 0);
+		core->lex_count++;
+		return (1);
 	}
-	return (0);
+	if (ft_strlen(buf) > 1 && buf[0] == '\"' && buf[ft_strlen(buf) - 1] == '\"')
+	{
+		add_block(core->get_d_quote[core->lex_count2], core, 0);
+		core->lex_count2++;
+		return (1);
+	}
+	return (middle_lexing(core, buf));
 }
 
 void	lexing(char *buf, t_core *core)
@@ -54,21 +74,21 @@ void	lexing(char *buf, t_core *core)
 	splited = ft_split(buf, ' ');
 	while (splited[++core->lex_i])
 	{
-		if (core->lex_bool[0] || core->lex_bool[1] || first_lex(splited, core))
+		if (!first_lex(splited, core))
 		{
-			middle_lexing(core, splited[core->lex_i]);
-			continue ;
-		}
-		if (get_delimiter(splited[core->lex_i]))
-			add_block(get_delimiter(splited[core->lex_i]), core, 1);
-		else
-		{
-			if (splited[core->lex_i][0] != '$')
-				add_block(splited[core->lex_i], core, 0);
+			if (get_delimiter(splited[core->lex_i]))
+				add_block(get_delimiter(splited[core->lex_i]), core, 1);
 			else
-				add_block(get_envp(ft_strchr(splited[core->lex_i],
-							splited[core->lex_i][1]), core), core, 0);
+			{
+				if (splited[core->lex_i][0] != '$')
+					add_block(splited[core->lex_i], core, 0);
+				else
+					add_block(get_envp(ft_strchr(splited[core->lex_i],
+								splited[core->lex_i][1]), core), core, 0);
+			}
 		}
+		else
+			ft_check_end_quote(buf, core);
 	}
 	end_lexing(splited, core);
 }
