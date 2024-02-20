@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/15 20:23:12 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:01:41 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ void	add_envp(char *getter, char *values, t_core *core);
 //lexing
 void	lexing(char *buf, t_core *core);
 void	pre_lexing(char *buf, t_core *core);
+int		ft_check_end_quote(char *buf, t_core *core);
 
 //parsing
 void	rm_sep_three(t_node *node);

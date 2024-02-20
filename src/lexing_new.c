@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:36:39 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/20 02:05:14 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:32:08 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ int	middle_lexing(t_core *core, char *buf)
 int	first_lex(char *buf, t_core *core)
 {
 	if (core->lex_bool[0] || core->lex_bool[1])
-		return (0);
+		return (1);
 	core->lex_n_quote = get_n_char(buf[core->lex_i], '\'');
 	core->lex_n_d_quote = get_n_char(buf[core->lex_i], '\"');
 	if (core->lex_n_d_quote == 0 || core->lex_n_quote == 0)
 		return (0);
-	if (ft_strlen(buf) > 1 && buf[0] == '\'' && buf[ft_strlen(buf) - 1] == '\'')
+	if (ft_strlen(buf) > 1 && buf[0] == '\'' && buf[ft_strlen(buf) - 1] == '\'' && core->lex_n_quote <= 2)
 	{
 		add_block(core->get_quote[core->lex_count], core, 0);
 		core->lex_count++;
 		return (1);
 	}
-	if (ft_strlen(buf) > 1 && buf[0] == '\"' && buf[ft_strlen(buf) - 1] == '\"')
+	if (ft_strlen(buf) > 1 && buf[0] == '\"' && buf[ft_strlen(buf) - 1] == '\"' && core->lex_n_d_quote <= 2)
 	{
 		add_block(core->get_d_quote[core->lex_count2], core, 0);
 		core->lex_count2++;
