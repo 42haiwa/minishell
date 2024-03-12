@@ -6,15 +6,19 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 04:00:35 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/15 14:15:52 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:26:15 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+
 int	is_ending(char c)
 {
-	return (c == ' ' || c == '\f' || c == '\n'
-		|| c == '\r' || c == '$' || c == '\''
-		|| c == '\t' || c == '\v' || c == '\"');
+	if (ft_isalnum(c))
+		return (0);
+	if (c == '_' || c == '?')
+		return (0);
+	return (1);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -40,4 +44,33 @@ int	get_n_char(const char *s1, char c)
 			count++;
 	}
 	return (count);
+}
+
+int	is_charset(char c, char *charset)
+{
+	int	i;
+
+	i = -1;
+	while (charset[++i])
+	{
+		if (c == charset[i])
+			return (1);
+	}
+	return (0);
+}
+
+char	*ft_strcspn(char* str, char *charset)
+{
+	int		len;
+	char	*new_str;
+
+	len = 0;
+	while (str[len] != '\0' && is_charset(str[len], charset))
+		len++;
+    new_str = malloc(len + 1);
+	if (new_str == NULL)
+		return NULL;
+	ft_strncpy(new_str, str, len);
+	new_str[len] = '\0';
+	return new_str;
 }

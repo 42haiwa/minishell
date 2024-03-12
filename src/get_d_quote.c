@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/10 03:58:08 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:39:47 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ char	*get_inside(const char *s, int index, const char c)
 	char	*result;
 	size_t	len;
 
+	if (s[index + 1] == '\"' || s[index + 1] == '\0')
+		return (ft_strdup(""));
 	len = get_len(s, &index, c);
 	if (len == 0)
-		return (NULL);
+		return (ft_strdup(""));
 	result = ft_calloc((len + 1), sizeof(char));
 	if (!result)
 		return (NULL);

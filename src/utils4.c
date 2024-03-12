@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexing_new2.c                                      :+:      :+:    :+:   */
+/*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:36:39 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/20 18:25:21 by aallou-v         ###   ########.fr       */
+/*   Created: 2024/03/08 15:02:39 by aallou-v          #+#    #+#             */
+/*   Updated: 2024/03/09 13:07:35 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_check_end_quote(char *buf, t_core *core)
+int	len_by_char(char *str, char c, size_t start)
 {
-	size_t	i;
-	
-	i = -1;
-	if (core->lex_bool[0])
+	int	i;
+
+	i = 0;
+	if (!str || ft_strlen(str) <= start)
+		return (0);
+	while (str[start])
 	{
-		while (buf[++i])
-		{
-			
-		}
+		i++;
+		if (str[start++] == c)
+			break ;
 	}
+	return (i);
 }

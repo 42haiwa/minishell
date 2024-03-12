@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:39:48 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/15 18:36:10 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:22:42 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,13 @@ void	set_envp(char *getter, char *new_values, t_core *core)
 
 char	*get_envp(char *getter, t_core *core)
 {
-	int		i;
+	size_t	i;
 	char	*values;
 	char	*tmp;
 
 	i = -1;
 	values = "";
 	if (getter[0] == '\0')
-		return ("$");
-	if (getter[0] == '$')
 		return ("$");
 	if (ft_strcmp(getter, "?") == 0)
 		return (ft_itoa(core->err_code));

@@ -31,7 +31,11 @@ SRC := src/main.c \
 		src/get_quote.c \
 		src/replace_env.c \
 		src/builtins/unset.c \
-		src/utils2.c
+		src/utils2.c \
+		src/utils3.c \
+		src/utils4.c \
+		src/lexing_utils.c \
+		src/pre_lexing.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c

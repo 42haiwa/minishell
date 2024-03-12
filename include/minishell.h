@@ -6,15 +6,17 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/20 18:01:41 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:43:52 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# define PROMPT "minishell $ "
-
+# define QUOTE 0
+# define D_QUOTE 1
+# define BOTH 2
+# define START '<'
+# define END '>'
 # include <unistd.h>
 # include <signal.h>
 # include <stdio.h>
@@ -57,7 +59,9 @@ typedef struct s_core
 	char	*tmp;
 	int		lex_n_quote;
 	int		lex_n_d_quote;
-	int		lex_bool[2];
+	int		lex_bool[3];
+	char	*lex_join;
+	int		print_lex;
 	size_t	lex_count;
 	size_t	lex_count2;
 	size_t	lex_i;
@@ -160,7 +164,7 @@ void	remove_envp(char *getter, t_core *core);
 void	add_envp(char *getter, char *values, t_core *core);
 
 //lexing
-void	lexing(char *buf, t_core *core);
+void	lexing(char **splited, t_core *core);
 void	pre_lexing(char *buf, t_core *core);
 int		ft_check_end_quote(char *buf, t_core *core);
 
@@ -197,7 +201,7 @@ void	parse_io(t_core *core);
 char	**get_double_quote(char *buf);
 char	*get_delimiter(char *token);
 void	add_block(const char *s, t_core *core, int delimiter);
-void	init_lexing(t_core *core);
+char	*init_lexing(t_core *core, char *buf);
 //get_quote
 char	**get_quote(char *buf);
 
@@ -214,4 +218,14 @@ void	ft_close(int fd);
 int		is_ending(char c);
 int		ft_strcmp(const char *s1, const char *s2);
 int		get_n_char(const char *s1, char c);
+char	*ft_strcspn(char* str, char *charset);
+int		is_charset(char c, char *charset);
+//utils3
+char	*safe_join(char *s1, char *s2, int free_s1, int free_s2);
+char	*get_substring(char *str, char c, int start_index);
+char	*get_string(char *buf, char start, int index);
+char	get_first(char *str, char *charset, size_t start);
+char	*remove_char(char *str, int val);
+//utils4
+int		len_by_char(char *str, char c, size_t start);
 #endif

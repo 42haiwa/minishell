@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/14 19:38:14 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:25:46 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_str_tab(char **str_tab)
 {
-	int	i;
+	size_t	i;
 
 	if (str_tab)
 	{
@@ -73,7 +73,8 @@ void	start(char *buf, t_core *core)
 {
 	add_history(buf);
 	pre_lexing(buf, core);
-	ft_putendl_fd(core->lexer_out, 1);
+	if (core->print_lex > 1)
+		printf("%s\n", core->lexer_out);
 	free_lexing(core);
 	core->execution_three = node_init(NULL);
 	fill_three(core);
@@ -87,7 +88,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_core	core;
 
 	buf = NULL;
-	(void) argc;
+	core.print_lex = argc;
 	(void) argv;
 	init(&core, envp);
 	while (1)

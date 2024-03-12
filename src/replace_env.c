@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:15:41 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/10 04:00:07 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:28:00 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	extract_env2(t_repl	*stru, const char *s, char **result)
 {
 	stru->i++;
 	stru->j = 0;
-	while (s[stru->i] != '\0' && !is_ending(s[stru->i]))
+	while (s[stru->i] != '\0' && (!is_ending(s[stru->i]) || s[stru->i] != '$' || s[stru->i] != '?'))
 	{
 		stru->i++;
 		stru->j++;
@@ -55,7 +55,7 @@ void	extract_env2(t_repl	*stru, const char *s, char **result)
 	result[stru->val] = (char *)ft_calloc((stru->j + 1), sizeof(char));
 	stru->i -= stru->j;
 	stru->j = 0;
-	while (s[stru->i] != '\0' && !is_ending(s[stru->i]))
+	while (s[stru->i] != '\0' && (!is_ending(s[stru->i]) || s[stru->i] != '$' || s[stru->i] != '?'))
 	{
 		result[stru->val][stru->j] = s[stru->i];
 		stru->i++;
@@ -90,18 +90,6 @@ char	**exctract_env(const char *s)
 	return (result);
 }
 
-void	free_replace(char **extract)
-{
-	size_t	i;
-
-	if (extract == NULL)
-		return ;
-	i = -1;
-	while (extract[++i])
-		free(extract[i]);
-	free(extract);
-}
-
 void	replace_main(t_core *core)
 {
 	size_t	i;
@@ -124,7 +112,7 @@ void	replace_main(t_core *core)
 				core->get_d_quote[i] = replace(core->get_d_quote[i],
 						extract[j], get_envp(extract[j], core));
 			}
-			free_replace(extract);
+			free_str_tab(extract);
 		}
 	}
 }

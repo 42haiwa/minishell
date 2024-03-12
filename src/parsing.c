@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/02/11 21:05:26 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:13:28 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	rm_sep_three(t_node *root)
 	i = 0;
 	if (root == NULL)
 		return ;
-	if (root->content != NULL && ft_strchr(root->content, '<')
-		&& ft_strchr(root->content, '>'))
+	if (root->content != NULL && ft_strchr(root->content, START)
+		&& ft_strchr(root->content, END))
 	{
 		cpy = ft_substr(root->content, 1, ft_strlen(root->content) - 2);
 		ft_strlcpy(root->content, cpy, ft_strlen(cpy) + 1);
@@ -75,9 +75,9 @@ void	fill_three(t_core *core)
 		return ;
 	while (core->lexer_out[++i])
 	{
-		if (core->lexer_out[i] == '<')
+		if (core->lexer_out[i] == START)
 		{
-			current = node_init(dup_until(core->lexer_out + i, '>', 1));
+			current = node_init(dup_until(core->lexer_out + i, END, 1));
 			if (father)
 				node_add_son(father, current);
 			else
