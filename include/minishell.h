@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/12 17:37:20 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:02:32 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # define QUOTE 0
 # define D_QUOTE 1
 # define BOTH 2
-# define START 7
-# define END 8
+# define START '<'
+# define END '>'
 # include <unistd.h>
 # include <signal.h>
 # include <stdio.h>
@@ -40,6 +40,7 @@ typedef struct s_node
 	int				heredoc_id;
 	char			*input;
 	char			*output;
+	int				outpipe;
 }	t_node;
 
 t_node	*node_init(void *content);
@@ -178,6 +179,7 @@ void	verify_token(size_t *i, t_node **current,
 void	verify_token2(size_t *i, t_node **current,
 			t_node **father, t_core *core);
 //execution
+void	pre_execution(t_core *core);
 void	execution(t_core *core);
 //execution2
 void	five_exec(t_core *core, t_exec *stru);

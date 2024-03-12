@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/11 13:25:46 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:16:56 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	main(int argc, char *argv[], char *envp[])
 			break ;
 		}
 		start(buf, &core);
+		pre_execution(&core);
 		execution(&core);
 		free_three(&core.execution_three);
 	}

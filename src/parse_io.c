@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 21:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/11 20:43:17 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:53:35 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	first_part(t_parse *stru, t_core *core, char *path)
 		core->execution_three->sons[stru->i]->output_mode = 2;
 		core->execution_three->sons[stru->i]->output = path;
 		stru->fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		printf("%d\n", stru->fd);
 		close(stru->fd);
 	}
 }

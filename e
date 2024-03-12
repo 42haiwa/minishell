@@ -1,0 +1,11 @@
+e
+include
+lib
+Makefile
+minishell
+minishell_tester
+README.md
+result.txt
+rl.supp
+src
+todo.txt

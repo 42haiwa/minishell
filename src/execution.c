@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/12 15:08:27 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:48:43 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ int	second_exec(t_core *core, t_exec *s)
 void	three_exec(t_core *core, t_exec *stru)
 {
 	if ((stru->i + 1) < (size_t) core->execution_three->sons_ctr
-		&& ft_strncmp(core->execution_three->sons[stru->i + 1]->content,
-			"PIPE", 4) == 0)
+		&& core->execution_three->sons[stru->i]->outpipe)
 	{
 		dup2(stru->pipe_fd[stru->pipe_ctr][1], STDOUT_FILENO);
 		ft_close(stru->pipe_fd[stru->pipe_ctr][1]);
@@ -89,9 +88,19 @@ void	three_exec(t_core *core, t_exec *stru)
 
 void	four_exec(t_core *core, t_exec *stru)
 {
-	if (stru->i > 1 && ft_strncmp(core->execution_three->sons[stru->i - 1]
-			->content, "PIPE", 4) == 0)
+	size_t	k;
+
+	k = 0;
+	while (stru->i - k > 1)
 	{
+		if (*((char *)core->execution_three->sons[stru->i - k - 2]->content) == '\0')
+			k++;
+		else
+			break ;
+	}
+	if (stru->i - k > 1 && core->execution_three->sons[stru->i - k - 2]->outpipe)
+	{
+		printf("DEBUG test %zu\n", k);
 		dup2(stru->pipe_fd[stru->pipe_ctr - 1][0], STDIN_FILENO);
 		ft_close(stru->pipe_fd[stru->pipe_ctr - 1][0]);
 		stru->pipe_fd[stru->pipe_ctr - 1][0] = -1;
@@ -111,6 +120,38 @@ void	four_exec(t_core *core, t_exec *stru)
 	}
 }
 
+void	pre_execution(t_core *core)
+{
+	size_t	i;
+	size_t	k;
+
+	i = -1;
+	while (++i < (size_t) core->execution_three->sons_ctr)
+	{
+		if (i < (size_t) core->execution_three->sons_ctr - 1)
+		{
+			if (*((char *) core->execution_three->sons[i]->content) == '\0')
+				continue ;
+			k = 1;
+			if (ft_strcmp(core->execution_three->sons[i + 1]->content, "PIPE") == 0)
+			{
+				printf("[%s] has pipe \n", (char *) core->execution_three->sons[i]->content);
+				core->execution_three->sons[i]->outpipe = 1;
+			}
+			while (((size_t) i + k + 2 < (size_t) core->execution_three->sons_ctr) && *((char *)core->execution_three->sons[i + k]->content) == '\0')
+			{
+				if (((size_t) i + k + 2 < (size_t) core->execution_three->sons_ctr) && ft_strcmp(core->execution_three->sons[i + k + 2]->content, "PIPE") == 0)
+				{
+					printf("[%s] has pipe \n", (char *) core->execution_three->sons[i]->content);
+					core->execution_three->sons[i]->outpipe = 1;
+					break ;
+				}
+				k++;
+			}
+		}
+	}
+}
+
 void	execution(t_core *core)
 {
 	t_exec	stru;
@@ -123,6 +164,8 @@ void	execution(t_core *core)
 		if (second_exec(core, &stru) == 1)
 			continue ;
 		stru.c_pid = fork();
+		if (stru.c_pid != 0)
+			dprintf(2, "pid = %d\n", stru.c_pid);
 		if (stru.c_pid == -1)
 			exit(1);
 		core->son_pid = stru.c_pid;
