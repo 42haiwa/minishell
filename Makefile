@@ -35,7 +35,8 @@ SRC := src/main.c \
 		src/utils3.c \
 		src/utils4.c \
 		src/lexing_utils.c \
-		src/pre_lexing.c
+		src/pre_lexing.c \
+		src/builtins/export_unset_utils.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c

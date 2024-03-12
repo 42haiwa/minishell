@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/12 17:37:20 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:39:00 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,4 +229,9 @@ char	get_first(char *str, char *charset, size_t start);
 char	*remove_char(char *str, int val);
 //utils4
 int		len_by_char(char *str, char c, size_t start);
+int		ft_contain(char *str, int(*f)(char));
+int		ft_contain_charset(char *str, char *c);
+int		is_export_enable(char c);
+//export_unset_utils
+int		check_getter(char *getter);
 #endif
