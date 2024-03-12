@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 21:38:41 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 14:48:49 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:14:53 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_builtins(char *buf, char **argv, int argc, t_core *core)
 {
 	if (ft_strcmp("pwd", buf) == 0)
-		pwd();
+		pwd(core);
 	if (ft_strcmp("env", buf) == 0)
 		env(core);
 	if (ft_strcmp("echo", buf) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/12 14:43:52 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:21:05 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # define QUOTE 0
 # define D_QUOTE 1
 # define BOTH 2
-# define START '<'
-# define END '>'
+# define START 7
+# define END 8
 # include <unistd.h>
 # include <signal.h>
 # include <stdio.h>
@@ -141,7 +141,7 @@ int		check_exit(char const *s);
 //	builtins.c
 int		check_builtins(char *buf, char **argv, int argc, t_core *core);
 void	ft_exit(int argc, char **argv, t_core *core);
-void	pwd(void);
+void	pwd(t_core *core);
 void	env(t_core *core);
 void	echo(char **argv, int argc, t_core *core);
 void	cd(char **argv, int argc, t_core *core);

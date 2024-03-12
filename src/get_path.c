@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:01:36 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/10 03:58:35 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:12:01 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*ft_get_path(t_core *core, char *cmd)
 	char	*path;
 	int		i;
 
+	if (check_builtins_no_exec(cmd))
+		return (ft_strdup(cmd));
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
 	if (!get_envp("PATH", core)[0])

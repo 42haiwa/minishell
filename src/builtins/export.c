@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:54:52 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 12:26:44 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:33:28 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,20 @@ static int	pre_export(int argc, t_core *core)
 	return (0);
 }
 
+static int	check_getter(char const *getter)
+{
+	size_t	i;
+
+	i = 0;
+	while (getter[i])
+	{
+		if (getter[i] == '-')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	export(char **argv, int argc, t_core *core)
 {
 	int		i;
@@ -93,6 +107,12 @@ void	export(char **argv, int argc, t_core *core)
 		if (ft_strchr(argv[i], '=') == NULL)
 			return ;
 		getter = get_getter(argv[i]);
+		if (!check_getter(getter))
+		{
+			core->err_code = 1;
+			ft_putendl_fd(" not a valid identifier\n", 2);
+			return ;
+		}
 		values = get_value(argv[i]);
 		if (ft_strlen(get_envp(getter, core)) == 0)
 		{

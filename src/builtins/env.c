@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 20:13:24 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/11 21:00:10 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:19:35 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@ void	env(t_core *core)
 	i = -1;
 	while (core->envp[++i])
 		ft_putendl_fd(core->envp[i], 1);
+	core->err_code = 0;
 }
