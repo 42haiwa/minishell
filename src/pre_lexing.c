@@ -6,15 +6,15 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:02:47 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 14:06:38 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:36:55 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	replace_var2(char *buf, t_core *core)
+void	replace_var2(char **buf, t_core *core)
 {
-	if (buf[core->lex_i] == '\'')
+	if ((*buf)[core->lex_i] == '\'')
 	{
 		if (!core->lex_bool[D_QUOTE])
 		{
@@ -22,23 +22,21 @@ void	replace_var2(char *buf, t_core *core)
 			core->lex_bool[BOTH] = !core->lex_bool[BOTH];
 		}
 	}
-	if (buf[core->lex_i] == '\"')
+	if ((*buf)[core->lex_i] == '\"')
 	{
 		if (!core->lex_bool[QUOTE])
 			core->lex_bool[D_QUOTE] = !core->lex_bool[D_QUOTE];
 	}
-	if ((buf[core->lex_i] == '|' || buf[core->lex_i] == ';' \
-			|| buf[core->lex_i] == '>' || buf[core->lex_i] == '<') \
+	if (((*buf)[core->lex_i] == '|' || (*buf)[core->lex_i] == ';' \
+			|| (*buf)[core->lex_i] == '>' || (*buf)[core->lex_i] == '<') \
 			&& !core->lex_bool[BOTH] && !core->lex_bool[D_QUOTE])
 	{
-		if (buf[core->lex_i + 1] != ' ')
-			buf = add_char(buf, ' ', core->lex_i + 1);
-		if (core->lex_i > 0 && buf[core->lex_i - 1] != ' ')
-			buf = add_char(buf, ' ', core->lex_i);
+		if ((*buf)[core->lex_i + 1] != ' ')
+			*buf = add_char(*buf, ' ', core->lex_i + 1);
+		if (core->lex_i > 0 && (*buf)[core->lex_i - 1] != ' ')
+			*buf = add_char(*buf, ' ', core->lex_i);
 	}
-	if (buf[core->lex_i] == ' ' \
-		&& (core->lex_bool[BOTH] || core->lex_bool[D_QUOTE]))
-		buf = remove_char(buf, core->lex_i--);
+	
 }
 
 char	*replace_var(char *buf, t_core *core)
@@ -52,7 +50,10 @@ char	*replace_var(char *buf, t_core *core)
 	core->lex_bool[D_QUOTE] = 0;
 	while (buf[++core->lex_i])
 	{
-		replace_var2(buf, core);
+		replace_var2(&buf, core);
+		if (buf[core->lex_i] == ' ' \
+			&& (core->lex_bool[BOTH] || core->lex_bool[D_QUOTE]))
+				buf = remove_char(buf, core->lex_i--);
 		if (buf[core->lex_i] == '$' && !core->lex_bool[BOTH])
 		{
 			save = get_string(buf, '$', core->lex_i);

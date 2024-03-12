@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:39:00 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/12 16:21:05 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:37:20 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_core
 	int		lex_bool[3];
 	char	*lex_join;
 	int		print_lex;
+	int		boolean;
 	size_t	lex_count;
 	size_t	lex_count2;
 	size_t	lex_i;

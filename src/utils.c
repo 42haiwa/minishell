@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 23:07:05 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/02/06 18:46:13 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:24:49 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*add_char(char *s, char c, int index)
 
 	result = ft_calloc((ft_strlen(s) + 2), sizeof(char));
 	if (!result)
-		return (NULL);
+		return (s);
 	i = -1;
 	while (s[++i] && i != index)
 		result[i] = s[i];
