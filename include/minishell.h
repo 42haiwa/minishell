@@ -28,6 +28,7 @@ typedef struct s_node
 	int				heredoc_id;
 	char			*input;
 	char			*output;
+	int				outpipe;
 }	t_node;
 
 t_node	*node_init(void *content);
@@ -166,6 +167,7 @@ void	verify_token(size_t *i, t_node **current,
 void	verify_token2(size_t *i, t_node **current,
 			t_node **father, t_core *core);
 //execution
+void	pre_execution(t_core *core);
 void	execution(t_core *core);
 //execution2
 void	five_exec(t_core *core, t_exec *stru);
