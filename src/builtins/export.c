@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:54:52 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 16:33:28 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:39:06 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static void	free_export(char *getter, char *values, char *tmp)
 {
 	free(getter);
 	free(values);
-	free(tmp);
+	if (tmp != NULL)
+		free(tmp);
 }
 
 static int	pre_export(int argc, t_core *core)
@@ -75,20 +76,6 @@ static int	pre_export(int argc, t_core *core)
 		return (1);
 	}
 	return (0);
-}
-
-static int	check_getter(char const *getter)
-{
-	size_t	i;
-
-	i = 0;
-	while (getter[i])
-	{
-		if (getter[i] == '-')
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 void	export(char **argv, int argc, t_core *core)
@@ -105,12 +92,12 @@ void	export(char **argv, int argc, t_core *core)
 	while (++i < argc)
 	{
 		if (ft_strchr(argv[i], '=') == NULL)
-			return ;
+			continue ;
 		getter = get_getter(argv[i]);
 		if (!check_getter(getter))
 		{
 			core->err_code = 1;
-			ft_putendl_fd(" not a valid identifier\n", 2);
+			ft_putendl_fd("not a valid identifier", 2);
 			return ;
 		}
 		values = get_value(argv[i]);

@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   export_unset_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/14 16:39:40 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 19:39:42 by aallou-v         ###   ########.fr       */
+/*   Created: 2024/03/12 19:38:31 by aallou-v          #+#    #+#             */
+/*   Updated: 2024/03/12 19:38:46 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	unset(char **argv, int argc, t_core *core)
+int	check_getter(char *getter)
 {
-	int	i;
-
-	i = 1;
-	core->err_code = 0;
-	if (argc <= 1)
-		return ;
-	while (i < argc)
-	{
-		if (!check_getter(argv[i]))
-		{
-			core->err_code = 1;
-			ft_putendl_fd("not a valid identifier", 2);
-			return ;
-		}
-		remove_envp(argv[i], core);
-		i++;
-	}
+	if (!ft_contain(getter, &is_export_enable))
+		return (0);
+	if (ft_isdigit(getter[0]))
+		return (0);
+	return (1);
 }
