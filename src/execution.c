@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/12 20:48:43 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:50:29 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	four_exec(t_core *core, t_exec *stru)
 	size_t	k;
 
 	k = 0;
+	// QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
 	while (stru->i - k > 1)
 	{
 		if (*((char *)core->execution_three->sons[stru->i - k - 2]->content) == '\0')
