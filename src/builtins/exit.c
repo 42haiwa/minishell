@@ -6,11 +6,30 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:18:24 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/12 11:23:31 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/13 10:56:58 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	is_valid(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!(ft_isdigit(str[i]) || ((str[i] == '+' || str[i] == '-') && !i)))
+		{
+			ft_putstr_fd("bash: exit: ", 2);
+			ft_putstr_fd(str, 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 
 static void	free_exit(int option, char **argv, t_core *core)
 {
@@ -34,13 +53,28 @@ exit too many argument = 1
 
 void	ft_exit(int argc, char **argv, t_core *core)
 {
-	if (argc != 1 && argc != 2)
+	if (argc == 1)
 	{
-		ft_putstr_fd("error: too many arguments\n", 2);
-		core->err_code = 1;
+		free_exit(0, argv, core);
 	}
-	else if (argc == 2)
-		free_exit(ft_atoi(argv[1]), argv, core);
 	else
-		free_exit(1, argv, core);
+	{
+		if (is_valid(argv[1]))
+		{
+			if (argc > 2)
+			{
+				ft_putstr_fd("error: too many arguments\n", 2);
+				core->err_code = 1;
+				return ;
+			}
+			else
+			{
+				free_exit(ft_atoi(argv[1]), argv, core);
+			}
+		}
+		else
+		{
+			free_exit(2, argv, core);
+		}
+	}
 }

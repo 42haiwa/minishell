@@ -4,21 +4,9 @@ CFLAGS := -g -Wall -Wextra -Werror -Iinclude
 LDFLAGS := -Llib -lft -lreadline
 
 SRC := src/main.c \
-		src/ft_close.c \
-		src/node_init.c \
-		src/parsing.c \
-		src/parsing2.c \
-		src/node_add_son.c \
-		src/node_print_recurse.c \
-		src/parse_envp.c \
-		src/lexing.c \
-		src/lexing2.c \
-		src/execution.c \
-		src/execution2.c \
-		src/execution_utils.c \
-		src/handler.c \
-		src/utils.c \
-		src/get_path.c \
+		src/lexing/lexing.c \
+		src/lexing/pre_lexing.c \
+		src/lexing/lexing_utils.c \
 		src/builtins/exit.c \
 		src/builtins/cd.c \
 		src/builtins/builtins.c \
@@ -26,16 +14,27 @@ SRC := src/main.c \
 		src/builtins/env.c \
 		src/builtins/echo.c \
 		src/builtins/export.c \
+		src/ft_close.c \
+		src/node_init.c \
+		src/parsing.c \
+		src/parsing2.c \
+		src/node_add_son.c \
+		src/node_print_recurse.c \
+		src/parse_envp.c \
+		src/execution.c \
+		src/execution2.c \
+		src/execution_utils.c \
+		src/handler.c \
+		src/get_path.c \
 		src/parse_io.c \
 		src/get_d_quote.c \
 		src/get_quote.c \
 		src/replace_env.c \
 		src/builtins/unset.c \
-		src/utils2.c \
-		src/utils3.c \
-		src/utils4.c \
-		src/lexing_utils.c \
-		src/pre_lexing.c \
+		src/utils/utils.c \
+		src/utils/utils2.c \
+		src/utils/utils3.c \
+		src/utils/utils4.c \
 		src/builtins/export_unset_utils.c
 OBJ := $(SRC:.c=.o)
 
