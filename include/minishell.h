@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:03:18 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/13 10:03:58 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:44:03 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # define QUOTE 0
 # define D_QUOTE 1
 # define BOTH 2
-# define START 7
-# define END 8
+# define START '<'
+# define END '>'
 # include <unistd.h>
 # include <signal.h>
 # include <stdio.h>

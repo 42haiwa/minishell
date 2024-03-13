@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 02:03:47 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 15:36:08 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:11:41 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,25 @@ void	five_exec(t_core *core, t_exec *stru)
 
 void	six_exec(t_core *core, t_exec *stru)
 {
+	size_t	k;
+
+	k = 0;
+	while (stru->i - k > 1)
+	{
+		if (*((char *)core->execution_three->sons[stru->i - k - 2]->content) == '\0')
+			k++;
+		else
+			break ;
+	}
+
 	stru->cmd++;
 	if ((stru->i + 1) < (size_t) core->execution_three->sons_ctr
-		&& ft_strncmp(core->execution_three->sons[stru->i + 1]->content,
-			"PIPE", 4) == 0)
+		&& core->execution_three->sons[stru->i]->outpipe)
 	{
 		ft_close(stru->pipe_fd[stru->pipe_ctr][1]);
 		stru->pipe_fd[stru->pipe_ctr][1] = -1;
 	}
-	if (stru->i > 1 && ft_strncmp(core->execution_three->sons[stru->i - 1]
-			->content, "PIPE", 4) == 0)
+	if (stru->i - k > 1 && core->execution_three->sons[stru->i - k - 2]->outpipe)
 	{
 		ft_close(stru->pipe_fd[stru->pipe_ctr - 1][0]);
 		stru->pipe_fd[stru->pipe_ctr - 1][0] = -1;
