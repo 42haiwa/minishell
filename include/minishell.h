@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/13 10:03:18 by cjouenne          #+#    #+#             */
+/*   Updated: 2024/03/13 10:03:20 by cjouenne         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # define QUOTE 0
@@ -28,7 +40,6 @@ typedef struct s_node
 	int				heredoc_id;
 	char			*input;
 	char			*output;
-	int				outpipe;
 }	t_node;
 
 t_node	*node_init(void *content);
