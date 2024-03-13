@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:03:18 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/13 10:03:20 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/13 10:03:58 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_node
 	int				heredoc_id;
 	char			*input;
 	char			*output;
+	int				outpipe;
 }	t_node;
 
 t_node	*node_init(void *content);
