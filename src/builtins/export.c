@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:54:52 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 19:39:06 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:38:40 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*get_getter(char const *s)
 	size_t	len;
 	char	*res;
 
+	if (ft_strlen(s) == 1 && s[0] == '=')
+		return (NULL);
 	len = 0;
 	while (s[len] && s[len] != '=')
 		len++;
@@ -91,13 +93,19 @@ void	export(char **argv, int argc, t_core *core)
 	tmp = NULL;
 	while (++i < argc)
 	{
+		if (ft_isonly(argv[i], "0123456789"))
+		{
+			core->err_code = 1;
+			ft_putendl_fd("export: not a valid identifier", 2);
+			continue ;
+		}
 		if (ft_strchr(argv[i], '=') == NULL)
 			continue ;
 		getter = get_getter(argv[i]);
 		if (!check_getter(getter))
 		{
 			core->err_code = 1;
-			ft_putendl_fd("not a valid identifier", 2);
+			ft_putendl_fd("export: not a valid identifier", 2);
 			return ;
 		}
 		values = get_value(argv[i]);
