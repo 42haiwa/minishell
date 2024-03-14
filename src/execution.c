@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/14 11:36:06 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:02:55 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	three_exec(t_core *core, t_exec *stru)
 		if (core->execution_three->sons[stru->i]->output_mode == 2)
 			stru->o_fd = open(core->execution_three->sons[stru->i]->output,
 					O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (stru->o_fd == -1)
+			exit(1);
 		dup2(stru->o_fd, STDOUT_FILENO);
 		ft_close(stru->o_fd);
 	}
@@ -111,10 +113,7 @@ void	four_exec(t_core *core, t_exec *stru)
 		stru->i_fd = open(core->execution_three->sons[stru->i]->input,
 				O_RDONLY);
 		if (stru->i_fd == -1)
-		{
-			ft_putendl_fd(" No such file or directory", 2);
 			exit(1);
-		}
 		dup2(stru->i_fd, STDIN_FILENO);
 		ft_close(stru->i_fd);
 	}
