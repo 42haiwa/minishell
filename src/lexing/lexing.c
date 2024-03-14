@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:02:20 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 13:38:16 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:56:30 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	lexing(char **splited, t_core *core)
 			{
 				first = get_first(splited[core->lex_i], "\'\"", core->lex_x);
 				substr = get_substring(splited[core->lex_i], first, core->lex_x);
-				core->lex_join = safe_join(core->lex_join, substr, 0, 1);
+				core->lex_join = safe_join(core->lex_join, substr, 1, 1);
 				core->lex_x += len_by_char(splited[core->lex_i], first, core->lex_x);
 				if (first == 0)
 					break ;
