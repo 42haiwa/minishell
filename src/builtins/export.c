@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 20:54:52 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/14 14:38:40 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:13:16 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ void	export(char **argv, int argc, t_core *core)
 	tmp = NULL;
 	while (++i < argc)
 	{
-		if (ft_isonly(argv[i], "0123456789"))
+		if (ft_strchr(argv[i], '=') == NULL && !check_getter(argv[i]))
 		{
 			core->err_code = 1;
 			ft_putendl_fd("export: not a valid identifier", 2);
-			continue ;
+			continue;
 		}
 		if (ft_strchr(argv[i], '=') == NULL)
 			continue ;
