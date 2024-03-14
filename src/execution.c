@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/13 14:11:41 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:36:06 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	three_exec(t_core *core, t_exec *stru)
 	if ((stru->i + 1) < (size_t) core->execution_three->sons_ctr
 		&& core->execution_three->sons[stru->i]->outpipe)
 	{
-		printf("[%s] close/dup pipe %zu out\n", (char *) core->execution_three->sons[stru->i]->content ,stru->pipe_ctr);
 		dup2(stru->pipe_fd[stru->pipe_ctr][1], STDOUT_FILENO);
 		ft_close(stru->pipe_fd[stru->pipe_ctr][1]);
 		stru->pipe_fd[stru->pipe_ctr][1] = -1;
@@ -111,6 +110,11 @@ void	four_exec(t_core *core, t_exec *stru)
 	{
 		stru->i_fd = open(core->execution_three->sons[stru->i]->input,
 				O_RDONLY);
+		if (stru->i_fd == -1)
+		{
+			ft_putendl_fd(" No such file or directory", 2);
+			exit(1);
+		}
 		dup2(stru->i_fd, STDIN_FILENO);
 		ft_close(stru->i_fd);
 	}
@@ -172,7 +176,9 @@ void	execution(t_core *core)
 			five_exec(core, &stru);
 		}
 		else
+		{
 			six_exec(core, &stru);
+		}
 		free_str_tab(stru.new_argv);
 	}
 	end_exec(core, &stru);
