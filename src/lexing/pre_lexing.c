@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:02:47 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 17:36:55 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:22:33 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ void	pre_lexing(char *buf, t_core *core)
 	splited = ft_split(buf, ' ');
 	lexing(splited, core);
 	free_str_tab(splited);
-	//free(buf);
+	free(buf);
 }
