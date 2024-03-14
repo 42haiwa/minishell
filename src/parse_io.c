@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 21:41:19 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/13 13:27:21 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:54:26 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	first_part(t_parse *stru, t_core *core, char *path)
 		core->execution_three->sons[stru->i]->output_mode = 2;
 		core->execution_three->sons[stru->i]->output = path;
 		stru->fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		printf("%d\n", stru->fd);
 		close(stru->fd);
 	}
 }
