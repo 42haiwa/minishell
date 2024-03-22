@@ -68,6 +68,7 @@ typedef struct s_core
 	size_t	lex_count2;
 	size_t	lex_i;
 	size_t	lex_x;
+	int		redirect_parse_tracker;
 	t_node	*execution_three;
 }	t_core;
 
@@ -175,6 +176,7 @@ void	pre_lexing(char *buf, t_core *core);
 int		ft_check_end_quote(char *buf, t_core *core);
 
 //parsing
+char	*dup_until(char const *s, char until, int is_include);
 void	rm_sep_three(t_node *node);
 void	fill_three(t_core *core);
 void	free_three(struct s_node **node);

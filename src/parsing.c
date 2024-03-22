@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char	*dup_until(char const *s, char until, int is_include)
+char	*dup_until(char const *s, char until, int is_include)
 {
 	size_t	dup_len;
 	size_t	i;
