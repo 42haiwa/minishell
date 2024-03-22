@@ -86,7 +86,8 @@ int	start(char *buf, t_core *core)
 	free_lexing(core);
 	core->execution_three = node_init(NULL);
 	fill_three(core);
-	rprint(core->execution_three);
+	if (core->print_lex > 1)
+		rprint(core->execution_three);
 	parse_io(core);
 	rm_sep_three(core->execution_three);
 	return (1);
