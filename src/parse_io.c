@@ -94,7 +94,22 @@ void	part_four(t_parse *stru, t_core *core, char *path)
 		free(core->execution_three->sons[stru->j + 1]->content);
 		core->execution_three->sons[stru->j]->content = ft_strdup("\0");
 		core->execution_three->sons[stru->j + 1]->content = ft_strdup("\0");
-		core->execution_three->sons[stru->i]->input = path;
+		if (stru->i == 0 && (ssize_t) stru->i + 2 < core->execution_three->sons_ctr)
+			core->execution_three->sons[stru->i + 2]->input = path;
+		else if (stru->i > 0)
+		{
+			if (((char *)core->execution_three->sons[stru->i]->content)[0] == '\0')
+			{
+				if ((ssize_t) stru->i + 2 < core->execution_three->sons_ctr)
+				{
+					core->execution_three->sons[stru->i + 2]->input = path;
+					return ;
+				}
+				else if ((ssize_t) stru->i + 2 >= core->execution_three->sons_ctr)
+					return ;
+			}
+			core->execution_three->sons[stru->i]->input = path;
+		}
 	}
 }
 

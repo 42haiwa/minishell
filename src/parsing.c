@@ -19,7 +19,7 @@ char	*dup_until(char const *s, char until, int is_include)
 	char	*dup;
 
 	dup_len = 0;
-	while (s[dup_len] != until)
+	while (s[dup_len] != until && s[dup_len] != '\0')
 		dup_len++;
 	dup = ft_calloc(1, dup_len + 2);
 	if (!dup)

@@ -15,8 +15,8 @@
 # define QUOTE 0
 # define D_QUOTE 1
 # define BOTH 2
-# define START '<'
-# define END '>'
+# define START 7
+# define END 8
 # include <unistd.h>
 # include <signal.h>
 # include <stdio.h>
