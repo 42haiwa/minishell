@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/12 19:16:56 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:54:57 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,17 @@ void	free_lexing(t_core *core)
 	}
 }
 
-void	start(char *buf, t_core *core)
+int	start(char *buf, t_core *core)
 {
+	char	*error;
+	
 	add_history(buf);
+	error = check_extra(buf);
+	if (error)
+	{
+		ft_putendl_fd(error, 2);
+		return (0);
+	}
 	pre_lexing(buf, core);
 	if (core->print_lex > 1)
 		printf("%s\n", core->lexer_out);
@@ -80,6 +88,7 @@ void	start(char *buf, t_core *core)
 	fill_three(core);
 	parse_io(core);
 	rm_sep_three(core->execution_three);
+	return (1);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -100,9 +109,11 @@ int	main(int argc, char *argv[], char *envp[])
 			ft_exit(1, NULL, &core);
 			break ;
 		}
-		start(buf, &core);
-		pre_execution(&core);
-		execution(&core);
-		free_three(&core.execution_three);
+		if (start(buf, &core))
+		{
+			pre_execution(&core);
+			execution(&core);
+			free_three(&core.execution_three);
+		}
 	}
 }

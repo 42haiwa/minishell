@@ -15,6 +15,7 @@ SRC := src/main.c \
 		src/builtins/echo.c \
 		src/builtins/export.c \
 		src/ft_close.c \
+		src/extra.c \
 		src/node_init.c \
 		src/parsing.c \
 		src/parsing2.c \

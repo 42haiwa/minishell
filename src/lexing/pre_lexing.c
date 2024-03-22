@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:02:47 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/14 19:47:36 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:53:56 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	pre_lexing(char *buf, t_core *core)
 	core->get_quote = get_quote(buf);
 	replace_main(core);
 	buf = replace_var(buf, core);
-	printf("DEBUG |%s|\n", buf);
 	core->lex_bool[QUOTE] = 0;
 	core->lex_bool[D_QUOTE] = 0;
 	core->lex_bool[BOTH] = 0;

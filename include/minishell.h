@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:03:18 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/14 12:27:23 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:42:29 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,4 +236,6 @@ int		ft_contain_charset(char *str, char *c);
 int		is_export_enable(char c);
 //export_unset_utils
 int		check_getter(char *getter);
+//extra
+char	*check_extra(char *buf);
 #endif

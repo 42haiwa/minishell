@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/14 15:26:52 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:44:02 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	second_exec(t_core *core, t_exec *s)
 	{
 		ft_putstr_fd(core->execution_three->sons[s->i]->content, 2);
 		ft_putendl_fd(": command not found", 2);
+		core->err_code = 127;
 		free_str_tab(s->new_argv);
 		return (1);
 	}
