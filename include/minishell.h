@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:03:18 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/18 12:42:29 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:08:16 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_core
 	int		lex_n_d_quote;
 	int		lex_bool[3];
 	char	*lex_join;
+	char	first;
+	char	*substr;
 	int		print_lex;
 	int		boolean;
 	size_t	lex_count;
