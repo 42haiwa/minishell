@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 02:03:47 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/14 17:28:58 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:20:56 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	six_exec(t_core *core, t_exec *stru)
 	k = 0;
 	while (stru->i - k > 1)
 	{
-		if (*((char *)core->execution_three->sons[stru->i - k - 2]->content) == '\0')
+		if (*((char *)core->execution_three->sons[stru->i - k - 2]
+				->content) == '\0')
 			k++;
 		else
 			break ;
 	}
-
 	stru->cmd++;
 	if ((stru->i + 1) < (size_t) core->execution_three->sons_ctr
 		&& core->execution_three->sons[stru->i]->outpipe)
@@ -47,7 +47,8 @@ void	six_exec(t_core *core, t_exec *stru)
 		ft_close(stru->pipe_fd[stru->pipe_ctr][1]);
 		stru->pipe_fd[stru->pipe_ctr][1] = -1;
 	}
-	if (stru->i - k > 1 && core->execution_three->sons[stru->i - k - 2]->outpipe)
+	if (stru->i - k > 1 && core->execution_three->sons[stru->i - k - 2]
+		->outpipe)
 	{
 		ft_close(stru->pipe_fd[stru->pipe_ctr - 1][0]);
 		stru->pipe_fd[stru->pipe_ctr - 1][0] = -1;

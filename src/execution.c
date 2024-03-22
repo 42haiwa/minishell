@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/18 13:44:02 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:21:33 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,14 @@ void	four_exec(t_core *core, t_exec *stru)
 	k = 0;
 	while (stru->i - k > 1)
 	{
-		if (*((char *)core->execution_three->sons[stru->i - k - 2]->content) == '\0')
+		if (*((char *)core->execution_three->sons[stru->i - k - 2]
+				->content) == '\0')
 			k++;
 		else
 			break ;
 	}
-	if (stru->i - k > 1 && core->execution_three->sons[stru->i - k - 2]->outpipe)
+	if (stru->i - k > 1 && core->execution_three->sons[stru->i - k - 2]
+		->outpipe)
 	{
 		dup2(stru->pipe_fd[stru->pipe_ctr - 1][0], STDIN_FILENO);
 		ft_close(stru->pipe_fd[stru->pipe_ctr - 1][0]);

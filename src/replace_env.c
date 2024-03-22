@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:15:41 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 14:28:00 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:18:21 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	extract_env2(t_repl	*stru, const char *s, char **result)
 {
 	stru->i++;
 	stru->j = 0;
-	while (s[stru->i] != '\0' && (!is_ending(s[stru->i]) || s[stru->i] != '$' || s[stru->i] != '?'))
+	while (s[stru->i] != '\0' && (!is_ending(s[stru->i])
+			|| s[stru->i] != '$' || s[stru->i] != '?'))
 	{
 		stru->i++;
 		stru->j++;
@@ -55,7 +56,8 @@ void	extract_env2(t_repl	*stru, const char *s, char **result)
 	result[stru->val] = (char *)ft_calloc((stru->j + 1), sizeof(char));
 	stru->i -= stru->j;
 	stru->j = 0;
-	while (s[stru->i] != '\0' && (!is_ending(s[stru->i]) || s[stru->i] != '$' || s[stru->i] != '?'))
+	while (s[stru->i] != '\0' && (!is_ending(s[stru->i])
+			|| s[stru->i] != '$' || s[stru->i] != '?'))
 	{
 		result[stru->val][stru->j] = s[stru->i];
 		stru->i++;
