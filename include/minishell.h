@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:03:18 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/22 18:08:16 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:11:35 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # define QUOTE 0
 # define D_QUOTE 1
 # define BOTH 2
-# define START 7
-# define END 8
+# define START '<'
+# define END '>'
 # include <unistd.h>
 # include <signal.h>
 # include <stdio.h>
@@ -62,8 +62,6 @@ typedef struct s_core
 	int		lex_n_d_quote;
 	int		lex_bool[3];
 	char	*lex_join;
-	char	first;
-	char	*substr;
 	int		print_lex;
 	int		boolean;
 	size_t	lex_count;
@@ -140,6 +138,10 @@ typedef struct s_exec
 	char	*test;
 	char	**new_argv;
 }	t_exec;
+
+// DELETE THIS
+void	rprint(t_node *node);
+
 
 int		check_exit(char const *s);
 //	builtins.c

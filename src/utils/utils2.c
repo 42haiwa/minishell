@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 04:00:35 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/22 18:13:54 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:26:15 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_charset(char c, char *charset)
 	return (0);
 }
 
-char	*ft_strcspn(char *str, char *charset)
+char	*ft_strcspn(char* str, char *charset)
 {
 	int		len;
 	char	*new_str;
@@ -67,10 +67,10 @@ char	*ft_strcspn(char *str, char *charset)
 	len = 0;
 	while (str[len] != '\0' && is_charset(str[len], charset))
 		len++;
-	new_str = malloc(len + 1);
+    new_str = malloc(len + 1);
 	if (new_str == NULL)
-		return (NULL);
+		return NULL;
 	ft_strncpy(new_str, str, len);
 	new_str[len] = '\0';
-	return (new_str);
+	return new_str;
 }

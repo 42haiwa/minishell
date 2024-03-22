@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/11 16:13:28 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:21:28 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,30 @@ void	fill_three(t_core *core)
 	}
 	free(core->lexer_out);
 	core->lexer_out = NULL;
+}
+
+void rprint_with_indentation(t_node *node, int depth)
+{
+    if (node == NULL)
+        return;
+
+    for (int i = 0; i < depth; i++)
+        printf("\t");
+
+    printf("Contenu : %s\n", (char *)node->content);
+
+    if (node->sons != NULL)
+	{
+        for (ssize_t i = 0; i < node->sons_ctr; ++i)
+		{
+            rprint_with_indentation(node->sons[i], depth + 1);
+        }
+    }
+}
+
+void rprint(t_node *node)
+{
+    rprint_with_indentation(node, 0);
 }
 
 void	free_three(struct s_node **node)

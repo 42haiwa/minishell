@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/18 12:54:57 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:13:11 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	start(char *buf, t_core *core)
 	free_lexing(core);
 	core->execution_three = node_init(NULL);
 	fill_three(core);
+	rprint(core->execution_three);
 	parse_io(core);
 	rm_sep_three(core->execution_three);
 	return (1);
