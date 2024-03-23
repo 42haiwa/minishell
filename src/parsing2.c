@@ -21,7 +21,7 @@ void	verify_token2(size_t *i, t_node **current,
 		node_add_son(core->execution_three, *current);
 		*father = NULL;
 		*i += 10;
-		*current = node_init(dup_until(&core->lexer_out[*i], '>', 1));
+		*current = node_init(dup_until(&core->lexer_out[*i], END, 1));
 		node_add_son(core->execution_three, *current);
 	}
 	if (ft_strncmp(&core->lexer_out[*i], "LESS", 4) == 0)
@@ -30,7 +30,7 @@ void	verify_token2(size_t *i, t_node **current,
 		node_add_son(core->execution_three, *current);
 		*father = NULL;
 		*i += 4;
-		*current = node_init(dup_until(&core->lexer_out[*i], '>', 1));
+		*current = node_init(dup_until(&core->lexer_out[*i], END, 1));
 		node_add_son(core->execution_three, *current);
 	}
 	if (ft_strncmp(&core->lexer_out[*i], "GREAT", 5) == 0)
@@ -39,7 +39,7 @@ void	verify_token2(size_t *i, t_node **current,
 		node_add_son(core->execution_three, *current);
 		*father = NULL;
 		*i += 5;
-		*current = node_init(dup_until(&core->lexer_out[*i], '>', 1));
+		*current = node_init(dup_until(&core->lexer_out[*i], END, 1));
 		node_add_son(core->execution_three, *current);
 	}
 }
@@ -65,7 +65,7 @@ void	verify_token(size_t *i, t_node **current,
 		node_add_son(core->execution_three, *current);
 		*father = NULL;
 		*i += 8;
-		*current = node_init(dup_until(&core->lexer_out[*i], '>', 1));
+		*current = node_init(dup_until(&core->lexer_out[*i], END, 1));
 		node_add_son(core->execution_three, *current);
 	}
 	verify_token2(i, current, father, core);
