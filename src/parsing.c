@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:00:50 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/22 18:21:28 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:40:22 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,20 +88,21 @@ void	fill_three(t_core *core)
 		}
 		verify_token(&i, &current, &father, core);
 	}
-	free(core->lexer_out);
-	core->lexer_out = NULL;
 }
 
 void rprint_with_indentation(t_node *node, int depth)
 {
     if (node == NULL)
         return;
-
     for (int i = 0; i < depth; i++)
         printf("\t");
-
-    printf("Contenu : %s\n", (char *)node->content);
-
+    printf("Contenu : %s\n", (char *) node->content);
+    for (int i = 0; i < depth; i++)
+        printf("\t");
+	printf("Output  : %s\n", (char *) node->output);
+    for (int i = 0; i < depth; i++)
+        printf("\t");
+	printf("Input  : %s\n", (char *) node->input);
     if (node->sons != NULL)
 	{
         for (ssize_t i = 0; i < node->sons_ctr; ++i)

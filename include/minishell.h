@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:03:18 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/22 19:20:21 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:42:24 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # define BOTH 2
 # define START 7
 # define END 8
+# define GREAT 1
+# define GREATGREAT 2
+# define LESS 3
+# define LESSLESS 4
 # include <unistd.h>
 # include <signal.h>
 # include <stdio.h>
@@ -49,6 +53,7 @@ void	node_print_recurse(t_node *root);
 
 typedef struct s_core
 {
+	int		cmd_p;
 	char	**envp;
 	char	*folder;
 	int		is_children;
@@ -246,4 +251,7 @@ int		is_export_enable(char c);
 int		check_getter(char *getter);
 //extra
 char	*check_extra(char *buf);
+
+char    **split_buf(char const *buf);
+void    bill_three(t_core *core);
 #endif

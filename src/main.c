@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:37:49 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/22 18:13:11 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:43:25 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,9 @@ int	start(char *buf, t_core *core)
 		printf("%s\n", core->lexer_out);
 	free_lexing(core);
 	core->execution_three = node_init(NULL);
-	fill_three(core);
+	bill_three(core);
 	if (core->print_lex > 1)
 		rprint(core->execution_three);
-	parse_io(core);
-	rm_sep_three(core->execution_three);
 	return (1);
 }
 

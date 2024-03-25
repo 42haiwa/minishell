@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:16:54 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/11 16:14:04 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:37:35 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 char	*get_delimiter(char *token)
 {
 	if (ft_strncmp(token, "|", 1) == 0)
-		return ("PIPE");
+		return ("\7PIPE\7");
 	if (ft_strncmp(token, ";", 1) == 0)
-		return ("SEMICOLON");
+		return ("\7SEMICOLON\7");
 	if (ft_strncmp(token, ">>", 2) == 0)
-		return ("GREATGREAT");
+		return ("\7GREATGREAT\7");
 	if (ft_strncmp(token, ">", 1) == 0)
-		return ("GREAT");
+		return ("\7GREAT\7");
 	if (ft_strncmp(token, "<<", 2) == 0)
-		return ("LESSLESS");
+		return ("\7LESSLESS\7");
 	if (ft_strncmp(token, "<", 1) == 0)
-		return ("LESS");
+		return ("\7LESS\7");
 	return (NULL);
 }
 

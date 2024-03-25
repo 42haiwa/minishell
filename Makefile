@@ -1,6 +1,6 @@
 NAME := minishell
 
-CFLAGS := -g -Wall -Wextra -Werror -Iinclude
+CFLAGS := -g -Iinclude
 LDFLAGS := -Llib -lft -lreadline
 
 SRC := src/main.c \
@@ -36,7 +36,8 @@ SRC := src/main.c \
 		src/utils/utils2.c \
 		src/utils/utils3.c \
 		src/utils/utils4.c \
-		src/builtins/export_unset_utils.c
+		src/builtins/export_unset_utils.c \
+		src/parsing/parsing.c
 OBJ := $(SRC:.c=.o)
 
 %.o:		%.c
