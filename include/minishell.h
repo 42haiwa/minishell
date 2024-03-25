@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:03:18 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/25 17:42:24 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:47:41 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_core
 	size_t	lex_x;
 	int		redirect_parse_tracker;
 	t_node	*execution_three;
+	int		n_heredoc;
 }	t_core;
 
 /***************

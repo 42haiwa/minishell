@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:18:51 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/25 17:44:45 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:34:43 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,34 @@ static int  check_redirect(char **split, size_t const i)
     return (0);
 }
 
+static int  heredoc(int id, char *sep)
+{
+    int     fd;
+    char    *path;
+    char    *line;
+
+    path = ft_strjoin("/tmp/heredoc", ft_itoa(id));
+    fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
+    sep = ft_strjoin(sep, "\n");
+    while (1)
+    {
+        ft_putstr_fd("> ", 1);
+        line = get_next_line(0);
+        if (sep == NULL && (line[0] == '\n' || line[0] == '\0'))
+            break ;
+        if (sep)
+            if (ft_strcmp(line, sep) == 0)
+                break ;
+        ft_putstr_fd(line, fd);
+    }
+    close(fd);
+    free(path);
+    return (0);
+}
+
 static void parse_io_n(t_core *core, size_t lpipe, t_node *current, char ** splited)
 {
-    size_t  i;
+    ssize_t  i;
 
     i = lpipe + 1;
     if (!lpipe)
@@ -61,6 +86,7 @@ static void parse_io_n(t_core *core, size_t lpipe, t_node *current, char ** spli
             current->output_mode = 1;
 		    close(open(current->output, O_WRONLY | O_CREAT | O_TRUNC, 0644));
         }
+        // todo detect GREAT GREAT
         if (ft_strcmp(splited[i], "GREATGREAT") == 0)
         {
             current->output = ft_strdup(splited[i + 1]);
@@ -70,10 +96,23 @@ static void parse_io_n(t_core *core, size_t lpipe, t_node *current, char ** spli
         i++;
     }
     i--;
-    while (i >= 1 && ft_strcmp(splited[i], "PIPE"))
+    while (i >= 0 && ft_strcmp(splited[i], "PIPE"))
     {
         if (ft_strcmp(splited[i], "LESS") == 0)
-            current->input = ft_strdup(splited[i + 1]);
+        {
+            if (i > 0 && ft_strcmp(splited[i - 1], "LESS") == 0)
+            {
+                core->n_heredoc++;
+                current->heredoc_id = core->n_heredoc;
+                heredoc(current->heredoc_id, splited[i + 1]);
+                if (i >= 2)
+                    i--;
+                else
+                    break ;
+            }
+            else
+                current->input = ft_strdup(splited[i + 1]);
+        }
         i--;
     }
 }
@@ -90,6 +129,7 @@ void    bill_three(t_core *core)
     i = -1;
     splited = split_buf(core->lexer_out);
     core->cmd_p = 0;
+    core->n_heredoc = 0;
     last_pipe = 0;
     last_cmd = 0;
     father = NULL;
@@ -121,6 +161,7 @@ void    bill_three(t_core *core)
             core->cmd_p = 1;
         }
     }
+    core->n_heredoc = 0;
     free(core->lexer_out);
     core->lexer_out = NULL;
 }

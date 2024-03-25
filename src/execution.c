@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/18 13:44:02 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:38:18 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,13 @@ void	four_exec(t_core *core, t_exec *stru)
 	}
 	if (core->execution_three->sons[stru->i]->heredoc_id)
 	{
-		stru->i_fd = open("HEREDOC", O_RDONLY);
+		core->n_heredoc++;
+		char *path = ft_strjoin("/tmp/heredoc", ft_itoa(core->n_heredoc));
+		stru->i_fd = open(path, O_RDONLY);
 		dup2(stru->i_fd, STDIN_FILENO);
 		ft_close(stru->i_fd);
+		unlink(path);
+		free(path);
 	}
 }
 
