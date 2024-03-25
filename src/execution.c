@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:03:06 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/25 19:38:18 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:51:00 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,6 @@ void	four_exec(t_core *core, t_exec *stru)
 		}
 		dup2(stru->i_fd, STDIN_FILENO);
 		ft_close(stru->i_fd);
-	}
-	if (core->execution_three->sons[stru->i]->heredoc_id)
-	{
-		core->n_heredoc++;
 		char *path = ft_strjoin("/tmp/heredoc", ft_itoa(core->n_heredoc));
 		stru->i_fd = open(path, O_RDONLY);
 		dup2(stru->i_fd, STDIN_FILENO);
