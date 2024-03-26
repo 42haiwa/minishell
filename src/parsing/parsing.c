@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:18:51 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/26 16:38:23 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:42:00 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ void    bill_three(t_core *core)
     size_t  last_pipe;
     size_t  last_cmd;
 
+	if (core->lexer_out == NULL)
+		return ;
     i = -1;
     splited = split_buf(core->lexer_out);
     core->cmd_p = 0;
