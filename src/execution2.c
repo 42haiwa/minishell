@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 02:03:47 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/14 17:28:58 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:20:25 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ void	end_exec(t_core *core, t_exec *stru)
 	while (stru->i < stru->cmd)
 	{
 		wait(&status);
-		if (access("HEREDOC", F_OK) != -1)
-			unlink("HEREDOC");
 		core->err_code = WEXITSTATUS(status);
 		stru->i++;
 	}

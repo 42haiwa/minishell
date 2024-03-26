@@ -1,3 +1,0 @@
-TODO >
-
-faire le parse_io directement dans le parsing

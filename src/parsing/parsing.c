@@ -6,7 +6,7 @@
 /*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:18:51 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/26 15:09:35 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:38:23 by cjouenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int  heredoc(int id, char *sep)
 static void parse_io_n(t_core *core, size_t lpipe, t_node *current, char ** splited)
 {
     ssize_t  i;
+    int      fd;
 
     i = lpipe + 1;
     if (!lpipe)
@@ -83,15 +84,27 @@ static void parse_io_n(t_core *core, size_t lpipe, t_node *current, char ** spli
         if (ft_strcmp(splited[i], "GREAT") == 0)
         {
             current->output = ft_strdup(splited[i + 1]);
-            current->output_mode = 1;
-		    close(open(current->output, O_WRONLY | O_CREAT | O_TRUNC, 0644));
+            if (i > 0 && ft_strcmp(splited[i - 1], "GREAT") == 0)
+            {
+                current->output_mode = 2;
+                i++;
+            }
+            else
+                current->output_mode = 1;
+            fd = open(current->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            if (fd == -1)
+                break ;
+            close(fd);
         }
         // todo detect GREAT GREAT
         if (ft_strcmp(splited[i], "GREATGREAT") == 0)
         {
             current->output = ft_strdup(splited[i + 1]);
             current->output_mode = 2;
-		    close(open(current->output, O_WRONLY | O_CREAT | O_APPEND, 0644));
+            fd = open(current->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            if (fd == -1)
+                break ;
+		    close(fd);
         }
         i++;
     }
