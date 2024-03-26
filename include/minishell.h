@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjouenne <cjouenne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:03:18 by cjouenne          #+#    #+#             */
-/*   Updated: 2024/03/25 18:47:41 by cjouenne         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:32:33 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct s_repl
 	size_t	j;
 	size_t	occurence;
 	size_t	val;
+	char	**temp;
 }	t_repl;
 
 typedef struct s_exec
@@ -223,7 +224,7 @@ char	*init_lexing(t_core *core, char *buf);
 char	**get_quote(char *buf);
 
 char	*replace(char *s, char *old, char *new);
-char	**exctract_env(const char *chaine);
+char	**exctract_env(char *s);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
 char	*ft_strstr(char *str, char *to_find);
@@ -248,6 +249,7 @@ int		len_by_char(char *str, char c, size_t start);
 int		ft_contain(char *str, int(*f)(char));
 int		ft_contain_charset(char *str, char *c);
 int		is_export_enable(char c);
+int		is_end(char c);
 //export_unset_utils
 int		check_getter(char *getter);
 //extra

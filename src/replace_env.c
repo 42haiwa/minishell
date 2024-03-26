@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:15:41 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 14:28:00 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:00:29 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*replace(char *s, char *old, char *new)
 		old_len = ft_strlen(old);
 		new_len = ft_strlen(new);
 		new_size = ft_strlen(s) - old_len + new_len;
-		result = (char *)malloc(new_size + 1);
+		result = (char *)ft_calloc(new_size + 1, 1);
 		ft_strncpy(result, s, find - s);
 		result[find - s] = '\0';
 		ft_strcat(result, new);
@@ -35,6 +35,15 @@ char	*replace(char *s, char *old, char *new)
 		return (result);
 	}
 	return (s);
+}
+
+void	speciale(t_repl *stru, char **result)
+{
+	result[stru->val] = (char *)ft_calloc(2, sizeof(char));
+	result[stru->val][0] = '?';
+	result[stru->val][1] = '\0';
+	stru->val++;
+	stru->i++;
 }
 
 /*
@@ -47,7 +56,7 @@ void	extract_env2(t_repl	*stru, const char *s, char **result)
 {
 	stru->i++;
 	stru->j = 0;
-	while (s[stru->i] != '\0' && (!is_ending(s[stru->i]) || s[stru->i] != '$' || s[stru->i] != '?'))
+	while (!is_ending(s[stru->i]))
 	{
 		stru->i++;
 		stru->j++;
@@ -55,7 +64,7 @@ void	extract_env2(t_repl	*stru, const char *s, char **result)
 	result[stru->val] = (char *)ft_calloc((stru->j + 1), sizeof(char));
 	stru->i -= stru->j;
 	stru->j = 0;
-	while (s[stru->i] != '\0' && (!is_ending(s[stru->i]) || s[stru->i] != '$' || s[stru->i] != '?'))
+	while (!is_ending(s[stru->i]))
 	{
 		result[stru->val][stru->j] = s[stru->i];
 		stru->i++;
@@ -65,7 +74,7 @@ void	extract_env2(t_repl	*stru, const char *s, char **result)
 	stru->val++;
 }
 
-char	**exctract_env(const char *s)
+char	**exctract_env(char *s)
 {
 	t_repl	stru;
 	char	**result;
@@ -73,16 +82,20 @@ char	**exctract_env(const char *s)
 	stru.i = -1;
 	stru.occurence = 0;
 	while (s[++stru.i] != '\0')
+	{
 		if (s[stru.i] == '$')
 			stru.occurence++;
+	}
 	if (stru.occurence == 0)
 		return (NULL);
 	result = (char **)ft_calloc((stru.occurence + 1), sizeof(char *));
 	stru.i = 0;
-	stru.val = 0;
-	while (s[stru.i] != '\0')
+ 	stru.val = 0;
+	while (s[stru.i])
 	{
-		if (s[stru.i] == '$')
+		if (s[stru.i] == '$' && s[stru.i + 1] == '?')
+			speciale(&stru, result);
+		else if (s[stru.i] == '$')
 			extract_env2(&stru, s, result);
 		else
 			stru.i++;

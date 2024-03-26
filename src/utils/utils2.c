@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 04:00:35 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 12:26:15 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:59:54 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_ending(char c)
 {
 	if (ft_isalnum(c))
 		return (0);
-	if (c == '_' || c == '?')
+	if (c == '_')
 		return (0);
 	return (1);
 }
@@ -67,7 +67,7 @@ char	*ft_strcspn(char* str, char *charset)
 	len = 0;
 	while (str[len] != '\0' && is_charset(str[len], charset))
 		len++;
-    new_str = malloc(len + 1);
+    new_str = ft_calloc(len + 1, 1);
 	if (new_str == NULL)
 		return NULL;
 	ft_strncpy(new_str, str, len);

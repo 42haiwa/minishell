@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 15:02:39 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/12 19:24:37 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:32:05 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,13 @@ int	is_export_enable(char c)
 	if (c == '_')
 		return (1);
 	return (0);
+}
+
+int	is_end(char c)
+{
+	if (ft_isalnum(c))
+		return (0);
+	if (c == '_' || c == '?')
+		return (0);
+	return (1);
 }

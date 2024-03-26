@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 04:00:35 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/14 16:21:38 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:00:14 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,21 @@ char	*get_substring(char *str, char c, int start_index)
 	int		index;
 	char	*substring;
 
+	if (!str)
+		return (NULL);
 	index = start_index;
 	if (c != 0)
 	{
 		while (str[index] && str[index] != c)
 			index++;
-		substring = malloc(index - start_index + 2);
+		substring = ft_calloc(index - start_index + 2, 1);
 		ft_strncpy(substring, str + start_index, index - start_index + 1);
 		substring[index - start_index] = '\0';
 		return (substring);
 	}
 	while (str[index])
 		index++;
-	substring = malloc(index - start_index + 2);
+	substring = ft_calloc(index - start_index + 2, 1);
 	ft_strncpy(substring, str + start_index, index - start_index + 1);
 	substring[index - start_index] = '\0';
 	return (substring);
@@ -79,12 +81,12 @@ char	*get_string(char *buf, char start, int index)
 	end = current + 1;
 	while (*end != '\0')
 	{
-		if (is_ending(*end))
+		if (is_end(*end))
 			break;
 		end++;
 	}
 	len = end - current;
-	result = (char*)ft_calloc((len + 1), sizeof(char));
+	result = (char *)ft_calloc((len + 1), sizeof(char));
 	ft_strncpy(result, current, len);
 	result[len] = '\0';
 	return (result);
@@ -92,6 +94,8 @@ char	*get_string(char *buf, char start, int index)
 
 char	get_first(char *str, char *charset, size_t start)
 {
+	if (!str)
+		return (0);
 	while (str[start])
 	{
 		if (is_charset(str[start], charset))
