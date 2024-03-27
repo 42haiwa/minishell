@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:02:47 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/26 19:10:04 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:54:08 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*replace_var(char *buf, t_core *core)
 		replace_var2(&buf, core);
 		if (buf[core->lex_i] == ' ' \
 			&& (core->lex_bool[BOTH] || core->lex_bool[D_QUOTE]))
-				buf = remove_char(buf, core->lex_i--);
+				buf[core->lex_i] = '_';
 		if (buf[core->lex_i] == '$' && !core->lex_bool[BOTH])
 		{
 			save = get_string(buf, '$', core->lex_i);
@@ -81,11 +81,6 @@ void	pre_lexing(char *buf, t_core *core)
 	core->lex_count = 0;
 	core->lex_count2 = 0;
 	splited = ft_split(buf, ' ');
-	ssize_t	i = -1;
-	while (splited[++i])
-	{
-		printf("{%s}\n", splited[i]);
-	}
 	lexing(splited, core);
 	free_str_tab(splited);
 	free(buf);

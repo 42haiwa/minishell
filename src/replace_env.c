@@ -6,7 +6,7 @@
 /*   By: aallou-v <aallou-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:15:41 by aallou-v          #+#    #+#             */
-/*   Updated: 2024/03/26 19:00:29 by aallou-v         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:51:25 by aallou-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	**exctract_env(char *s)
 	{
 		if (s[stru.i] == '$' && s[stru.i + 1] == '?')
 			speciale(&stru, result);
-		else if (s[stru.i] == '$')
+		else if (s[stru.i] == '$' && s[stru.i + 1] != ' ')
 			extract_env2(&stru, s, result);
 		else
 			stru.i++;
